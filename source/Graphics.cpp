@@ -1,4 +1,4 @@
-#include <Graphics.h>
+#include "Graphics.h"
 
 Graphics::Graphics(int screenWidth, int screenHeight, const char* windowName){
 
