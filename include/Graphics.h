@@ -1,4 +1,7 @@
-#include<SFML/Graphics.hpp>
+#ifndef _GRAPHICS_H
+#define _GRAPHICS_H
+
+#include <SFML/Graphics.hpp>
 #include <vector>
 
 typedef sf::RenderWindow* windowHandle;
@@ -55,3 +58,5 @@ public:
     void render();//exibe na tela o que foi desenhado
 
 };
+
+#endif
