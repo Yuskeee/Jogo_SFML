@@ -15,6 +15,12 @@ Graphics::~Graphics(){
     for(int i = 0; i < textures.size(); i++)
         delete textures[i];
 
+    for(int i = 0; i < texts.size(); i++)
+        delete texts[i];
+
+    for(int i = 0; i < fonts.size(); i++)
+        delete fonts[i];
+
 }
 
 void Graphics::createWindow(int screenWidth, int screenHeight, const char* windowName){
@@ -85,6 +91,39 @@ void Graphics::setBackground(spriteID sprite){
 
     sprites[sprite]->scale(factorX, factorY);
     sprites[sprite]->setPosition(0, 0);
+
+}
+
+fontID Graphics::loadFont(const char* file){
+
+    sf::Font* newFont = new sf::Font();
+
+    if (!newFont->loadFromFile(file))
+        return -1;
+
+    fonts.push_back(newFont);
+    return fonts.size()-1;
+
+}
+
+textID Graphics::createText(fontID baseFont, const char* text, int size){
+
+    sf::Text* newText = new sf::Text(text, *fonts[baseFont], size);
+
+    texts.push_back(newText);
+    return texts.size()-1;
+}
+
+void Graphics::drawText(textID text){
+
+    screen.draw(*texts[text]);
+
+}
+
+void Graphics::setTextPos(textID text, float x, float y){
+
+    sf::Vector2f pos(x, y);
+    texts[text]->setPosition(pos);
 
 }
 
