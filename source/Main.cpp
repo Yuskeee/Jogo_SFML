@@ -1,4 +1,5 @@
 #include "Graphics.h"
+#include "Events.h"
 
 int main(){
 
@@ -6,30 +7,42 @@ int main(){
 
     windowHandle gWindowHandle = gGraphics.getWindowHandle();
 
+    Events gEvents(gWindowHandle);
     
     spriteID testSprite = gGraphics.createSprite(gGraphics.loadTexture("../assets/green_alien.png"));//loadTexture retorna o ID da textura direto para createSprite
     
-    spriteRect testRect(0, 0, 16, 20);
+    spriteRect testRect(0, 0, 16, 20);//recorte da textura
     gGraphics.setSpriteRect(testSprite, testRect);
     
     gGraphics.setSpritePos(testSprite,40.0,10.0);
     gGraphics.setBackground(testSprite);
 
     textID testText = gGraphics.createText(gGraphics.loadFont("../fonts/04B_30__.TTF"),"teste", 20);
+    float textPosX = 0, textPosY = 0, textVelX = 0, textVelY = 0;
 
-    sf::Event testEvent; //a ideia é nao usar tipos da sfml nesse arquivo, mas é so pra testar
     while(gGraphics.isWindowOpen()){
-        while (gWindowHandle->pollEvent(testEvent))//trata dos eventos, melhor criar uma classe pra isso depois
-        {
-            if (testEvent.type == sf::Event::Closed){
-                gGraphics.closeWindow();
-            }
+
+        gEvents.pollAll();
+
+        if (gEvents.getCloseEvent()){
+            gGraphics.closeWindow();
         }
+        
+        if(gEvents.keyDown(Events::keycode::W))
+            textPosY += -0.1;
+        if(gEvents.keyDown(Events::keycode::D))
+            textPosX += 0.1;
+        if(gEvents.keyDown(Events::keycode::S))
+            textPosY += 0.1;
+        if(gEvents.keyDown(Events::keycode::A))
+            textPosX += -0.1;
+      
 
         //gGraphics.drawSprite(testSprite);
+
+        gGraphics.setTextPos(testText, textPosX, textPosY);
         gGraphics.drawText(testText);
         gGraphics.render();
     }
-    getchar();
     return 0;
 }
