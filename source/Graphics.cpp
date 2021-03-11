@@ -6,6 +6,8 @@ Graphics::Graphics(int screenWidth, int screenHeight, const char* windowName){
     this->screenHeight = screenHeight;
     createWindow(screenWidth, screenHeight, windowName);
 
+    backgroundSprite = -1;
+
 }
 Graphics::~Graphics(){
 
@@ -131,5 +133,6 @@ void Graphics::render(){
 
     screen.display();
     screen.clear();
-    screen.draw(*sprites[backgroundSprite]);
+    if(backgroundSprite > 0)//se houver um plano de fundo definido
+        screen.draw(*sprites[backgroundSprite]);
 }
