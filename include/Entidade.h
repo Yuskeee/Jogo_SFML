@@ -20,7 +20,7 @@ public:
 
     virtual void update(float dt) = 0; //implementar futuramente //gameStateMachine->update(dt);
 
-    virtual void desenhar(Graphics &gameGraphics);
+    virtual void draw(Graphics &gameGraphics);
 
     const sf::Vector2<float> getPos() const;
     const sf::Vector2<float> getRect() const;
