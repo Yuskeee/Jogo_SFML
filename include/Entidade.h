@@ -6,22 +6,24 @@
 //Serve de base para outras classes de tipo personagem
 class Entidade{
 protected:
-    sf::Vector2 pos, vel, rect;
+    sf::Vector2<float> pos, vel, rect;
     int vidas;
     bool vulnerabilidade;
 
     //StateMachine gameStateMachine;
-    TextureID idTextura;
-    SpriteID idSprite;
+    textureID idTextura;
+    spriteID idSprite;
 
 public:
-    Entidade::Entidade(sf::Vector2 pos = {0.0f, 0.0f}, sf::Vector2vel = {0.0f, 0.0f}, sf::Vector2rect = {0.0f, 0.0f}, TextureID idT = -1, SpriteID idS = -1);
+    Entidade(sf::Vector2<float> pos = {0.0f, 0.0f}, sf::Vector2<float> vel = {0.0f, 0.0f}, sf::Vector2<float> rect = {0.0f, 0.0f}, textureID idT = -1, spriteID idS = -1);
     virtual ~Entidade();
 
     virtual void update(float dt) = 0; //implementar futuramente //gameStateMachine->update(dt);
 
-    const Vetor2F Entidade::getPos() const;
-    const Vetor2F Entidade::getRect() const;
+    virtual void desenhar(Graphics &gameGraphics);
+
+    const sf::Vector2<float> getPos() const;
+    const sf::Vector2<float> getRect() const;
 };
 
 #endif
