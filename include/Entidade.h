@@ -1,7 +1,7 @@
 #ifndef _ENTIDADE_H
 #define _ENTIDADE_H
 
-#include <Graphics.h>
+#include "Graphics.h"
 
 //Serve de base para outras classes de tipo personagem
 class Entidade{
