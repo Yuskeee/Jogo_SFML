@@ -5,22 +5,23 @@ int main(){
 
     Graphics gGraphics(400, 300, "teste");
 
+    gGraphics.loadFont("../fonts/04B_30__.TTF");//carrega uma fonte no id 0
+
     windowHandle gWindowHandle = gGraphics.getWindowHandle();
     Events gEvents(gWindowHandle);
     
     Game game(&gGraphics, &gEvents);
 
-    std::chrono::time_point<std::chrono::steady_clock> tStart;//variaveis para marcar o tempo
-    std::chrono::time_point<std::chrono::steady_clock> tEnd;
+    sf::Clock clock;
     float dt;
-    tStart = std::chrono::steady_clock::now();//marca o tempo inicial pela primeira vez
+
 
     while(gGraphics.isWindowOpen()){
 
 
-        tEnd = std::chrono::steady_clock::now();//marca o tempo final
-        dt = std::chrono::duration_cast<std::chrono::microseconds>(tEnd - tStart).count()*0.000001;//calcula o tempo decorrido e armazena em um float
-        tStart = std::chrono::steady_clock::now();//marca o tempo inicial
+
+        dt = clock.getElapsedTime().asSeconds();
+        clock.restart();
 
         game.update(dt);
         game.render();
@@ -39,7 +40,7 @@ Game::Game(Graphics* gameGraphics, Events* gameEvents){
     setGraphics(gameGraphics);
     setEvents(gameEvents);
 
-    setStateMachine(new GameStateMachine());
+    setStateMachine(new GameStateMachine(gameGraphics));
 
 }
 
@@ -62,6 +63,7 @@ void Game::update(float dt){
 
 void Game::render(){
     gameStateMachine->render(gameGraphics);
+    gameGraphics->render();
 }
 
 void Game::setGraphics(Graphics* gameGraphics){

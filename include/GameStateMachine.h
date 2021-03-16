@@ -14,9 +14,12 @@ class GameMenuState:public State{
 
 private:
     float timeElapsed;
+    textID menuText;//para testes
+    float menuTextPosX, menuTextPosY;//para testes
+    float textSpeed;//para testes
 
 public:
-    GameMenuState(StateMachine* pStateMachine = NULL);
+    GameMenuState(StateMachine* pStateMachine = NULL, Graphics* pGraphics = NULL);
     ~GameMenuState();
 
     virtual void enter();
@@ -30,9 +33,12 @@ class GamePlayState:public State{
 
 private:
     float timeElapsed;
+    textID playText;//para testes
+    float playTextPosX, playTextPosY;//para testes
+    float textSpeed;//para testes
 
 public:
-    GamePlayState(StateMachine* pStateMachine = NULL);
+    GamePlayState(StateMachine* pStateMachine = NULL, Graphics* pGraphics = NULL);
     ~GamePlayState();
 
     virtual void enter();
@@ -45,7 +51,7 @@ public:
 class GameStateMachine:public StateMachine{
 
 public:
-    GameStateMachine();
+    GameStateMachine(Graphics* pGraphics = NULL);
     ~GameStateMachine();
 
 };

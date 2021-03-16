@@ -2,8 +2,12 @@
 
 //GameMenuState----------------------------
 
-GameMenuState::GameMenuState(StateMachine* pStateMachine):State(pStateMachine){
+GameMenuState::GameMenuState(StateMachine* pStateMachine, Graphics* pGraphics):State(pStateMachine){
     timeElapsed = 0;
+    menuText = pGraphics->createText(0, "MENU: Pressione J para jogar", 15);
+    menuTextPosX = 0;
+    menuTextPosY = 0;
+    textSpeed = 50;
 }
 
 GameMenuState::~GameMenuState(){
@@ -20,20 +24,37 @@ void GameMenuState::exit(){
 
 void GameMenuState::update(float dt, Events* pEvents){
     timeElapsed += dt;
-    if(pEvents->keyPressed(Events::keycode::A))
+
+    if(pEvents->keyDown(Events::keycode::W))
+        menuTextPosY -= textSpeed*dt;
+    if(pEvents->keyDown(Events::keycode::D))
+        menuTextPosX += textSpeed*dt;
+    if(pEvents->keyDown(Events::keycode::S))
+        menuTextPosY += textSpeed*dt;
+    if(pEvents->keyDown(Events::keycode::A))
+        menuTextPosX -= textSpeed*dt;
+
+
+    if(pEvents->keyPressed(Events::keycode::J))
         pStateMachine->changeState(GamePlayStateID);
-    
+
 }
 
 void GameMenuState::render(Graphics* pGraphics){
-    printf("Estado: Menu\nTempo decorrido: %f\nPressione 'A' para jogar\n\n", timeElapsed);
+    pGraphics->setTextPos(menuText, menuTextPosX, menuTextPosY);
+    pGraphics->drawText(menuText);
+    printf("Estado: Menu\nTempo decorrido: %f\nPressione 'J' para jogar\n\n", timeElapsed);
 }
 
 
 //GamePlayState----------------------------
 
-GamePlayState::GamePlayState(StateMachine* pStateMachine):State(pStateMachine){
+GamePlayState::GamePlayState(StateMachine* pStateMachine, Graphics* pGraphics):State(pStateMachine){
     timeElapsed = 0;
+    playText = pGraphics->createText(0, "JOGANDO", 15);
+    playTextPosX = 0;
+    playTextPosY = 0;
+    textSpeed = 50;
 }
 
 GamePlayState::~GamePlayState(){
@@ -50,9 +71,20 @@ void GamePlayState::exit(){
 
 void GamePlayState::update(float dt, Events* pEvents){
     timeElapsed += dt;
+
+    if(pEvents->keyDown(Events::keycode::W))
+        playTextPosY -= textSpeed*dt;
+    if(pEvents->keyDown(Events::keycode::D))
+        playTextPosX += textSpeed*dt;
+    if(pEvents->keyDown(Events::keycode::S))
+        playTextPosY += textSpeed*dt;
+    if(pEvents->keyDown(Events::keycode::A))
+        playTextPosX -= textSpeed*dt;
 }
 
 void GamePlayState::render(Graphics* pGraphics){
+    pGraphics->setTextPos(playText, playTextPosX, playTextPosY);
+    pGraphics->drawText(playText);
     printf("Jogando\nTempo decorrido: %f\n\n", timeElapsed);
 }
 
@@ -62,13 +94,14 @@ void GamePlayState::render(Graphics* pGraphics){
 
 
 
-GameStateMachine::GameStateMachine(){
+GameStateMachine::GameStateMachine(Graphics* pGraphics){
+    printf("criando maquina de estados\n");
 
-    State* state = static_cast<State*>(new GameMenuState(static_cast<StateMachine*>(this)));
+    State* state = static_cast<State*>(new GameMenuState(static_cast<StateMachine*>(this), pGraphics));
     addState(state);
-    state = static_cast<State*>(new GamePlayState(static_cast<StateMachine*>(this)));
+    state = static_cast<State*>(new GamePlayState(static_cast<StateMachine*>(this), pGraphics));
     addState(state);
-
+    printf("estados criados\n");
     currentStateID = GameMenuStateID;
 }
 

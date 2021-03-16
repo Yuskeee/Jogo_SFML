@@ -13,12 +13,10 @@ class State{
 
 protected:
     StateMachine* pStateMachine;// ponteiro para a maquina de estados a qual este estado pertence
-    Graphics* pGraphics;
-    Events* pEvents;
 
 public:
     State(StateMachine* pStateMachine = NULL);
-    ~State();
+    virtual ~State();
 
     virtual void enter(){}
     virtual void exit(){}
@@ -39,7 +37,7 @@ protected:
 
 public:
     StateMachine();
-    ~StateMachine();
+    virtual ~StateMachine();
 
     void addState(State* state);
     void changeState(stateID nextStateID);
