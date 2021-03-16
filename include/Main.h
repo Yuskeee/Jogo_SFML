@@ -3,6 +3,7 @@
 
 #include "Graphics.h"
 #include "Events.h"
+#include "GameStateMachine.h"
 
 #include <chrono>
 
@@ -13,12 +14,8 @@ private:
 
     Graphics* gameGraphics;
     Events* gameEvents;
-    //stateMachine* gameStateMachine;
+    StateMachine* gameStateMachine;
 
-    //apenas para testes--------------------------------------------------
-    textID testText;
-    float textPosX, textPosY;
-    //------------------------------------------------------------------
 
 
 public:
@@ -31,7 +28,7 @@ public:
 
     void setGraphics(Graphics* gameGraphics);
     void setEvents(Events* gameEvents);
-    //void setStateMachine(stateMachine* gameStateMachine);
+    void setStateMachine(StateMachine* gameStateMachine);
 };
 
 #endif

@@ -1,5 +1,6 @@
 #include "main.h"
 
+
 int main(){
 
     Graphics gGraphics(400, 300, "teste");
@@ -12,6 +13,7 @@ int main(){
     std::chrono::time_point<std::chrono::steady_clock> tStart;//variaveis para marcar o tempo
     std::chrono::time_point<std::chrono::steady_clock> tEnd;
     float dt;
+    tStart = std::chrono::steady_clock::now();//marca o tempo inicial pela primeira vez
 
     while(gGraphics.isWindowOpen()){
 
@@ -37,16 +39,13 @@ Game::Game(Graphics* gameGraphics, Events* gameEvents){
     setGraphics(gameGraphics);
     setEvents(gameEvents);
 
-    //apenas para testes--------------------------------------------------
-    testText = gameGraphics->createText(gameGraphics->loadFont("../fonts/04B_30__.TTF"),"teste", 20);
-    textPosX = 0;
-    textPosY = 0;
-    //--------------------------------------------------------------------------
+    setStateMachine(new GameStateMachine());
+
 }
 
 Game::~Game(){
 
-
+    delete gameStateMachine;
 }
 
 void Game::update(float dt){
@@ -56,28 +55,13 @@ void Game::update(float dt){
     if (gameEvents->getCloseEvent()){
             gameGraphics->closeWindow();
     }
-        
-    //gameStateMachine->update(dt);//futuramente
-
-    //apenas para testes--------------------------------------------------
-    if(gameEvents->keyDown(Events::keycode::W))
-        textPosY += -0.1;
-    if(gameEvents->keyDown(Events::keycode::D))
-        textPosX += 0.1;
-    if(gameEvents->keyDown(Events::keycode::S))
-        textPosY += 0.1;
-    if(gameEvents->keyDown(Events::keycode::A))
-        textPosX += -0.1;
-    //--------------------------------------------------------------------
+           
+    gameStateMachine->update(dt, gameEvents);
 
 }
 
 void Game::render(){
-    //gameStateMachine->render();//futuramente
-    gameGraphics->setTextPos(testText, textPosX, textPosY);
-    gameGraphics->drawText(testText);
-    gameGraphics->render();
-
+    gameStateMachine->render(gameGraphics);
 }
 
 void Game::setGraphics(Graphics* gameGraphics){
@@ -86,4 +70,8 @@ void Game::setGraphics(Graphics* gameGraphics){
 
 void Game::setEvents(Events* gameEvents){
     this->gameEvents = gameEvents;
+}
+
+void Game::setStateMachine(StateMachine* gameStateMachine){
+    this->gameStateMachine = gameStateMachine;
 }
