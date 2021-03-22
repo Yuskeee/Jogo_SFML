@@ -55,10 +55,11 @@ GamePlayState::GamePlayState(StateMachine* pStateMachine, Graphics* pGraphics):S
     playTextPosX = 0;
     playTextPosY = 0;
     textSpeed = 50;
+    pFase = new Fase(pGraphics);
 }
 
 GamePlayState::~GamePlayState(){
-
+    delete pFase;
 }
 
 void GamePlayState::enter(){
@@ -72,19 +73,13 @@ void GamePlayState::exit(){
 void GamePlayState::update(float dt, Events* pEvents){
     timeElapsed += dt;
 
-    if(pEvents->keyDown(Events::keycode::W))
-        playTextPosY -= textSpeed*dt;
-    if(pEvents->keyDown(Events::keycode::D))
-        playTextPosX += textSpeed*dt;
-    if(pEvents->keyDown(Events::keycode::S))
-        playTextPosY += textSpeed*dt;
-    if(pEvents->keyDown(Events::keycode::A))
-        playTextPosX -= textSpeed*dt;
+    pFase->update(dt, pEvents);
 }
 
 void GamePlayState::render(Graphics* pGraphics){
     pGraphics->setTextPos(playText, playTextPosX, playTextPosY);
     pGraphics->drawText(playText);
+    pFase->render();
     printf("Jogando\nTempo decorrido: %f\n\n", timeElapsed);
 }
 

@@ -3,6 +3,7 @@
 
 #include "State.h"
 #include <stdio.h>
+#include "Fase.h"
 
 enum GameStates{
     GameMenuStateID,
@@ -36,6 +37,7 @@ private:
     textID playText;//para testes
     float playTextPosX, playTextPosY;//para testes
     float textSpeed;//para testes
+    Fase* pFase;
 
 public:
     GamePlayState(StateMachine* pStateMachine = NULL, Graphics* pGraphics = NULL);
