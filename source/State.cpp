@@ -1,5 +1,6 @@
 #include "State.h"
 
+using namespace SM;
 //State-------------------------------------------------------
 State::State(StateMachine* pStateMachine){
     setStateMachine(pStateMachine);
@@ -43,10 +44,10 @@ void StateMachine::changeState(stateID nextStateID){
 
 }
 
-void StateMachine::update(float dt, Events* pEvents){
-    states[currentStateID]->update(dt, pEvents);
+void StateMachine::update(float dt, Managers::Events* pEventsManager){
+    states[currentStateID]->update(dt, pEventsManager);
 }
 
-void StateMachine::render(Graphics* pGraphics){
-    states[currentStateID]->render(pGraphics);
+void StateMachine::render(Managers::Graphics* pGraphicsManager){
+    states[currentStateID]->render(pGraphicsManager);
 }

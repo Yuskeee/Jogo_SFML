@@ -3,6 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 
+namespace Managers{
+
 typedef sf::RenderWindow* windowHandle;
 
 class Events{
@@ -37,5 +39,6 @@ public:
     bool getCloseEvent();
 
 };
+}
 
 #endif

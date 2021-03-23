@@ -422,7 +422,7 @@
 											"top": 38,
 											"width": 903,
 											"height": 13,
-											"text": "InterfaceSFML"
+											"text": "Managers"
 										},
 										{
 											"_type": "LabelView",
@@ -811,7 +811,7 @@
 											"top": 287,
 											"width": 251.4814453125,
 											"height": 13,
-											"text": "Principal"
+											"text": "Game"
 										},
 										{
 											"_type": "LabelView",
@@ -917,7 +917,7 @@
 											"top": 333,
 											"width": 251.4814453125,
 											"height": 13,
-											"text": "«create»+Principal()",
+											"text": "«create»+Game()",
 											"horizontalAlignment": 0
 										},
 										{
@@ -934,7 +934,7 @@
 											"top": 348,
 											"width": 251.4814453125,
 											"height": 13,
-											"text": "«destroy»+Principal()",
+											"text": "«destroy»+Game()",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1093,7 +1093,7 @@
 											"top": 911,
 											"width": 235.19970703125,
 											"height": 13,
-											"text": "Phase"
+											"text": "Level"
 										},
 										{
 											"_type": "LabelView",
@@ -1216,7 +1216,7 @@
 											"top": 972,
 											"width": 235.19970703125,
 											"height": 13,
-											"text": "«create»+Phase()",
+											"text": "«create»+Level()",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1233,7 +1233,7 @@
 											"top": 987,
 											"width": 235.19970703125,
 											"height": 13,
-											"text": "«destroy»+Phase()",
+											"text": "«destroy»+Level()",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1515,7 +1515,7 @@
 											"top": 990,
 											"width": 147.79248046875,
 											"height": 13,
-											"text": "«list»-bodies: Entidade*",
+											"text": "«list»-bodies: Entity*",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1532,7 +1532,7 @@
 											"top": 1005,
 											"width": 147.79248046875,
 											"height": 13,
-											"text": "-phase: Phase*",
+											"text": "-phase: Level*",
 											"horizontalAlignment": 0
 										}
 									],
@@ -5920,9 +5920,9 @@
 											"font": "Arial;13;0",
 											"left": 1232,
 											"top": -376,
-											"width": 127.16259765625,
+											"width": 135.0908203125,
 											"height": 13,
-											"text": "(from InterfaceSFML)"
+											"text": "(from Managers)"
 										},
 										{
 											"_type": "LabelView",
@@ -6347,9 +6347,9 @@
 											"font": "Arial;13;0",
 											"left": 904,
 											"top": -224,
-											"width": 127.16259765625,
+											"width": 135.0908203125,
 											"height": 13,
-											"text": "(from InterfaceSFML)"
+											"text": "(from Managers)"
 										},
 										{
 											"_type": "LabelView",
@@ -6936,9 +6936,9 @@
 											"font": "Arial;13;0",
 											"left": 1152,
 											"top": -344,
-											"width": 127.16259765625,
+											"width": 135.0908203125,
 											"height": 13,
-											"text": "(from InterfaceSFML)"
+											"text": "(from Managers)"
 										},
 										{
 											"_type": "LabelView",
@@ -7535,8 +7535,8 @@
 									"visible": false,
 									"fillColor": "#6fd56f",
 									"font": "Arial;13;0",
-									"left": -80,
-									"top": 2144,
+									"left": -72,
+									"top": 2136,
 									"width": 10,
 									"height": 10
 								},
@@ -7552,8 +7552,8 @@
 									"visible": false,
 									"fillColor": "#6fd56f",
 									"font": "Arial;13;0",
-									"left": -80,
-									"top": 2144,
+									"left": -72,
+									"top": 2136,
 									"width": 10,
 									"height": 10
 								}
@@ -7724,8 +7724,8 @@
 									"visible": false,
 									"fillColor": "#6fd56f",
 									"font": "Arial;13;0",
-									"left": 144,
-									"top": 1976,
+									"left": 152,
+									"top": 1968,
 									"width": 10,
 									"height": 10
 								},
@@ -7741,8 +7741,8 @@
 									"visible": false,
 									"fillColor": "#6fd56f",
 									"font": "Arial;13;0",
-									"left": 144,
-									"top": 1976,
+									"left": 152,
+									"top": 1968,
 									"width": 10,
 									"height": 10
 								}
@@ -7913,8 +7913,8 @@
 									"visible": false,
 									"fillColor": "#6fd56f",
 									"font": "Arial;13;0",
-									"left": 824,
-									"top": 1712,
+									"left": 832,
+									"top": 1704,
 									"width": 10,
 									"height": 10
 								},
@@ -7930,8 +7930,8 @@
 									"visible": false,
 									"fillColor": "#6fd56f",
 									"font": "Arial;13;0",
-									"left": 824,
-									"top": 1712,
+									"left": 832,
+									"top": 1704,
 									"width": 10,
 									"height": 10
 								}
@@ -8102,8 +8102,8 @@
 									"visible": false,
 									"fillColor": "#6fd56f",
 									"font": "Arial;13;0",
-									"left": 192,
-									"top": 2008,
+									"left": 200,
+									"top": 2000,
 									"width": 10,
 									"height": 10
 								},
@@ -8119,8 +8119,8 @@
 									"visible": false,
 									"fillColor": "#6fd56f",
 									"font": "Arial;13;0",
-									"left": 192,
-									"top": 2008,
+									"left": 200,
+									"top": 2000,
 									"width": 10,
 									"height": 10
 								}
@@ -10733,8 +10733,8 @@
 									"visible": false,
 									"fillColor": "#6fd56f",
 									"font": "Arial;13;0",
-									"left": -64,
-									"top": 3008,
+									"left": -56,
+									"top": 3000,
 									"width": 10,
 									"height": 10
 								},
@@ -10750,8 +10750,8 @@
 									"visible": false,
 									"fillColor": "#6fd56f",
 									"font": "Arial;13;0",
-									"left": -64,
-									"top": 3008,
+									"left": -56,
+									"top": 3000,
 									"width": 10,
 									"height": 10
 								}
@@ -10922,8 +10922,8 @@
 									"visible": false,
 									"fillColor": "#6fd56f",
 									"font": "Arial;13;0",
-									"left": 8,
-									"top": 2664,
+									"left": 16,
+									"top": 2656,
 									"width": 10,
 									"height": 10
 								},
@@ -10939,8 +10939,8 @@
 									"visible": false,
 									"fillColor": "#6fd56f",
 									"font": "Arial;13;0",
-									"left": 8,
-									"top": 2664,
+									"left": 16,
+									"top": 2656,
 									"width": 10,
 									"height": 10
 								}
@@ -11111,8 +11111,8 @@
 									"visible": false,
 									"fillColor": "#6fd56f",
 									"font": "Arial;13;0",
-									"left": -96,
-									"top": 2656,
+									"left": -88,
+									"top": 2648,
 									"width": 10,
 									"height": 10
 								},
@@ -11128,8 +11128,8 @@
 									"visible": false,
 									"fillColor": "#6fd56f",
 									"font": "Arial;13;0",
-									"left": -96,
-									"top": 2656,
+									"left": -88,
+									"top": 2648,
 									"width": 10,
 									"height": 10
 								}
@@ -11300,8 +11300,8 @@
 									"visible": false,
 									"fillColor": "#00d369",
 									"font": "Arial;13;0",
-									"left": -168,
-									"top": -32,
+									"left": -160,
+									"top": -40,
 									"width": 10,
 									"height": 10
 								},
@@ -11317,8 +11317,8 @@
 									"visible": false,
 									"fillColor": "#00d369",
 									"font": "Arial;13;0",
-									"left": -168,
-									"top": -32,
+									"left": -160,
+									"top": -40,
 									"width": 10,
 									"height": 10
 								}
@@ -11850,7 +11850,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Principal",
+					"name": "Game",
 					"attributes": [
 						{
 							"_type": "UMLAttribute",
@@ -11872,7 +11872,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF3/jFX52gxRlE="
 							},
-							"name": "Principal",
+							"name": "Game",
 							"stereotype": "create"
 						},
 						{
@@ -11881,7 +11881,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF3/jFX52gxRlE="
 							},
-							"name": "Principal",
+							"name": "Game",
 							"stereotype": "destroy"
 						},
 						{
@@ -11996,7 +11996,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Phase",
+					"name": "Level",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -12117,7 +12117,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF3/jLdqWk4dbk="
 							},
-							"name": "Phase",
+							"name": "Level",
 							"stereotype": "create"
 						},
 						{
@@ -12126,7 +12126,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF3/jLdqWk4dbk="
 							},
-							"name": "Phase",
+							"name": "Level",
 							"stereotype": "destroy"
 						},
 						{
@@ -12383,7 +12383,7 @@
 							"name": "bodies",
 							"stereotype": "list",
 							"visibility": "private",
-							"type": "Entidade*"
+							"type": "Entity*"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -12393,7 +12393,7 @@
 							},
 							"name": "phase",
 							"visibility": "private",
-							"type": "Phase*"
+							"type": "Level*"
 						}
 					],
 					"operations": [
@@ -12541,7 +12541,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "InterfaceSFML",
+					"name": "Managers",
 					"ownedElements": [
 						{
 							"_type": "UMLClass",

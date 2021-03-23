@@ -3,20 +3,20 @@
 
 int main(){
 
-    Graphics gGraphics(400, 300, "teste");
+    Managers::Graphics gameGraphicsManager(400, 300, "teste");
 
-    gGraphics.loadFont("../fonts/04B_30__.TTF");//carrega uma fonte no id 0
+    gameGraphicsManager.loadFont("../fonts/04B_30__.TTF");//carrega uma fonte no id 0
 
-    windowHandle gWindowHandle = gGraphics.getWindowHandle();
-    Events gEvents(gWindowHandle);
+    Managers::windowHandle gWindowHandle = gameGraphicsManager.getWindowHandle();
+    Managers::Events gEvents(gWindowHandle);
     
-    Game game(&gGraphics, &gEvents);
+    Game game(&gameGraphicsManager, &gEvents);
 
     sf::Clock clock;
     float dt;
 
 
-    while(gGraphics.isWindowOpen()){
+    while(gameGraphicsManager.isWindowOpen()){
 
 
 
@@ -35,12 +35,12 @@ Game::Game(){
 
 }
 
-Game::Game(Graphics* gameGraphics, Events* gameEvents){
+Game::Game(Managers::Graphics* gameGraphicsManager, Managers::Events* gameEventsManager){
 
-    setGraphics(gameGraphics);
-    setEvents(gameEvents);
+    setGraphics(gameGraphicsManager);
+    setEvents(gameEventsManager);
 
-    setStateMachine(new GameStateMachine(gameGraphics));
+    setStateMachine(new GameSM::GameStateMachine(gameGraphicsManager));
 
 }
 
@@ -51,29 +51,29 @@ Game::~Game(){
 
 void Game::update(float dt){
 
-    gameEvents->pollAll();//verifica os eventos
+    gameEventsManager->pollAll();//verifica os eventos
 
-    if (gameEvents->getCloseEvent()){
-            gameGraphics->closeWindow();
+    if (gameEventsManager->getCloseEvent()){
+            gameGraphicsManager->closeWindow();
     }
            
-    gameStateMachine->update(dt, gameEvents);
+    gameStateMachine->update(dt, gameEventsManager);
 
 }
 
 void Game::render(){
-    gameStateMachine->render(gameGraphics);
-    gameGraphics->render();
+    gameStateMachine->render(gameGraphicsManager);
+    gameGraphicsManager->render();
 }
 
-void Game::setGraphics(Graphics* gameGraphics){
-    this->gameGraphics = gameGraphics;
+void Game::setGraphics(Managers::Graphics* gameGraphicsManager){
+    this->gameGraphicsManager = gameGraphicsManager;
 }
 
-void Game::setEvents(Events* gameEvents){
-    this->gameEvents = gameEvents;
+void Game::setEvents(Managers::Events* gameEventsManager){
+    this->gameEventsManager = gameEventsManager;
 }
 
-void Game::setStateMachine(StateMachine* gameStateMachine){
+void Game::setStateMachine(SM::StateMachine* gameStateMachine){
     this->gameStateMachine = gameStateMachine;
 }

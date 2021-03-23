@@ -1,10 +1,11 @@
 #ifndef _PLAYER_H
 #define _PLAYER_H
 
-#include "Entidade.h"
+#include "Entity.h"
 
+namespace Entities{
 
-class Player: public Entidade{
+class Player: public Entity{
 
 private:
     const float acceleration = 5;
@@ -12,14 +13,14 @@ private:
 
 public:
 
-    Player(Graphics* pGraphics = NULL, sf::Vector2<float> pos = {0.0f, 0.0f}, sf::Vector2<float> vel = {0.0f, 0.0f}, sf::Vector2<float> rect = {0.0f, 0.0f}, textureID idT = -1, spriteID idS = -1);
+    Player(Managers::Graphics* pGraphicsManager = NULL, sf::Vector2<float> pos = {0.0f, 0.0f}, sf::Vector2<float> vel = {0.0f, 0.0f}, sf::Vector2<float> rect = {0.0f, 0.0f}, Managers::textureID idT = -1, Managers::spriteID idS = -1);
     virtual ~Player();
 
-    virtual void update(float dt, Events* pEvents);
+    virtual void update(float dt, Managers::Events* pEventsManager);
 
 
 };
-
+}
 
 
 

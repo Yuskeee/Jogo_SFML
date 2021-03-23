@@ -5,6 +5,8 @@
 #include "Graphics.h"
 #include "Events.h"
 
+namespace SM{
+
 typedef int stateID;
 
 class StateMachine;
@@ -21,8 +23,8 @@ public:
     virtual void enter(){}
     virtual void exit(){}
 
-    virtual void update(float dt, Events* pEvents) = 0;
-    virtual void render(Graphics* pGraphics) = 0;
+    virtual void update(float dt, Managers::Events* pEventsManager) = 0;
+    virtual void render(Managers::Graphics* pGraphicsManager) = 0;
 
     void setStateMachine(StateMachine* pStateMachine);
     StateMachine* getStateMachine();
@@ -42,10 +44,10 @@ public:
     void addState(State* state);
     void changeState(stateID nextStateID);
 
-    void update(float dt, Events* pEvents);
-    void render(Graphics* pGraphics);
+    void update(float dt, Managers::Events* pEventsManager);
+    void render(Managers::Graphics* pGraphicsManager);
 
 };
-
+}
 
 #endif

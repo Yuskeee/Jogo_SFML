@@ -1,5 +1,7 @@
 #include "Graphics.h"
 
+using namespace Managers;
+
 Graphics::Graphics(int screenWidth, int screenHeight, const char* windowName){
 
     this->screenWidth = screenWidth;

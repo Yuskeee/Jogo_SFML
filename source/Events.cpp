@@ -1,5 +1,6 @@
 #include "Events.h"
 
+using namespace Managers;
 
 Events::Events(){
     closeEvent = false;

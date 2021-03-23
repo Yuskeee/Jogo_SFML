@@ -9,23 +9,23 @@ class Game{
 
 private:
 
-    Graphics* gameGraphics;
-    Events* gameEvents;
-    StateMachine* gameStateMachine;
+    Managers::Graphics* gameGraphicsManager;
+    Managers::Events* gameEventsManager;
+    SM::StateMachine* gameStateMachine;
 
 
 
 public:
     Game();
-    Game(Graphics* gameGraphics, Events* gameEvents);
+    Game(Managers::Graphics* gameGraphicsManager, Managers::Events* gameEventsManager);
     ~Game();
 
     void update(float dt);
     void render();
 
-    void setGraphics(Graphics* gameGraphics);
-    void setEvents(Events* gameEvents);
-    void setStateMachine(StateMachine* gameStateMachine);
+    void setGraphics(Managers::Graphics* gameGraphicsManager);
+    void setEvents(Managers::Events* gameEventsManager);
+    void setStateMachine(SM::StateMachine* gameStateMachine);
 };
 
 #endif

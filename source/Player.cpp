@@ -1,15 +1,17 @@
 #include "Player.h"
 
-#include "Entidade.h"
+#include "Entity.h"
 
-Player::Player(Graphics* pGraphics, sf::Vector2<float> pos, sf::Vector2<float> vel, sf::Vector2<float> rect, textureID idT, spriteID idS):
-Entidade(pGraphics, pos, vel, rect, idT, idS){
+using namespace Entities;
 
-    if(pGraphics){
-        idTextura = pGraphics->loadTexture("../assets/green_alien.png");
-        idSprite = pGraphics->createSprite(idTextura);
-        frame = spriteRect(0, 0, 16, 20);
-        pGraphics->setSpriteRect(idSprite, frame);
+Player::Player(Managers::Graphics* pGraphicsManager, sf::Vector2<float> pos, sf::Vector2<float> vel, sf::Vector2<float> rect, Managers::textureID idT, Managers::spriteID idS):
+Entity(pGraphicsManager, pos, vel, rect, idT, idS){
+
+    if(pGraphicsManager){
+        idTextura = pGraphicsManager->loadTexture("../assets/green_alien.png");
+        idSprite = pGraphicsManager->createSprite(idTextura);
+        frame = Managers::spriteRect(0, 0, 16, 20);
+        pGraphicsManager->setSpriteRect(idSprite, frame);
     }
 
 }
@@ -18,39 +20,39 @@ Player::~Player(){
 
 }
 
-void Player::update(float dt, Events* pEvents){
+void Player::update(float dt, Managers::Events* pEventsManager){
 
-    if(pEvents->keyReleased(Events::keycode::W))
+    if(pEventsManager->keyReleased(Managers::Events::keycode::W))
         vel.y = 0;
-    if(pEvents->keyReleased(Events::keycode::D))
+    if(pEventsManager->keyReleased(Managers::Events::keycode::D))
         vel.x = 0;
-    if(pEvents->keyReleased(Events::keycode::S))
+    if(pEventsManager->keyReleased(Managers::Events::keycode::S))
         vel.y = 0;
-    if(pEvents->keyReleased(Events::keycode::A))
+    if(pEventsManager->keyReleased(Managers::Events::keycode::A))
         vel.x = 0;
 
 
 
-    if(pEvents->keyDown(Events::keycode::W)){
+    if(pEventsManager->keyDown(Managers::Events::keycode::W)){
         vel.y -= acceleration;
         if(vel.y < -velMax)
             vel.y = -velMax;
     }
             
         
-    if(pEvents->keyDown(Events::keycode::D)){
+    if(pEventsManager->keyDown(Managers::Events::keycode::D)){
         vel.x += acceleration;
         if(vel.x > velMax)
             vel.x = velMax;
     }
         
-    if(pEvents->keyDown(Events::keycode::S)){
+    if(pEventsManager->keyDown(Managers::Events::keycode::S)){
         vel.y += acceleration;
         if(vel.y > velMax)
             vel.y = velMax;
     }
 
-    if(pEvents->keyDown(Events::keycode::A)){
+    if(pEventsManager->keyDown(Managers::Events::keycode::A)){
         vel.x -= acceleration;
         if(vel.x < -velMax)
             vel.x = -velMax;

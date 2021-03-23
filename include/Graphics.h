@@ -4,6 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
+namespace Managers{
+
 typedef sf::RenderWindow* windowHandle;
 typedef sf::Rect<int> spriteRect;//typedefs para usar tipos da sfml fora desse arquivo
 
@@ -58,5 +60,6 @@ public:
     void render();//exibe na tela o que foi desenhado
 
 };
+}
 
 #endif

@@ -3,7 +3,9 @@
 
 #include "State.h"
 #include <stdio.h>
-#include "Fase.h"
+#include "Level.h"
+
+namespace GameSM{
 
 enum GameStates{
     GameMenuStateID,
@@ -11,52 +13,53 @@ enum GameStates{
 };
 
 
-class GameMenuState:public State{
+class GameMenuState:public SM::State{
 
 private:
     float timeElapsed;
-    textID menuText;//para testes
+    Managers::textID menuText;//para testes
     float menuTextPosX, menuTextPosY;//para testes
     float textSpeed;//para testes
 
 public:
-    GameMenuState(StateMachine* pStateMachine = NULL, Graphics* pGraphics = NULL);
+    GameMenuState(SM::StateMachine* pStateMachine = NULL, Managers::Graphics* pGraphicsManager = NULL);
     ~GameMenuState();
 
     virtual void enter();
     virtual void exit();
 
-    virtual void update(float dt, Events* pEvents);
-    virtual void render(Graphics* pGraphics);
+    virtual void update(float dt, Managers::Events* pEventsManager);
+    virtual void render(Managers::Graphics* pGraphicsManager);
 };
 
-class GamePlayState:public State{
+class GamePlayState:public SM::State{
 
 private:
     float timeElapsed;
-    textID playText;//para testes
+    Managers::textID playText;//para testes
     float playTextPosX, playTextPosY;//para testes
     float textSpeed;//para testes
-    Fase* pFase;
+    Level* pLevel;
 
 public:
-    GamePlayState(StateMachine* pStateMachine = NULL, Graphics* pGraphics = NULL);
+    GamePlayState(SM::StateMachine* pStateMachine = NULL, Managers::Graphics* pGraphicsManager = NULL);
     ~GamePlayState();
 
     virtual void enter();
     virtual void exit();
 
-    virtual void update(float dt, Events* pEvents);
-    virtual void render(Graphics* pGraphics);
+    virtual void update(float dt, Managers::Events* pEventsManager);
+    virtual void render(Managers::Graphics* pGraphicsManager);
 };
 
-class GameStateMachine:public StateMachine{
+class GameStateMachine:public SM::StateMachine{
 
 public:
-    GameStateMachine(Graphics* pGraphics = NULL);
+    GameStateMachine(Managers::Graphics* pGraphicsManager = NULL);
     ~GameStateMachine();
 
 };
 
+}
 
 #endif
