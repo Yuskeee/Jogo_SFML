@@ -39,6 +39,7 @@ void GameMenuState::update(float dt, Managers::Events* pEventsManager){
 
     if(pEventsManager->keyPressed(Managers::Events::keycode::J))
         pStateMachine->changeState(GamePlayStateID);
+        printf("menu state updated\n");
 
 }
 
@@ -58,6 +59,7 @@ GamePlayState::GamePlayState(SM::StateMachine* pStateMachine, Managers::Graphics
     playTextPosY = 0;
     textSpeed = 50;
     pLevel = new Level(pGraphicsManager);
+    pLevel->loadMap("../assets/mapa1.txt");
 }
 
 GamePlayState::~GamePlayState(){

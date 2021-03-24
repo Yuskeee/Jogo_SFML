@@ -1,21 +1,24 @@
-#ifndef _FASE_H
-#define _FASE_H
+#ifndef _LEVEL_H
+#define _LEVEL_H
 
 #include <vector>
-
+#include <fstream>
 
 #include "Graphics.h"
 #include "Entity.h"
 #include "Player.h"
+#include "Map.h"
+
 
 class Level{
 
 private:
     std::vector<Entities::Entity*> entities;
     Managers::Graphics* pGraphicsManager;
+    Map map;
 
 public:
-    Level(Managers::Graphics* pGraphics = NULL);
+    Level(Managers::Graphics* pGraphicsManager = NULL);
     ~Level();
 
     void update(float dt, Managers::Events* pEvents);//chama update de todas as entidades no vetor
@@ -28,7 +31,7 @@ public:
             entities.push_back(newEntity);
         }
     }
-    //void loadMap(char* arquivo);
+    void loadMap(const char* arquivo);
     //void salvar(char* arquivo);
 
 

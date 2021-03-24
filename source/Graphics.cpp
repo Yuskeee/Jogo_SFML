@@ -30,7 +30,6 @@ Graphics::~Graphics(){
 void Graphics::createWindow(int screenWidth, int screenHeight, const char* windowName){
 
     screen.create(sf::VideoMode(screenWidth, screenHeight), windowName);
-
 }
 
 windowHandle Graphics::getWindowHandle(){
@@ -119,7 +118,6 @@ textID Graphics::createText(fontID baseFont, const char* text, int size){
 }
 
 void Graphics::drawText(textID text){
-
     screen.draw(*texts[text]);
 
 }
@@ -128,11 +126,9 @@ void Graphics::setTextPos(textID text, float x, float y){
 
     sf::Vector2f pos(x, y);
     texts[text]->setPosition(pos);
-
 }
 
 void Graphics::render(){
-
     screen.display();
     screen.clear();
     if(backgroundSprite > 0)//se houver um plano de fundo definido

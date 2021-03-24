@@ -3,9 +3,10 @@
 
 int main(){
 
-    Managers::Graphics gameGraphicsManager(400, 300, "teste");
+    Managers::Graphics gameGraphicsManager(WINDOW_WIDTH, WINDOW_HEIGHT, "teste");
 
     gameGraphicsManager.loadFont("../fonts/04B_30__.TTF");//carrega uma fonte no id 0
+
 
     Managers::windowHandle gWindowHandle = gameGraphicsManager.getWindowHandle();
     Managers::Events gEvents(gWindowHandle);
@@ -17,7 +18,6 @@ int main(){
 
 
     while(gameGraphicsManager.isWindowOpen()){
-
 
 
         dt = clock.getElapsedTime().asSeconds();
@@ -63,6 +63,7 @@ void Game::update(float dt){
 
 void Game::render(){
     gameStateMachine->render(gameGraphicsManager);
+
     gameGraphicsManager->render();
 }
 

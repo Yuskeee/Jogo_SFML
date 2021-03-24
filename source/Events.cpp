@@ -19,7 +19,6 @@ Events::Events(windowHandle window){
 }
 
 Events::~Events(){
-
 }
 
 void Events::setWindow(windowHandle window){
@@ -29,7 +28,6 @@ void Events::setWindow(windowHandle window){
 }
 
 void Events::pollAll(){
-
     sf::Event lastEvent;
 
     for(int i = 0; i < sf::Keyboard::KeyCount; i++){
@@ -38,8 +36,9 @@ void Events::pollAll(){
     }
 
     while (window->pollEvent(lastEvent)){
-            if (lastEvent.type == sf::Event::Closed)
+            if (lastEvent.type == sf::Event::Closed){
                 closeEvent = true;
+            }
 
             else if(lastEvent.type == sf::Event::KeyPressed){
                 keysPressed[lastEvent.key.code] = true;
