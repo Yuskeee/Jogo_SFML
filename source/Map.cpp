@@ -10,6 +10,7 @@ Map::Map(Managers::Graphics* pGraphicsManager){
     tileset[airTile] = pGraphicsManager->createSprite(pGraphicsManager->loadTexture("../assets/air.png"));
     tileset[groundTile] = pGraphicsManager->createSprite(pGraphicsManager->loadTexture("../assets/ground.png"));
     tileset[groundTopTile] = pGraphicsManager->createSprite(pGraphicsManager->loadTexture("../assets/ground_top.png"));
+    tileset[brickTile] = pGraphicsManager->createSprite(pGraphicsManager->loadTexture("../assets/brick.png"));
 
 
 }

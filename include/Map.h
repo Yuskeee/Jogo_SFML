@@ -15,7 +15,8 @@ public:
     enum Tiles{
         airTile,        //bloco vazio
         groundTile,     //chao
-        groundTopTile,  //parte superior do chao      
+        groundTopTile,  //parte superior do chao     
+        brickTile,      //tijolo 
         nTileTypes      //numero total de tipos de blocos, por enquanto apenas 3
     };
 
