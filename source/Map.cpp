@@ -5,13 +5,10 @@ Map::Map(Managers::Graphics* pGraphicsManager){
     map = new char*[MAP_HEIGHT];
 
     for(int i = 0; i < MAP_HEIGHT; i++)
-        map[i] = new char[MAP_WIDTH+1];//precisa armazenar o \0
+        map[i] = new char[MAP_WIDTH+1];// +1 pois precisa armazenar o \0 fornecido pelo getline
 
-    tileset[airTile] = pGraphicsManager->createSprite(pGraphicsManager->loadTexture("../assets/air.png"));
-    tileset[groundTile] = pGraphicsManager->createSprite(pGraphicsManager->loadTexture("../assets/ground.png"));
-    tileset[groundTopTile] = pGraphicsManager->createSprite(pGraphicsManager->loadTexture("../assets/ground_top.png"));
-    tileset[brickTile] = pGraphicsManager->createSprite(pGraphicsManager->loadTexture("../assets/brick.png"));
-
+    for(int i = 0; i < nTileTypes; i++)//cria os sprites em ordem usando o vetor de nomes de arquivo
+        tileset[i] = pGraphicsManager->createSprite(pGraphicsManager->loadTexture(TileTextureFiles[i]));
 
 }
 
