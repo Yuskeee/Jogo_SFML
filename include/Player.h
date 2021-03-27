@@ -17,6 +17,7 @@ public:
     virtual ~Player();
 
     virtual void update(float dt, Managers::Events* pEventsManager);
+    virtual void onCollide(Entity* other);
 
 
 };

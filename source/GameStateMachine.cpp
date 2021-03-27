@@ -83,7 +83,7 @@ void GamePlayState::update(float dt, Managers::Events* pEvents){
 void GamePlayState::render(Managers::Graphics* pGraphicsManager){
     pGraphicsManager->setTextPos(playText, playTextPosX, playTextPosY);
     pGraphicsManager->drawText(playText);
-    pLevel->render();
+    pLevel->render(pGraphicsManager);
     printf("Jogando\nTempo decorrido: %f\n\n", timeElapsed);
 }
 

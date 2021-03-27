@@ -21,6 +21,14 @@ public:
         nTileTypes      //numero total de tipos de blocos
     };
 private:
+
+    bool isSolid[nTileTypes] = {
+        false,  
+        true,
+        true,
+        true
+    };
+
     char TileTextureFiles[nTileTypes][30] = {//vetor das strings dos arquivos das texturas dos blocos
 
     "../assets/air.png",        //letra a no txt
@@ -39,6 +47,7 @@ public:
 
     void load(const char* file);//carrega uma matriz de letras de um txt
     void draw(Managers::Graphics* pGraphicsManager);//constroi e desenha o mapa com base na matriz de letras (cada letra representa um bloco diferente)
+    bool isPositionSolid(float x, float y);
 
 };
 

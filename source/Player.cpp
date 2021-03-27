@@ -7,6 +7,8 @@ using namespace Entities;
 Player::Player(Managers::Graphics* pGraphicsManager, sf::Vector2<float> pos, sf::Vector2<float> vel, sf::Vector2<float> rect, Managers::textureID idT, Managers::spriteID idS):
 Entity(pGraphicsManager, pos, vel, rect, idT, idS){
 
+    printf("building PLAYER: %f, %f\n", pos.x, pos.y);
+
     if(pGraphicsManager){
         idTextura = pGraphicsManager->loadTexture("../assets/green_alien.png");
         idSprite = pGraphicsManager->createSprite(idTextura);
@@ -59,5 +61,10 @@ void Player::update(float dt, Managers::Events* pEventsManager){
     }
 
     pos += vel*dt;
+
+}
+
+void Player::onCollide(Entity* other){
+
 
 }

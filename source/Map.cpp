@@ -42,3 +42,10 @@ void Map::draw(Managers::Graphics* pGraphicsManager){
         }
     }
 }
+
+bool Map::isPositionSolid(float x, float y){
+    if((map[(int)(y/TILE_HEIGHT)][(int)(x/TILE_WIDTH)] - 97) < nTileTypes)//verifica se é um bloco valido, evita problemas de acesso erroneo de memoria
+        return isSolid[map[(int)(y/TILE_HEIGHT)][(int)(x/TILE_WIDTH)] - 97];
+    else
+        return false;
+}

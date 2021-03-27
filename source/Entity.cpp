@@ -27,6 +27,10 @@ const sf::Vector2<float> Entity::getPos() const{
 return pos;
 }
 
+const sf::Vector2<float> Entity::getVel() const{
+return vel;
+}
+
 const sf::Vector2<float> Entity::getRect() const{
 return rect;
 }

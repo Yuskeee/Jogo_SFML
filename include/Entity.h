@@ -30,7 +30,10 @@ public:
     void setVel(sf::Vector2<float> vel);
 
     const sf::Vector2<float> getPos() const;
+    const sf::Vector2<float> getVel() const;
     const sf::Vector2<float> getRect() const;
+
+    virtual void onCollide(Entity* other) = 0;
 };
 
 }
