@@ -61,6 +61,7 @@ void Player::update(float dt, Managers::Events* pEventsManager){
     }
 
     pos += vel*dt;
+    printf("velx: %f, vely: %f", vel.x, vel.y);
 
 }
 

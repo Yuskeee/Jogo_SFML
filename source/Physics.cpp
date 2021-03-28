@@ -75,14 +75,17 @@ void Physics::collideMap(float dt){
 
         //se o offset vertical for menor que o ultimo deslocamento da entidade, provavelmente ocorreu uma colisao em Y
         if(offsetY*offsetY <= entVelY*entVelY*dt*dt && offsetY != 0.0f){
-            ent->setPos(sf::Vector2f(ent->getPos().x, ent->getPos().y - 1.1f*offsetY));//corrige a sobreposicao do eixo X
+            ent->setPos(sf::Vector2f(ent->getPos().x, ent->getPos().y - 1.1f*offsetY));//corrige a sobreposicao do eixo Y
 
             offsetX = getOffsetX(ent);//verifica se X continua sobreposto apos a correcao
             if (offsetX != 0){//se X continua sobreposto, a colisao nao ocorreu apenas em Y, mas pode ter ocorrido apenas em X
                 ent->setPos(sf::Vector2f(ent->getPos().x - 1.1f*offsetX, ent->getPos().y + 1.1f*offsetY));//corrige a sobreposicao de X e desfaz a correcao anterior em Y
                 offsetY = getOffsetY(ent);//se Y agora nao esta mais sobreposto mesmo com a correcao anulada, signfica que a colisao era apenas em X
                 ent->setPos(sf::Vector2f(ent->getPos().x, ent->getPos().y - 1.1f*offsetY));//se Y voltou a ficar sobreposto apos X ter sido corrigido, a colisao era em X e Y. Refaz a correcao de Y 
+                ent->setVel(sf::Vector2f(0, entVelY));//de qualquer forma nesse ponto, ocorreu uma colisao em X, zera a velocidade nesse eixo
             }
+            if(offsetY)
+               ent->setVel(sf::Vector2f(entVelX, 0));//se ocorreu colisao em Y zera a velocidade nesse eixo 
         }
         else{//caso contrario, é mais provavel uma colisao em X
             ent->setPos(sf::Vector2f(ent->getPos().x - 1.1f*offsetX, ent->getPos().y));//corrige a sobreposicao no eixo X
@@ -92,7 +95,10 @@ void Physics::collideMap(float dt){
                 ent->setPos(sf::Vector2f(ent->getPos().x + 1.1f*offsetX, ent->getPos().y - 1.1f*offsetY));//corrige a sobreposicao de Y e desfaz a correcao anterior em X
                 offsetX = getOffsetX(ent);//se X agora nao esta mais sobreposto mesmo com a correcao anulada, signfica que a colisao era apenas em Y
                 ent->setPos(sf::Vector2f(ent->getPos().x - 1.1f*offsetX, ent->getPos().y));//se X voltou a ficar sobreposto apos Y ter sido corrigido, a colisao era em X e Y. Refaz a correcao de X
+                ent->setVel(sf::Vector2f(entVelX, 0));//de qualquer forma nesse ponto, ocorreu uma colisao em Y, zera a velocidade nesse eixo
             }
+            if(offsetX)
+               ent->setVel(sf::Vector2f(0, entVelY));//se ocorreu colisao em X zera a velocidade nesse eixo 
         }
 
 
@@ -103,5 +109,14 @@ void Physics::collideMap(float dt){
 }
 
 void Physics::collideEntities(){
+
+}
+
+void Physics::applyGravity(){
+    printf("applying grav\n");
+    for(int i = bodies->size()-1; i >= 0; i--){
+        if((*bodies)[i]->getVel().y < maxVertVel)
+            (*bodies)[i]->setVel(sf::Vector2f((*bodies)[i]->getVel().x, (*bodies)[i]->getVel().y + gravity));
+    }
 
 }
