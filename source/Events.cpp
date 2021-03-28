@@ -54,7 +54,7 @@ void Events::pollAll(){
 }
 
 bool Events::keyPressed(keycode key){
-    return keysReleased[key];
+    return keysPressed[key];
 }
 
 bool Events::keyReleased(keycode key){

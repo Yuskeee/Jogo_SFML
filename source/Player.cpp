@@ -59,9 +59,15 @@ void Player::update(float dt, Managers::Events* pEventsManager){
         if(vel.x < -velMax)
             vel.x = -velMax;
     }
+    if(pEventsManager->keyPressed(Managers::Events::keycode::Space)){
+        if(isGrounded)//se espaco foi precionado e o jogador esta no chao
+            vel.y -= jumpVel;
+    }
 
     pos += vel*dt;
-    printf("velx: %f, vely: %f", vel.x, vel.y);
+
+    isGrounded = (vel.y == lastVertVel) && vel.y < velMax ? true : false;// se a velocidade vertical nao mudou e é pequena o suficiente, o jogador está no chao
+    lastVertVel = vel.y;   
 
 }
 
