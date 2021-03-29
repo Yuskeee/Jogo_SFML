@@ -7,7 +7,7 @@ using namespace Entities;
 Player::Player(Managers::Graphics* pGraphicsManager, sf::Vector2<float> pos, sf::Vector2<float> vel, sf::Vector2<float> rect, Managers::textureID idT, Managers::spriteID idS):
 Entity(pGraphicsManager, pos, vel, rect, idT, idS){
 
-    printf("building PLAYER: %f, %f\n", pos.x, pos.y);
+    type = player;
 
     if(pGraphicsManager){
         idTextura = pGraphicsManager->loadTexture("../assets/green_alien.png");

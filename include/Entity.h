@@ -9,6 +9,17 @@ namespace Entities{
 //Serve de base para outras classes de tipo personagem
 class Entity{
 protected:
+
+    enum entityType{
+        player,
+        //inimigo1,
+        //inimigo2,
+        //projetil,
+        nEntityTypes
+
+    };
+
+    int type;
     sf::Vector2<float> pos, vel, rect;
     int vidas;
     bool vulnerabilidade;

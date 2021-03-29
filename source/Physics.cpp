@@ -57,6 +57,14 @@ float Physics::getOffsetY(Entities::Entity* ent){
             return 0;//se a parte de cima da entidade nao esta dentro de um bloco solido, nao ha offset para ser retorado
 }
 
+bool Physics::checkEntityCollision(Entities::Entity* a, Entities::Entity* b){
+    if(a->getPos().x > b->getPos().x + b->getRect().x || a->getPos().x + a->getRect().x < b->getPos().x)
+        return false;
+    else if(a->getPos().y > b->getPos().y + b->getRect().y || a->getPos().y + a->getRect().y < b->getPos().y)
+        return false;
+    else
+        return true;
+}
 
 void Physics::collideMap(float dt){
 
@@ -99,21 +107,28 @@ void Physics::collideMap(float dt){
             }
             if(offsetX)
                ent->setVel(sf::Vector2f(0, entVelY));//se ocorreu colisao em X zera a velocidade nesse eixo 
-        }
-
-
-        
+        }   
     }
-
-
 }
 
 void Physics::collideEntities(){
 
+    Entities::Entity *a, *b;
+    for(int i = bodies->size(); i > 0; i--){
+        for(int j = i + i; j >= 0; j--)
+        {
+            a = (*bodies)[i];
+            b = (*bodies)[j];
+            
+            if(checkEntityCollision(a, b)){///se a colidiu com b, chama os metodos de colisao de cada uma passando ponteiro para a outra
+                a->onCollide(b);
+                b->onCollide(a);
+            }
+        }
+    }
 }
 
 void Physics::applyGravity(){
-    printf("applying grav\n");
     for(int i = bodies->size()-1; i >= 0; i--){
         if((*bodies)[i]->getVel().y < maxVertVel)
             (*bodies)[i]->setVel(sf::Vector2f((*bodies)[i]->getVel().x, (*bodies)[i]->getVel().y + gravity));

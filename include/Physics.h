@@ -16,6 +16,8 @@ private:
     float getOffsetY(Entities::Entity* ent);//calcula quanto uma entidade entrou verticalmente em um bloco solido do mapa
     float getOffsetX(Entities::Entity* ent);//calcula quanto uma entidade entrou verticalmente em um bloco solido do mapa
 
+    bool checkEntityCollision(Entities::Entity* a, Entities::Entity* b);
+
 public:
     Physics(Map* pMap = NULL, std::vector<Entities::Entity*>* bodies = NULL);
     ~Physics();
