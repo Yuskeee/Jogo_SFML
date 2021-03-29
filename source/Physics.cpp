@@ -114,7 +114,7 @@ void Physics::collideMap(float dt){
 void Physics::collideEntities(){
 
     Entities::Entity *a, *b;
-    for(int i = bodies->size(); i > 0; i--){
+    for(int i = bodies->size()-1; i >= 0; i--){
         for(int j = i + i; j >= 0; j--)
         {
             a = (*bodies)[i];

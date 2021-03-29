@@ -2,7 +2,6 @@
 
 
 Level::Level(Managers::Graphics* pGraphicsManager):map(pGraphicsManager), LevelPhysics(&map, &entities){
-    printf("creating level\n");
     //apenas para testes
     addEntity<Entities::Player>(pGraphicsManager, sf::Vector2f(20, 20), sf::Vector2f(0, 0), sf::Vector2f(16, 20));//futuramente isso vai ficar em uma funcao de carregar a fase junto com as outras chamadas
 }
@@ -16,6 +15,7 @@ void Level::update(float dt, Managers::Events* pEvents){
     for(int i = 0; i < entities.size(); i++)
         entities[i]->update(dt, pEvents);
     LevelPhysics.collideMap(dt);
+    LevelPhysics.collideEntities();
     LevelPhysics.applyGravity();
 }
 
