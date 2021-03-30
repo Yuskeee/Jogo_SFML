@@ -7,8 +7,8 @@
 class Physics{
 
 private:
-    const float gravity = 2;
-    const float maxVertVel = 180;
+    const float gravity = 120;
+    const float maxVertVel = 250;
 
     Map* pMap;//ponteiro para o mapa (alocado em Level)
     std::vector<Entities::Entity*>* bodies;//ponteiro para o vetor de entidades (alocado em Level)
@@ -25,7 +25,7 @@ public:
     void collideMap(float dt);//colide todas as entidades com o mapa
     void collideEntities();//colide todas as entidades entre si
 
-    void applyGravity();
+    void applyGravity(float dt);
 
 };
 

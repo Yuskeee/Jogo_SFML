@@ -46,7 +46,7 @@ void GameMenuState::update(float dt, Managers::Events* pEventsManager){
 void GameMenuState::render(Managers::Graphics* pGraphicsManager){
     pGraphicsManager->setTextPos(menuText, menuTextPosX, menuTextPosY);
     pGraphicsManager->drawText(menuText);
-    printf("Estado: Menu\nTempo decorrido: %f\nPressione 'J' para jogar\n\n", timeElapsed);
+    //printf("Estado: Menu\nTempo decorrido: %f\nPressione 'J' para jogar\n\n", timeElapsed);
 }
 
 
@@ -84,7 +84,7 @@ void GamePlayState::render(Managers::Graphics* pGraphicsManager){
     pGraphicsManager->setTextPos(playText, playTextPosX, playTextPosY);
     pGraphicsManager->drawText(playText);
     pLevel->render(pGraphicsManager);
-    printf("Jogando\nTempo decorrido: %f\n\n", timeElapsed);
+    //printf("Jogando\nTempo decorrido: %f\n\n", timeElapsed);
 }
 
 

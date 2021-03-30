@@ -23,6 +23,10 @@ void Entity::setVel(sf::Vector2<float> vel){
     this->vel = vel;
 }
 
+void Entity::setGrounded(bool isGrounded){
+    this->isGrounded = isGrounded;
+}
+
 const sf::Vector2<float> Entity::getPos() const{
 return pos;
 }

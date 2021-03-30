@@ -23,6 +23,7 @@ protected:
     sf::Vector2<float> pos, vel, rect;
     int vidas;
     bool vulnerabilidade;
+    bool isGrounded;
 
     //StateMachine gameStateMachine;
     Managers::textureID idTextura;
@@ -39,6 +40,7 @@ public:
 
     void setPos(sf::Vector2<float> pos);
     void setVel(sf::Vector2<float> vel);
+    void setGrounded(bool isGrounded);
 
     const sf::Vector2<float> getPos() const;
     const sf::Vector2<float> getVel() const;
