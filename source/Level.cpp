@@ -15,7 +15,7 @@ void Level::update(float dt, Managers::Events* pEvents){
     for(int i = 0; i < entities.size(); i++)
         entities[i]->update(dt, pEvents);
     LevelPhysics.applyGravity(dt);
-    LevelPhysics.collideMap(dt);
+    LevelPhysics.collideMap();
     LevelPhysics.collideEntities();
 }
 

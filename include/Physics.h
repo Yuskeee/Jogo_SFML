@@ -22,7 +22,7 @@ public:
     Physics(Map* pMap = NULL, std::vector<Entities::Entity*>* bodies = NULL);
     ~Physics();
 
-    void collideMap(float dt);//colide todas as entidades com o mapa
+    void collideMap();//colide todas as entidades com o mapa
     void collideEntities();//colide todas as entidades entre si
 
     void applyGravity(float dt);

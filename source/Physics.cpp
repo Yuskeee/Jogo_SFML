@@ -66,7 +66,7 @@ bool Physics::checkEntityCollision(Entities::Entity* a, Entities::Entity* b){
         return true;
 }
 
-void Physics::collideMap(float dt){
+void Physics::collideMap(){
 
     float offsetX, offsetY;//quanto uma entidade sobrepos um bloco solido em cada eixo
     float entVelX, entVelY;//velocidade da entidade na ultima atualizacao
@@ -82,9 +82,9 @@ void Physics::collideMap(float dt){
         offsetY = getOffsetY(ent);
 
         if(offsetX == 0.0f && offsetY == 0.0f){
-
+            //nao houve colisao
         }
-        //se o offset vertical for menor que o ultimo deslocamento da entidade, provavelmente ocorreu uma colisao em Y
+        //se o offset vertical for menor que o horizontal, provavelmente ocorreu uma colisao em Y
         else if(offsetY*offsetY < offsetX*offsetX){
             ent->setPos(sf::Vector2f(ent->getPos().x, ent->getPos().y - offsetY));//corrige a sobreposicao do eixo Y
 
