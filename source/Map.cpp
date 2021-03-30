@@ -1,5 +1,7 @@
 #include "Map.h"
 
+using namespace World;
+
 Map::Map(Managers::Graphics* pGraphicsManager){
 
     map = new char*[MAP_HEIGHT];

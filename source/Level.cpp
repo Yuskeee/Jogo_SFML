@@ -1,5 +1,6 @@
 #include "Level.h"
 
+using namespace World;
 
 Level::Level(Managers::Graphics* pGraphicsManager):map(pGraphicsManager), LevelPhysics(&map, &entities){
     //apenas para testes

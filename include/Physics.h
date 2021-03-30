@@ -4,6 +4,8 @@
 #include "Map.h"
 #include "Entity.h"
 
+namespace World{
+
 class Physics{
 
 private:
@@ -28,5 +30,6 @@ public:
     void applyGravity(float dt);
 
 };
+}
 
 #endif

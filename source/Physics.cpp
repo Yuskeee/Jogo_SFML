@@ -1,5 +1,7 @@
 #include "Physics.h"
 
+using namespace World;
+
 Physics::Physics(Map* pMap, std::vector<Entities::Entity*>* bodies){
     this->pMap = pMap;
     this->bodies = bodies;

@@ -10,6 +10,7 @@
 #include "Map.h"
 #include "Physics.h"
 
+namespace World{
 
 class Level{
 
@@ -37,6 +38,6 @@ public:
 
 
 };
-
+}
 
 #endif

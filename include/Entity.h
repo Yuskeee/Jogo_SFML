@@ -31,12 +31,12 @@ protected:
     Managers::spriteRect frame;
 
 public:
-    Entity(Managers::Graphics* pGameGraphicsManager = NULL, sf::Vector2<float> pos = {0.0f, 0.0f}, sf::Vector2<float> vel = {0.0f, 0.0f}, sf::Vector2<float> rect = {0.0f, 0.0f}, Managers::textureID idT = -1, Managers::spriteID idS = -1);
+    Entity(Managers::Graphics* pGraphicsManager = NULL, sf::Vector2<float> pos = {0.0f, 0.0f}, sf::Vector2<float> vel = {0.0f, 0.0f}, sf::Vector2<float> rect = {0.0f, 0.0f}, Managers::textureID idT = -1, Managers::spriteID idS = -1);
     virtual ~Entity();
 
     virtual void update(float dt, Managers::Events* pEvents) = 0; //implementar futuramente //gameStateMachine->update(dt);
 
-    virtual void draw(Managers::Graphics* pGameGraphicsManager);
+    virtual void draw(Managers::Graphics* pGraphicsManager);
 
     void setPos(sf::Vector2<float> pos);
     void setVel(sf::Vector2<float> vel);

@@ -11,7 +11,6 @@ private:
     const float acceleration = 5;
     const float velMax = 60;
     const float jumpVel = 100;
-    float lastY;
 
 public:
 

@@ -58,7 +58,7 @@ GamePlayState::GamePlayState(SM::StateMachine* pStateMachine, Managers::Graphics
     playTextPosX = 0;
     playTextPosY = 0;
     textSpeed = 50;
-    pLevel = new Level(pGraphicsManager);
+    pLevel = new World::Level(pGraphicsManager);
     pLevel->loadMap("../assets/mapa1.txt");
 }
 

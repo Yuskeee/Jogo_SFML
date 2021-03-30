@@ -39,7 +39,7 @@ private:
     Managers::textID playText;//para testes
     float playTextPosX, playTextPosY;//para testes
     float textSpeed;//para testes
-    Level* pLevel;
+    World::Level* pLevel;
 
 public:
     GamePlayState(SM::StateMachine* pStateMachine = NULL, Managers::Graphics* pGraphicsManager = NULL);

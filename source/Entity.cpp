@@ -2,7 +2,7 @@
 
 using namespace Entities;
 
-Entity::Entity(Managers::Graphics* pGameGraphicsManager, sf::Vector2<float> pos, sf::Vector2<float> vel, sf::Vector2<float> rect, Managers::textureID idT, Managers::spriteID idS):
+Entity::Entity(Managers::Graphics* pGraphicsManager, sf::Vector2<float> pos, sf::Vector2<float> vel, sf::Vector2<float> rect, Managers::textureID idT, Managers::spriteID idS):
 pos(pos), vel(vel), rect(rect), vulnerabilidade(), idTextura(idT), idSprite(idS), frame(0, 0, 0, 0){
 
 }
@@ -10,9 +10,9 @@ pos(pos), vel(vel), rect(rect), vulnerabilidade(), idTextura(idT), idSprite(idS)
 Entity::~Entity(){
 }
 
-void Entity::draw(Managers::Graphics* pGameGraphicsManager){
-    pGameGraphicsManager->setSpritePos(idSprite, pos.x, pos.y);
-    pGameGraphicsManager->drawSprite(idSprite);
+void Entity::draw(Managers::Graphics* pGraphicsManager){
+    pGraphicsManager->setSpritePos(idSprite, pos.x, pos.y);
+    pGraphicsManager->drawSprite(idSprite);
 }
 
 void Entity::setPos(sf::Vector2<float> pos){

@@ -4,6 +4,8 @@
 #include "Graphics.h"
 #include <fstream>
 
+namespace World{
+
 #define MAP_WIDTH  40 //largura do mapa em blocos
 #define MAP_HEIGHT 30 //altura do mapa em blocos
 
@@ -50,6 +52,6 @@ public:
     bool isPositionSolid(float x, float y);
 
 };
-
+}
 
 #endif
