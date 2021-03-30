@@ -141,8 +141,6 @@ void Physics::applyGravity(float dt){
             (*bodies)[i]->setVel(sf::Vector2f((*bodies)[i]->getVel().x, (*bodies)[i]->getVel().y + gravity*dt));
         else
             (*bodies)[i]->setVel(sf::Vector2f((*bodies)[i]->getVel().x, maxVertVel));
-        
-        //printf("to %f with %f\n", (*bodies)[i]->getVel().y, dt);
     }
 
 }

@@ -61,10 +61,12 @@ void Player::update(float dt, Managers::Events* pEventsManager){
     }
     if(pEventsManager->keyPressed(Managers::Events::keycode::Space)){
         if(isGrounded){//se espaco foi precionado e o jogador esta no chao
-            isGrounded = false;
             vel.y -= jumpVel;
         }
     }
+
+    if(vel.y*vel.y > 0.5)
+        isGrounded = false;
 
     pos += vel*dt;
 
