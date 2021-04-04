@@ -9,6 +9,7 @@ namespace Entities{
 
 #define DEFAULT   0, 0,  16, 20
 #define JUMP     64, 0,  16, 20
+#define JUMP_L   80, 0, -16, 20
 #define WALK_R1 144, 0,  16, 20
 #define WALK_R2 160, 0,  16, 20
 #define WALK_L1 160, 0, -16, 20
