@@ -31,7 +31,7 @@ private:
         PlayerJumpState(SM::StateMachine* pStateMachine = NULL, Player *p = NULL);
         ~PlayerJumpState();
 
-        void enter(){std::cout << "JUMP\n"; double_jump = true;}
+        void enter(void* arg){std::cout << "JUMP\n"; double_jump = true;}
 
         void update(float dt, Managers::Events* pEventsManager);
         void render(Managers::Graphics* pGraphicsManager);
@@ -43,7 +43,7 @@ private:
         PlayerRestState(SM::StateMachine* pStateMachine = NULL, Player *p = NULL);
         ~PlayerRestState();
 
-        void enter(){std::cout << "REST\n";}
+        void enter(void* arg){std::cout << "REST\n";}
 
         void update(float dt, Managers::Events* pEventsManager);
         void render(Managers::Graphics* pGraphicsManager);
@@ -56,7 +56,7 @@ private:
         PlayerWalkState(SM::StateMachine* pStateMachine = NULL, Player *p = NULL);
         ~PlayerWalkState();
 
-        void enter(){std::cout << "WALK\n"; nRect = false;}
+        void enter(void* arg){std::cout << "WALK\n"; nRect = false;}
 
         void update(float dt, Managers::Events* pEventsManager);
         void render(Managers::Graphics* pGraphicsManager);
