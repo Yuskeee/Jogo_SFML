@@ -151,7 +151,7 @@ Entity(pGraphicsManager, pos, vel, rect, idT, idS){
     type = player;
 
     if(pGraphicsManager){
-        idTextura = pGraphicsManager->loadTexture("assets/green_alien.png");
+        idTextura = pGraphicsManager->loadTexture("../assets/green_alien.png");
         idSprite = pGraphicsManager->createSprite(idTextura);
         frame = Managers::spriteRect(DEFAULT);
         pGraphicsManager->setSpriteRect(idSprite, frame);
