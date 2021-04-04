@@ -2,7 +2,7 @@
 #define _PLAYER_H
 
 #include "Entity.h"
-#include "State.h"
+#include "states/State.h"
 #include <iostream>
 
 namespace Entities{

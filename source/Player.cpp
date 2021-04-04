@@ -18,7 +18,7 @@ void Player::PlayerJumpState::update(float dt, Managers::Events* pEventsManager)
         if(p->vel.y*p->vel.y > 0.5)
             p->isGrounded = false;
         if(p->isGrounded){//se espaco foi pressionado e o jogador esta no chao
-            pStateMachine->changeState(PlayerRestStateID); //ESTADO PARADO
+            pStateMachine->changeState(PlayerRestStateID, NULL); //ESTADO PARADO
             p->vel.x = 0;
 
             //muda o retangulo do sprite
@@ -51,7 +51,7 @@ void Player::PlayerRestState::update(float dt, Managers::Events* pEventsManager)
         if(pEventsManager->keyPressed(Managers::Events::keycode::Space)){
             if(p->isGrounded){
                 //atualiza velocidades
-                pStateMachine->changeState(PlayerJumpStateID);
+                pStateMachine->changeState(PlayerJumpStateID, NULL);
                 p->vel.y -= p->jumpVel;
 
                 //muda o retangulo do sprite
@@ -61,7 +61,7 @@ void Player::PlayerRestState::update(float dt, Managers::Events* pEventsManager)
 
         //ESTADO ANDANDO
         else if(pEventsManager->keyDown(Managers::Events::keycode::D) || pEventsManager->keyDown(Managers::Events::keycode::A))
-            pStateMachine->changeState(PlayerWalkStateID);
+            pStateMachine->changeState(PlayerWalkStateID, NULL);
     }
 }
 
@@ -104,7 +104,7 @@ void Player::PlayerWalkState::update(float dt, Managers::Events* pEventsManager)
 
         //ESTADO PARADO
         if(pEventsManager->keyReleased(Managers::Events::keycode::D) || pEventsManager->keyReleased(Managers::Events::keycode::A)){
-            pStateMachine->changeState(PlayerRestStateID);
+            pStateMachine->changeState(PlayerRestStateID, NULL);
             p->vel.x = 0;
             p->frame = Managers::spriteRect(DEFAULT);
         }
@@ -112,7 +112,7 @@ void Player::PlayerWalkState::update(float dt, Managers::Events* pEventsManager)
         //ESTADO PULO
         if(pEventsManager->keyPressed(Managers::Events::keycode::Space)){
             if(p->isGrounded){
-                pStateMachine->changeState(PlayerJumpStateID);
+                pStateMachine->changeState(PlayerJumpStateID, NULL);
                 p->vel.y -= p->jumpVel;
 
                 //muda o retangulo do sprite
