@@ -21,8 +21,8 @@ protected:
 
     int type;
     sf::Vector2<float> pos, vel, rect;
-    int vidas;
-    bool vulnerabilidade;
+    int lives;
+    bool vulnerability;
     bool isGrounded;
 
     //StateMachine gameStateMachine;
