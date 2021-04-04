@@ -119,7 +119,7 @@ textID Graphics::createText(fontID baseFont, const char* text, int size){
 
 void Graphics::setTextColor(textID text, int red, int green, int blue, int alpha){
 
-    texts[text]->setColor(sf::Color(red, green, blue, alpha));
+    texts[text]->setFillColor(sf::Color(red, green, blue, alpha));
 }
 
 void Graphics::drawText(textID text){
