@@ -20,7 +20,7 @@ public:
     State(StateMachine* pStateMachine = NULL);
     virtual ~State();
 
-    virtual void enter(){}
+    virtual void enter(void* arg){}
     virtual void exit(){}
 
     virtual void update(float dt, Managers::Events* pEventsManager) = 0;
@@ -42,7 +42,7 @@ public:
     virtual ~StateMachine();
 
     void addState(State* state);
-    void changeState(stateID nextStateID);
+    void changeState(stateID nextStateID, void* arg);
 
     void update(float dt, Managers::Events* pEventsManager);
     void render(Managers::Graphics* pGraphicsManager);

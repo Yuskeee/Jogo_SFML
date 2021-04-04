@@ -117,6 +117,11 @@ textID Graphics::createText(fontID baseFont, const char* text, int size){
     return texts.size()-1;
 }
 
+void Graphics::setTextColor(textID text, int red, int green, int blue, int alpha){
+
+    texts[text]->setColor(sf::Color(red, green, blue, alpha));
+}
+
 void Graphics::drawText(textID text){
     screen.draw(*texts[text]);
 
@@ -129,8 +134,10 @@ void Graphics::setTextPos(textID text, float x, float y){
 }
 
 void Graphics::render(){
-    screen.display();
-    screen.clear();
-    if(backgroundSprite > 0)//se houver um plano de fundo definido
-        screen.draw(*sprites[backgroundSprite]);
+    if(screen.isOpen()){
+        screen.display();
+        screen.clear();
+        if(backgroundSprite > 0)//se houver um plano de fundo definido
+            screen.draw(*sprites[backgroundSprite]);
+    }
 }

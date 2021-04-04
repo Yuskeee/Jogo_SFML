@@ -53,6 +53,7 @@ public:
     fontID loadFont(const char* file);
     textID createText(fontID baseFont, const char* text, int size);//cria um texto baseado em uma fonte, retorna seu id
     void setTextPos(textID text, float x, float y);
+    void setTextColor(textID text, int red, int green, int blue, int alpha);
     void drawText(textID text);//desenha o texto na tela
     
 

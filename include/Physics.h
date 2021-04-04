@@ -9,8 +9,8 @@ namespace World{
 class Physics{
 
 private:
-    const float gravity = 120;
-    const float maxVertVel = 250;
+    const float gravity = 210;
+    const float maxVertVel = 300;
 
     Map* pMap;//ponteiro para o mapa (alocado em Level)
     std::vector<Entities::Entity*>* bodies;//ponteiro para o vetor de entidades (alocado em Level)

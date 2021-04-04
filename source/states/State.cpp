@@ -1,4 +1,4 @@
-#include "State.h"
+#include "states/State.h"
 
 using namespace SM;
 //State-------------------------------------------------------
@@ -37,10 +37,10 @@ void StateMachine::addState(State* state){
     states.push_back(state);
 }
 
-void StateMachine::changeState(stateID nextStateID){
+void StateMachine::changeState(stateID nextStateID, void* arg){
     states[currentStateID]->exit();
     currentStateID = nextStateID;
-    states[currentStateID]->enter();
+    states[currentStateID]->enter(arg);
 
 }
 

@@ -3,7 +3,7 @@
 
 #include "Graphics.h"
 #include "Events.h"
-#include "GameStateMachine.h"
+#include "states/GameStateMachine.h"
 
 #define WINDOW_HEIGHT   480
 #define WINDOW_WIDTH    640
