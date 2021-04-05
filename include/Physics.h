@@ -10,7 +10,7 @@ namespace World{
 class Physics{ 
 
 private:
-    const float gravity = 210;
+    const float gravity = 1050/*210*/;
     const float maxVertVel = 300;
 
     Map* pMap;//ponteiro para o mapa (alocado em Level)
