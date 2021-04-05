@@ -76,7 +76,7 @@ private:
 private:
     const float acceleration = 5;
     const float velMax = 60;
-    const float jumpVel = 150;
+    const float jumpVel = 300/*150*/;
 
     SM::StateMachine *PlayerSM;
     Managers::Graphics* pGraphicsManager;
