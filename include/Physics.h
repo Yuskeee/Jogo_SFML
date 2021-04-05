@@ -7,7 +7,7 @@
 
 namespace World{
 
-class Physics{
+class Physics{ 
 
 private:
     const float gravity = 210;
