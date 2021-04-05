@@ -3,6 +3,7 @@
 
 #include "Map.h"
 #include "Entity.h"
+#include "List.h"
 
 namespace World{
 
@@ -13,7 +14,7 @@ private:
     const float maxVertVel = 300;
 
     Map* pMap;//ponteiro para o mapa (alocado em Level)
-    std::vector<Entities::Entity*>* bodies;//ponteiro para o vetor de entidades (alocado em Level)
+    List<Entities::Entity*>* bodies;//ponteiro para o vetor de entidades (alocado em Level)
 
     float getOffsetY(Entities::Entity* ent);//calcula quanto uma entidade entrou verticalmente em um bloco solido do mapa
     float getOffsetX(Entities::Entity* ent);//calcula quanto uma entidade entrou verticalmente em um bloco solido do mapa
