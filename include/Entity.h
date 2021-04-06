@@ -12,8 +12,8 @@ namespace Entities{
 class Entity: public virtual Being{
 protected:
 
-    int vidas;
-    bool vulnerabilidade;
+    int lives;
+    bool vulnerability;
 
     //StateMachine gameStateMachine;
     Managers::textureID idTextura;

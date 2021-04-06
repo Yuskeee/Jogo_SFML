@@ -68,7 +68,6 @@ bool Physics::checkBodyCollision(Body* a, Body* b){
 }
 
 void Physics::collideMap(){
-    printf("colliding with map\n");
     float offsetX, offsetY;//quanto uma entidade sobrepos um bloco solido em cada eixo
     float bdVelX, bdVelY;//velocidade da entidade na ultima atualizacao
     Body* bd;//ponteiro para a entidade
@@ -84,7 +83,6 @@ void Physics::collideMap(){
 
         if(offsetX == 0.0f && offsetY == 0.0f){
             //nao houve colisao
-            printf("nocol\n");
         }
         //se o offset vertical for menor que o horizontal, provavelmente ocorreu uma colisao em Y
         else if(offsetY*offsetY < offsetX*offsetX){
@@ -121,7 +119,6 @@ void Physics::collideMap(){
 }
 
 void Physics::collideBodies(){
-    printf("colliding bodies\n");
     Body *a, *b;
     for(int i = bodies.size()-1; i >= 0; i--){
         for(int j = i + i; j >= 0; j--)
@@ -138,7 +135,6 @@ void Physics::collideBodies(){
 }
 
 void Physics::applyGravity(float dt){
-    printf("applying grav\n");
     for(int i = bodies.size()-1; i >= 0; i--){
         if(bodies[i]->getVel().y < maxVertVel)
             bodies[i]->setVel(sf::Vector2f(bodies[i]->getVel().x, bodies[i]->getVel().y + gravity*dt));

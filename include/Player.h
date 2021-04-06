@@ -10,6 +10,7 @@ namespace Entities{
 
 #define DEFAULT   0, 0,  16, 20
 #define JUMP     64, 0,  16, 20
+#define JUMP_L   80, 0, -16, 20
 #define WALK_R1 144, 0,  16, 20
 #define WALK_R2 160, 0,  16, 20
 #define WALK_L1 160, 0, -16, 20
@@ -76,14 +77,14 @@ private:
 private:
     const float acceleration = 5;
     const float velMax = 60;
-    const float jumpVel = 150;
+    const float jumpVel = 300/*150*/;
 
     SM::StateMachine *PlayerSM;
     Managers::Graphics* pGraphicsManager;
 
 public:
 
-    Player(Managers::Graphics* pGraphicsManager = NULL, sf::Vector2<float> pos = {0.0f, 0.0f}, sf::Vector2<float> vel = {0.0f, 0.0f}, sf::Vector2<float> rect = {0.0f, 0.0f}, Managers::textureID idT = -1, Managers::spriteID idS = -1);
+    Player(Managers::Graphics* pGraphicsManager = NULL, const sf::Vector2<float>& pos = {0.0f, 0.0f}, const sf::Vector2<float>& vel = {0.0f, 0.0f}, const sf::Vector2<float>& rect = {0.0f, 0.0f}, Managers::textureID idT = -1, Managers::spriteID idS = -1);
     virtual ~Player();
 
     virtual void update(float dt, Managers::Events* pEventsManager);

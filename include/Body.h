@@ -9,7 +9,7 @@ protected:
 
     enum bodyType{
         player,
-        //inimigo1,
+        enemy,
         //inimigo2,
         //projetil,
         nBodyTypes

@@ -3,9 +3,7 @@
 using namespace Entities;
 
 Entity::Entity(Managers::Graphics* pGraphicsManager, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel, Managers::textureID idT, Managers::spriteID idS):
-Being(pos, vel), vulnerabilidade(), idTextura(idT), idSprite(idS), frame(0, 0, 0, 0){
-    printf("creating entity %f, %f\n", pos.x, pos.y);
-
+Being(pos, vel), lives(0), vulnerability(), idTextura(idT), idSprite(idS), frame(0, 0, 0, 0){
 }
 
 Entity::~Entity(){

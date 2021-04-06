@@ -4,6 +4,7 @@
 #include <vector>
 #include "Graphics.h"
 #include "Events.h"
+#include "List.h"
 
 namespace SM{
 
@@ -34,7 +35,7 @@ public:
 class StateMachine{
 
 protected:
-    std::vector<State*> states;
+    List<State*> states;
     stateID currentStateID;
 
 public:

@@ -3,17 +3,18 @@
 
 #include "Map.h"
 #include "Body.h"
+#include "List.h"
 
 namespace World{
 
-class Physics{
+class Physics{ 
 
 private:
-    const float gravity = 210;
+    const float gravity = 1050/*210*/;
     const float maxVertVel = 300;
 
     Map* pMap;//ponteiro para o mapa (alocado em Level)
-    std::vector<Body*> bodies;//vetor de ponteiros de corpos
+    List<Body*> bodies;//ponteiro para o vetor de entidades (alocado em Level)
 
     float getOffsetY(Body* bd);//calcula quanto uma corpo entrou verticalmente em um bloco solido do mapa
     float getOffsetX(Body* bd);//calcula quanto uma corpo entrou verticalmente em um bloco solido do mapa

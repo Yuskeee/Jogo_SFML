@@ -17,7 +17,7 @@ void Player::PlayerJumpState::update(float dt, Managers::Events* pEventsManager)
     if(p){
         if(p->vel.y*p->vel.y > 0.5)
             p->isGrounded = false;
-        if(p->isGrounded){//se espaco foi pressionado e o jogador esta no chao
+        if(p->vel.y > 0){//jogador comeca a cair
             pStateMachine->changeState(PlayerRestStateID, NULL); //ESTADO PARADO
             p->vel.x = 0;
 
@@ -116,7 +116,7 @@ void Player::PlayerWalkState::update(float dt, Managers::Events* pEventsManager)
                 p->vel.y -= p->jumpVel;
 
                 //muda o retangulo do sprite
-                p->frame = Managers::spriteRect(JUMP);
+                p->frame = (p->vel.y > 0) ? Managers::spriteRect(JUMP): Managers::spriteRect(JUMP_L);
             }
         }
     }
@@ -143,7 +143,7 @@ Player::PlayerStateMachine::~PlayerStateMachine(){
 
 //Player----------------------------
 
-Player::Player(Managers::Graphics* pGraphicsManager, sf::Vector2<float> pos, sf::Vector2<float> vel, sf::Vector2<float> rect, Managers::textureID idT, Managers::spriteID idS):
+Player::Player(Managers::Graphics* pGraphicsManager, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel, const sf::Vector2<float>& rect, Managers::textureID idT, Managers::spriteID idS):
 Entity(pGraphicsManager, pos, vel, idT, idS), Body(player, pos, vel, rect), Being(pos, vel){
 
     this->pGraphicsManager = pGraphicsManager;

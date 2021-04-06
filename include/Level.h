@@ -1,14 +1,14 @@
 #ifndef _LEVEL_H
 #define _LEVEL_H
 
-#include <vector>
-#include <fstream>
+#include <fstream> 
 
 #include "Graphics.h"
 #include "Entity.h"
 #include "Player.h"
 #include "Map.h"
 #include "Physics.h"
+#include "List.h"
 
 namespace World{
 
@@ -29,7 +29,7 @@ private:
     };
 
     Managers::Graphics* pGraphicsManager;
-    std::vector<Entities::Entity*> entities;
+    List<Entities::Entity*> entities;
     Map map;
     Physics LevelPhysics;
 

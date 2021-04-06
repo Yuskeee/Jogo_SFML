@@ -2,7 +2,7 @@
 #define _GRAPHICS_H
 
 #include <SFML/Graphics.hpp>
-#include <vector>
+#include "List.h"
 
 namespace Managers{
 
@@ -24,10 +24,10 @@ private:
     //cria a janela com estilo padrao 
     void createWindow(int screenWidth, int screenHeight, const char* windowName);
 
-    std::vector<sf::Texture*> textures;//lista de texturas carregadas
-    std::vector<sf::Sprite*> sprites;//lista de sprites criados
-    std::vector<sf::Font*> fonts;//lista de fontes carregadas
-    std::vector<sf::Text*> texts;//lista de textos criados
+    List<sf::Texture*> textures;//lista de texturas carregadas
+    List<sf::Sprite*> sprites;//lista de sprites criados
+    List<sf::Font*> fonts;//lista de fontes carregadas
+    List<sf::Text*> texts;//lista de textos criados
 
     spriteID backgroundSprite;//id do sprite selecionado como fundo
 
