@@ -116,7 +116,7 @@ void Player::PlayerWalkState::update(float dt, Managers::Events* pEventsManager)
                 p->vel.y -= p->jumpVel;
 
                 //muda o retangulo do sprite
-                p->frame = (p->vel.y > 0) ? Managers::spriteRect(JUMP): Managers::spriteRect(JUMP_L);
+                p->frame = (p->vel.x > 0) ? Managers::spriteRect(JUMP): Managers::spriteRect(JUMP_L);
             }
         }
     }
