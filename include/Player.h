@@ -2,6 +2,7 @@
 #define _PLAYER_H
 
 #include "Entity.h"
+#include "Body.h"
 #include "states/State.h"
 #include <iostream>
 
@@ -14,7 +15,7 @@ namespace Entities{
 #define WALK_L1 160, 0, -16, 20
 #define WALK_L2 176, 0, -16, 20
 
-class Player: public Entity{
+class Player: public Entity, public Body{
 private:
     enum PlayerStates{
         PlayerJumpStateID,

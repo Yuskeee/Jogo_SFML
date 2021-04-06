@@ -2,7 +2,7 @@
 #define _PHYSICS_H
 
 #include "Map.h"
-#include "Entity.h"
+#include "Body.h"
 
 namespace World{
 
@@ -13,21 +13,23 @@ private:
     const float maxVertVel = 300;
 
     Map* pMap;//ponteiro para o mapa (alocado em Level)
-    std::vector<Entities::Entity*>* bodies;//ponteiro para o vetor de entidades (alocado em Level)
+    std::vector<Body*> bodies;//vetor de ponteiros de corpos
 
-    float getOffsetY(Entities::Entity* ent);//calcula quanto uma entidade entrou verticalmente em um bloco solido do mapa
-    float getOffsetX(Entities::Entity* ent);//calcula quanto uma entidade entrou verticalmente em um bloco solido do mapa
+    float getOffsetY(Body* bd);//calcula quanto uma corpo entrou verticalmente em um bloco solido do mapa
+    float getOffsetX(Body* bd);//calcula quanto uma corpo entrou verticalmente em um bloco solido do mapa
 
-    bool checkEntityCollision(Entities::Entity* a, Entities::Entity* b);
+    bool checkBodyCollision(Body* a, Body* b);
 
 public:
-    Physics(Map* pMap = NULL, std::vector<Entities::Entity*>* bodies = NULL);
+    Physics(Map* pMap = NULL);
     ~Physics();
 
-    void collideMap();//colide todas as entidades com o mapa
-    void collideEntities();//colide todas as entidades entre si
+    void collideMap();//colide todas as corpos com o mapa
+    void collideBodies();//colide todas as corpos entre si
 
     void applyGravity(float dt);
+
+    void addBody(Body* bd);
 
 };
 }

@@ -2,8 +2,9 @@
 
 using namespace Entities;
 
-Entity::Entity(Managers::Graphics* pGraphicsManager, sf::Vector2<float> pos, sf::Vector2<float> vel, sf::Vector2<float> rect, Managers::textureID idT, Managers::spriteID idS):
-pos(pos), vel(vel), rect(rect), vulnerabilidade(), idTextura(idT), idSprite(idS), frame(0, 0, 0, 0){
+Entity::Entity(Managers::Graphics* pGraphicsManager, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel, Managers::textureID idT, Managers::spriteID idS):
+Being(pos, vel), vulnerabilidade(), idTextura(idT), idSprite(idS), frame(0, 0, 0, 0){
+    printf("creating entity %f, %f\n", pos.x, pos.y);
 
 }
 
@@ -15,26 +16,3 @@ void Entity::draw(Managers::Graphics* pGraphicsManager){
     pGraphicsManager->drawSprite(idSprite);
 }
 
-void Entity::setPos(sf::Vector2<float> pos){
-    this->pos = pos;
-}
-
-void Entity::setVel(sf::Vector2<float> vel){
-    this->vel = vel;
-}
-
-void Entity::setGrounded(bool isGrounded){
-    this->isGrounded = isGrounded;
-}
-
-const sf::Vector2<float> Entity::getPos() const{
-return pos;
-}
-
-const sf::Vector2<float> Entity::getVel() const{
-return vel;
-}
-
-const sf::Vector2<float> Entity::getRect() const{
-return rect;
-}

@@ -144,11 +144,9 @@ Player::PlayerStateMachine::~PlayerStateMachine(){
 //Player----------------------------
 
 Player::Player(Managers::Graphics* pGraphicsManager, sf::Vector2<float> pos, sf::Vector2<float> vel, sf::Vector2<float> rect, Managers::textureID idT, Managers::spriteID idS):
-Entity(pGraphicsManager, pos, vel, rect, idT, idS){
+Entity(pGraphicsManager, pos, vel, idT, idS), Body(player, pos, vel, rect), Being(pos, vel){
 
     this->pGraphicsManager = pGraphicsManager;
-
-    type = player;
 
     if(pGraphicsManager){
         idTextura = pGraphicsManager->loadTexture("../assets/green_alien.png");
