@@ -96,8 +96,9 @@ void Physics::collideMap(){
                 bd->setVel(sf::Vector2f(0.0f, bdVelY));//de qualquer forma nesse ponto, ocorreu uma colisao em X, zera a velocidade nesse eixo
             }
             if(offsetY){
-               bd->setVel(sf::Vector2f(bdVelX, 0.0f));//se ocorreu colisao em Y zera a velocidade nesse eixo
-               bd->setGrounded(true);//a entidade esta no chao
+                bd->setVel(sf::Vector2f(bdVelX, 0.0f));//se ocorreu colisao em Y zera a velocidade nesse eixo
+                if(offsetY > 0)
+                    bd->setGrounded(true);//a entidade esta no chao
             } 
         }
         else{//caso contrario, é mais provavel uma colisao em X
@@ -109,7 +110,8 @@ void Physics::collideMap(){
                 offsetX = getOffsetX(bd);//se X agora nao esta mais sobreposto mesmo com a correcao anulada, signfica que a colisao era apenas em Y
                 bd->setPos(sf::Vector2f(bd->getPos().x - offsetX, bd->getPos().y));//se X voltou a ficar sobreposto apos Y ter sido corrigido, a colisao era em X e Y. Refaz a correcao de X
                 bd->setVel(sf::Vector2f(bdVelX, 0.0f));//de qualquer forma nesse ponto, ocorreu uma colisao em Y, zera a velocidade nesse eixo
-                bd->setGrounded(true);//a entidade esta no chao
+                if(offsetY > 0)
+                    bd->setGrounded(true);//a entidade esta no chao
             }
             if(offsetX)
                bd->setVel(sf::Vector2f(0.0f, bdVelY));//se ocorreu colisao em X zera a velocidade nesse eixo 

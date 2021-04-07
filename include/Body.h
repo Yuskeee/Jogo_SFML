@@ -33,6 +33,7 @@ public:
     void setGrounded(const bool& isGrounded);
 
     const sf::Vector2<float> getRect() const;
+    const bool getGrounded() const;
 
 };
 

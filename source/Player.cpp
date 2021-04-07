@@ -13,11 +13,31 @@ Player::PlayerJumpState::~PlayerJumpState(){
 
 }
 
+void Player::PlayerJumpState::enter(void* arg){
+    std::cout << "JUMP\n";
+    double_jump = *((const bool*)arg);
+    p->vel.y = -p->jumpVel;
+}
+
 void Player::PlayerJumpState::update(float dt, Managers::Events* pEventsManager){
     if(p){
-        if(p->vel.y*p->vel.y > 0.5)
-            p->isGrounded = false;
-        if(p->vel.y > 0){//jogador comeca a cair
+
+        if(pEventsManager->keyDown(Managers::Events::keycode::D)){ //DIREITA
+            //atualiza velocidades
+            p->vel.x += p->airAcceleration;
+            if(p->vel.x > p->velMax)
+                p->vel.x = p->velMax;
+        }
+
+        if(pEventsManager->keyDown(Managers::Events::keycode::A)){ //ESQUERDA
+            //atualiza velocidades
+            p->vel.x -= p->airAcceleration;
+            if(p->vel.x < -p->velMax)
+                p->vel.x = -p->velMax;
+        }
+        p->frame = p->vel.x > 0 ? Managers::spriteRect(JUMP): Managers::spriteRect(JUMP_L);
+
+        if(p->getGrounded()){//jogador atingiu o chao
             pStateMachine->changeState(PlayerRestStateID, NULL); //ESTADO PARADO
             p->vel.x = 0;
 
@@ -26,8 +46,7 @@ void Player::PlayerJumpState::update(float dt, Managers::Events* pEventsManager)
         }
         if(double_jump){ //PULO DUPLO
             if(pEventsManager->keyPressed(Managers::Events::keycode::Space)){
-                p->vel.y -= p->jumpVel;
-                double_jump = false;
+                pStateMachine->changeState(PlayerJumpStateID, (void*)(&(const bool&)false));//chama o pulo sem possibilidade de double jump
             }
         }
     }
@@ -48,12 +67,18 @@ Player::PlayerRestState::~PlayerRestState(){
 
 void Player::PlayerRestState::update(float dt, Managers::Events* pEventsManager){
     if(p){
+        if(p->vel.y*p->vel.y > 5.0f)
+            p->setGrounded(false);
+
         if(pEventsManager->keyPressed(Managers::Events::keycode::Space)){
             if(p->isGrounded){
-                //atualiza velocidades
-                pStateMachine->changeState(PlayerJumpStateID, NULL);
-                p->vel.y -= p->jumpVel;
-
+                p->setGrounded(false);
+                pStateMachine->changeState(PlayerJumpStateID, (void*)(&(const bool&)true));//chama o pulo com possibilidade de double jump
+                //muda o retangulo do sprite
+                p->frame = Managers::spriteRect(JUMP);
+            }
+            else{
+                pStateMachine->changeState(PlayerJumpStateID, (void*)(&(const bool&)false));//chama o pulo sem possibilidade de double jump
                 //muda o retangulo do sprite
                 p->frame = Managers::spriteRect(JUMP);
             }
@@ -80,9 +105,11 @@ Player::PlayerWalkState::~PlayerWalkState(){
 
 void Player::PlayerWalkState::update(float dt, Managers::Events* pEventsManager){
     if(p){
+        if(p->vel.y*p->vel.y > 5.0f)
+            p->setGrounded(false);
         if(pEventsManager->keyDown(Managers::Events::keycode::D)){ //DIREITA
             //atualiza velocidades
-            p->vel.x += p->acceleration;
+            p->vel.x += p->groundAcceleration;
             if(p->vel.x > p->velMax)
                 p->vel.x = p->velMax;
 
@@ -93,7 +120,7 @@ void Player::PlayerWalkState::update(float dt, Managers::Events* pEventsManager)
 
         if(pEventsManager->keyDown(Managers::Events::keycode::A)){ //ESQUERDA
             //atualiza velocidades
-            p->vel.x -= p->acceleration;
+            p->vel.x -= p->groundAcceleration;
             if(p->vel.x < -p->velMax)
                 p->vel.x = -p->velMax;
 
@@ -112,8 +139,14 @@ void Player::PlayerWalkState::update(float dt, Managers::Events* pEventsManager)
         //ESTADO PULO
         if(pEventsManager->keyPressed(Managers::Events::keycode::Space)){
             if(p->isGrounded){
-                pStateMachine->changeState(PlayerJumpStateID, NULL);
-                p->vel.y -= p->jumpVel;
+                p->setGrounded(false);
+                pStateMachine->changeState(PlayerJumpStateID, (void*)&(const bool&)true);//chama o pulo com possibilidade de pulo duplo
+
+                //muda o retangulo do sprite
+                p->frame = (p->vel.x > 0) ? Managers::spriteRect(JUMP): Managers::spriteRect(JUMP_L);
+            }
+            else{
+                pStateMachine->changeState(PlayerJumpStateID, (void*)&(const bool&)false);//chama o pulo sem possibilidade de pulo duplo
 
                 //muda o retangulo do sprite
                 p->frame = (p->vel.x > 0) ? Managers::spriteRect(JUMP): Managers::spriteRect(JUMP_L);
@@ -149,10 +182,8 @@ Entity(pGraphicsManager, pos, vel, idT, idS), Body(player, pos, vel, rect), Bein
     this->pGraphicsManager = pGraphicsManager;
 
     if(pGraphicsManager){
-        idTextura = pGraphicsManager->loadTexture("../assets/green_alien.png");
-        idSprite = pGraphicsManager->createSprite(idTextura);
         frame = Managers::spriteRect(DEFAULT);
-        pGraphicsManager->setSpriteRect(idSprite, frame);
+        pGraphicsManager->setSpriteRect(idS, frame);
 
         PlayerSM = new PlayerStateMachine(this);
     }

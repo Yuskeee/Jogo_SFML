@@ -27,3 +27,7 @@ void Body::setGrounded(const bool& isGrounded){
 const sf::Vector2<float> Body::getRect() const{
     return rect;
 }
+
+const bool Body::getGrounded() const{
+    return isGrounded;
+}

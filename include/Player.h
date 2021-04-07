@@ -16,7 +16,10 @@ namespace Entities{
 #define WALK_L1 160, 0, -16, 20
 #define WALK_L2 176, 0, -16, 20
 
+#define PLAYER_TEXTURE_FILE   "../assets/green_alien.png"
+
 class Player: public Entity, public Body{
+
 private:
     enum PlayerStates{
         PlayerJumpStateID,
@@ -33,7 +36,7 @@ private:
         PlayerJumpState(SM::StateMachine* pStateMachine = NULL, Player *p = NULL);
         ~PlayerJumpState();
 
-        void enter(void* arg){std::cout << "JUMP\n"; double_jump = true;}
+        void enter(void* arg);
 
         void update(float dt, Managers::Events* pEventsManager);
         void render(Managers::Graphics* pGraphicsManager);
@@ -75,8 +78,9 @@ private:
     };
 
 private:
-    const float acceleration = 5;
-    const float velMax = 60;
+    const float groundAcceleration = 9;
+    const float airAcceleration = 0.5;
+    const float velMax = 100;
     const float jumpVel = 300/*150*/;
 
     SM::StateMachine *PlayerSM;
