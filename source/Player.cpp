@@ -115,7 +115,12 @@ void Player::PlayerWalkState::update(float dt, Managers::Events* pEventsManager)
 
             //muda o retangulo do sprite
             p->frame = (nRect) ? Managers::spriteRect(WALK_R1): Managers::spriteRect(WALK_R2);
-            nRect = !nRect;
+            
+            frameTime += dt;
+            if(frameTime > WALK_ANIMATION_FRAME_TIME){
+                frameTime = 0;
+                nRect = !nRect;
+            }
         }
 
         if(pEventsManager->keyDown(Managers::Events::keycode::A)){ //ESQUERDA
@@ -126,7 +131,11 @@ void Player::PlayerWalkState::update(float dt, Managers::Events* pEventsManager)
 
             //muda o retangulo do sprite
             p->frame = (nRect) ? Managers::spriteRect(WALK_L1): Managers::spriteRect(WALK_L2);
-            nRect = !nRect;
+            frameTime += dt;
+            if(frameTime > WALK_ANIMATION_FRAME_TIME){
+                frameTime = 0;
+                nRect = !nRect;
+            }
         }
 
         //ESTADO PARADO

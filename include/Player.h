@@ -16,6 +16,8 @@ namespace Entities{
 #define WALK_L1 160, 0, -16, 20
 #define WALK_L2 176, 0, -16, 20
 
+#define WALK_ANIMATION_FRAME_TIME 0.1
+
 #define PLAYER_TEXTURE_FILE   "../assets/green_alien.png"
 
 class Player: public Entity, public Body{
@@ -57,11 +59,12 @@ private:
     private:
         Player *p;
         bool nRect;
+        float frameTime;
     public:
         PlayerWalkState(SM::StateMachine* pStateMachine = NULL, Player *p = NULL);
         ~PlayerWalkState();
 
-        void enter(void* arg){std::cout << "WALK\n"; nRect = false;}
+        void enter(void* arg){std::cout << "WALK\n"; nRect = false; frameTime = 0.0f;}
 
         void update(float dt, Managers::Events* pEventsManager);
         void render(Managers::Graphics* pGraphicsManager);
