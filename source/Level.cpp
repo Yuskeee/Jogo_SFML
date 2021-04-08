@@ -17,26 +17,31 @@ void Level::update(float dt, Managers::Events* pEvents){
         entities[i]->update(dt, pEvents);
     LevelPhysics.applyGravity(dt);
     LevelPhysics.collideMap();
-    LevelPhysics.collideBodies();
+    //LevelPhysics.collideBodies();
 }
 
 void Level::render(){
     map.draw(pGraphicsManager);
     for(int i = 0; i < entities.size(); i++)
         entities[i]->draw(pGraphicsManager);
-    
+
 }
 
 void Level::startLevel(int n){
     loadMap(levelMapFiles[n]);
     //addEntity<Entities::Player>(sf::Vector2f(20, 20), sf::Vector2f(0, 0), sf::Vector2f(16, 20));
-    Managers::textureID PlayerTexture = pGraphicsManager->loadTexture(PLAYER_TEXTURE_FILE);
-    Managers::spriteID Player1Sprite = pGraphicsManager->createSprite(PlayerTexture);
-    Entities::Player* p1 = new Entities::Player(pGraphicsManager, sf::Vector2f(20, 20), sf::Vector2f(0, 0), sf::Vector2f(16, 20), PlayerTexture, Player1Sprite);
-    
+    Managers::textureID Player1Texture = pGraphicsManager->loadTexture(PLAYER_TEXTURE_FILE);
+    Managers::textureID Player2Texture = pGraphicsManager->loadTexture(PLAYER_TEXTURE_FILE);
+    Managers::spriteID Player1Sprite = pGraphicsManager->createSprite(Player1Texture);
+    Managers::spriteID Player2Sprite = pGraphicsManager->createSprite(Player2Texture);
+    Entities::Player* p1 = new Entities::Player(pGraphicsManager, sf::Vector2f(20, 20), sf::Vector2f(0, 0), sf::Vector2f(16, 20), Player1Texture, Player1Sprite);
+    Entities::Player* p2 = new Entities::Player(pGraphicsManager, sf::Vector2f(50, 20), sf::Vector2f(0, 0), sf::Vector2f(16, 20), Player2Texture, Player2Sprite);
+
     entities.push_back(static_cast<Entities::Entity*>(p1));//adiciona o player na lista de entidades da fase
     LevelPhysics.addBody(static_cast<Body*>(p1));//adiciona o player na lista de corpos da fisica
-    
+    entities.push_back(static_cast<Entities::Entity*>(p2));//adiciona o player na lista de entidades da fase
+    LevelPhysics.addBody(static_cast<Body*>(p2));//adiciona o player na lista de corpos da fisica
+
 
 }
 
