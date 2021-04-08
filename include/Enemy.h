@@ -12,6 +12,7 @@ protected:
     static const Player *p1, *p2; //conhece 1(ou 2) jogadores estaticamente
     const float acceleration;
     const float velMax;
+    const Player* target;
 
 public:
     Enemy(Managers::Graphics* pGraphicsManager = NULL, const sf::Vector2<float>& pos = {0.0f, 0.0f}, const sf::Vector2<float>& vel = {0.0f, 0.0f}, const sf::Vector2<float>& rect = {0.0f, 0.0f}, Managers::textureID idT = -1, Managers::spriteID idS = -1, const float accel = 0, const float mVel = 0);
@@ -21,9 +22,13 @@ public:
 
     virtual void update(float dt, Managers::Events* pEventsManager) = 0;
     virtual void attack() = 0;
-    virtual void onCollide(Entity* other) = 0;
+    virtual void onCollide(Body* other) = 0;
+
+    void setTarget();
 
     static void setPlayers(const Player *p1, const Player *p2 = NULL);
+
+    const Player* getTarget();
 
     static const Player* getP1();
     static const Player* getP2();

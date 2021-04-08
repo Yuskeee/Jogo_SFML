@@ -6,6 +6,7 @@
 #include "Graphics.h"
 #include "Entity.h"
 #include "Player.h"
+#include "Zombie.h"
 #include "Map.h"
 #include "Physics.h"
 #include "List.h"

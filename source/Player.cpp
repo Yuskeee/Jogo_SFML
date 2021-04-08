@@ -1,7 +1,5 @@
 #include "Player.h"
 
-#include "Entity.h"
-
 using namespace Entities;
 
 //PlayerJumpState-------------------
@@ -15,7 +13,7 @@ Player::PlayerJumpState::~PlayerJumpState(){
 
 void Player::PlayerJumpState::enter(void* arg){
     std::cout << "JUMP\n";
-    double_jump = *((const bool*)arg);
+    double_jump = (bool&&)arg;
     p->vel.y = -p->jumpVel;
 }
 
@@ -46,7 +44,7 @@ void Player::PlayerJumpState::update(float dt, Managers::Events* pEventsManager)
         }
         if(double_jump){ //PULO DUPLO
             if(pEventsManager->keyPressed(Managers::Events::keycode::Space)){
-                pStateMachine->changeState(PlayerJumpStateID, (void*)(&(const bool&)false));//chama o pulo sem possibilidade de double jump
+                pStateMachine->changeState(PlayerJumpStateID, (void*)(bool&&)false);//chama o pulo sem possibilidade de double jump
             }
         }
     }
@@ -73,12 +71,12 @@ void Player::PlayerRestState::update(float dt, Managers::Events* pEventsManager)
         if(pEventsManager->keyPressed(Managers::Events::keycode::Space)){
             if(p->isGrounded){
                 p->setGrounded(false);
-                pStateMachine->changeState(PlayerJumpStateID, (void*)(&(const bool&)true));//chama o pulo com possibilidade de double jump
+                pStateMachine->changeState(PlayerJumpStateID, (void*)(bool&&)true);//chama o pulo com possibilidade de double jump
                 //muda o retangulo do sprite
                 p->frame = Managers::spriteRect(JUMP);
             }
             else{
-                pStateMachine->changeState(PlayerJumpStateID, (void*)(&(const bool&)false));//chama o pulo sem possibilidade de double jump
+                pStateMachine->changeState(PlayerJumpStateID, (void*)(bool&&)false);//chama o pulo sem possibilidade de double jump
                 //muda o retangulo do sprite
                 p->frame = Managers::spriteRect(JUMP);
             }
@@ -149,13 +147,13 @@ void Player::PlayerWalkState::update(float dt, Managers::Events* pEventsManager)
         if(pEventsManager->keyPressed(Managers::Events::keycode::Space)){
             if(p->isGrounded){
                 p->setGrounded(false);
-                pStateMachine->changeState(PlayerJumpStateID, (void*)&(const bool&)true);//chama o pulo com possibilidade de pulo duplo
+                pStateMachine->changeState(PlayerJumpStateID, (void*)(bool&&)true);//chama o pulo com possibilidade de pulo duplo
 
                 //muda o retangulo do sprite
                 p->frame = (p->vel.x > 0) ? Managers::spriteRect(JUMP): Managers::spriteRect(JUMP_L);
             }
             else{
-                pStateMachine->changeState(PlayerJumpStateID, (void*)&(const bool&)false);//chama o pulo sem possibilidade de pulo duplo
+                pStateMachine->changeState(PlayerJumpStateID, (void*)(bool&&)false);//chama o pulo sem possibilidade de pulo duplo
 
                 //muda o retangulo do sprite
                 p->frame = (p->vel.x > 0) ? Managers::spriteRect(JUMP): Managers::spriteRect(JUMP_L);

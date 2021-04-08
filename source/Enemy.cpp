@@ -18,9 +18,26 @@ void Enemy::loseLife(const int damage){
 	lives -= damage;
 }
 
+void Enemy::setTarget(){
+
+    if(p1){
+        if(!p2)
+            target = p1;
+        else{
+            float distanceTo1 = ((p1->getPos()- pos).x*(p1->getPos()- pos).x) + ((p1->getPos()- pos).y*(p1->getPos()- pos).y);
+            float distanceTo2 = ((p2->getPos()- pos).x*(p2->getPos()- pos).x) + ((p2->getPos()- pos).y*(p2->getPos()- pos).y);
+            target = (distanceTo1 >= distanceTo2) ? p1 : p2;
+        }
+    }
+}
+
 void Enemy::setPlayers(const Player *p1, const Player *p2){
     Enemy::p1 = p1;
     Enemy::p2 = p2;
+}
+
+const Player* Enemy::getTarget(){
+    return target;
 }
 
 const Player* Enemy::getP1(){
@@ -30,3 +47,4 @@ const Player* Enemy::getP1(){
 const Player* Enemy::getP2(){
     return p2;
 }
+

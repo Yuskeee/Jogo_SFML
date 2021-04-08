@@ -123,7 +123,7 @@ void Physics::collideMap(){
 void Physics::collideBodies(){
     Body *a, *b;
     for(int i = bodies.size()-1; i >= 0; i--){
-        for(int j = i + i; j >= 0; j--)
+        for(int j = i - 1; j >= 0; j--)
         {
             a = bodies[i];
             b = bodies[j];
