@@ -71,7 +71,6 @@ private:
     };
     /*
     class PlayerFireState: public State{
-
     };
     */
     class PlayerStateMachine: public SM::StateMachine{
@@ -81,6 +80,8 @@ private:
     };
 
 private:
+    static bool player1;
+
     const float groundAcceleration = 9;
     const float airAcceleration = 0.5;
     const float velMax = 100;
@@ -88,6 +89,11 @@ private:
 
     SM::StateMachine *PlayerSM;
     Managers::Graphics* pGraphicsManager;
+
+    Managers::Events::keycode _leftKey;
+    Managers::Events::keycode _rightKey;
+    Managers::Events::keycode _jumpKey;
+    //Managers::Events::keycode _fireKey;
 
 public:
 
@@ -97,6 +103,9 @@ public:
     virtual void update(float dt, Managers::Events* pEventsManager);
     virtual void onCollide(Entity* other);
 
+private:
+
+    void loadControl();
 
 };
 }

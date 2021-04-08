@@ -8,7 +8,8 @@ class Body: public virtual Being{
 protected:
 
     enum bodyType{
-        player,
+        player_1,
+        player_2,
         enemy,
         //inimigo2,
         //projetil,
@@ -24,7 +25,7 @@ protected:
 
 public:
 
-    Body(bodyType type = player, const sf::Vector2<float>& pos = {0.0f, 0.0f}, const sf::Vector2<float>& vel = {0.0f, 0.0f}, const sf::Vector2<float>& rect = {0.0f, 0.0f}, bool isGrounded = false);
+    Body(bodyType type = player_1, const sf::Vector2<float>& pos = {0.0f, 0.0f}, const sf::Vector2<float>& vel = {0.0f, 0.0f}, const sf::Vector2<float>& rect = {0.0f, 0.0f}, bool isGrounded = false);
     ~Body();
 
     void onCollide(Body* other);
