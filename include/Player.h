@@ -19,6 +19,7 @@ namespace Entities{
 #define WALK_ANIMATION_FRAME_TIME 0.1
 
 #define PLAYER_TEXTURE_FILE   "../assets/green_alien.png"
+#define PLAYER2_TEXTURE_FILE  "../assets/blue_alien.png"
 
 class Player: public Entity, public Body{
 
