@@ -1,4 +1,3 @@
-#include "states/PlayState.h"
 #include "states/GameStateMachine.h"
 
 using namespace GameSM;
@@ -18,9 +17,9 @@ GamePlayState::~GamePlayState(){
 
 void GamePlayState::enter(void* arg){
     printf("Entrando no jogo\n");
-    int* nLevel = static_cast<int*>(arg);
-    printf("loaded level %d", *nLevel);
-    pLevel->startLevel(*nLevel);
+    int* rArgs = static_cast<int*>(arg);
+    printf("loaded level %d", rArgs[levelArg]);
+    pLevel->startLevel(rArgs[levelArg], rArgs[playersArg]);
 }
 
 void GamePlayState::exit(){

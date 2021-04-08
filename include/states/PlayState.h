@@ -1,7 +1,8 @@
 #ifndef _PLAY_STATE_H
 #define _PLAY_STATE_H
 
-#include "states/State.h"
+//nao inclui nada relativo aos estados, esse cabecalho esta dentro de GameStateMachine
+
 #include "Level.h"
 
 namespace GameSM{

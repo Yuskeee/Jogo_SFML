@@ -1,7 +1,7 @@
 #ifndef _MAIN_MENU_STATE_H
 #define _MAIN_MENU_STATE_H
 
-#include "State.h"
+//nao inclui nada relativo aos estados, esse cabecalho esta dentro de GameStateMachine
 
 namespace GameSM{
 
@@ -30,9 +30,6 @@ public:
     virtual void update(float dt, Managers::Events* pEventsManager);
     virtual void render(Managers::Graphics* pGraphicsManager);
 };
-
-
-
 
 }
 

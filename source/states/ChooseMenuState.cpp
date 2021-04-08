@@ -1,4 +1,3 @@
-#include "states/ChooseMenuState.h"
 #include "states/GameStateMachine.h"
 
 using namespace GameSM;
@@ -29,7 +28,7 @@ ChooseMenuState::~ChooseMenuState(){
 
 }
 
-void ChooseMenuState::enter(){
+void ChooseMenuState::enter(void* arg){
     printf("Entrando na selecao\n");
 }
 
@@ -57,17 +56,17 @@ void ChooseMenuState::update(float dt, Managers::Events* pEventsManager){
         switch(selection){
             case 0:
                 level = 0;
-                pStateMachine->changeState(GamePlayStateID, static_cast<void*>(&level));
+                pStateMachine->changeState(PlayerSelectionStateID, static_cast<void*>(&level));
                 break;
             
             case 1:
                 level = 1;
-                pStateMachine->changeState(GamePlayStateID, static_cast<void*>(&level));
+                pStateMachine->changeState(PlayerSelectionStateID, static_cast<void*>(&level));
                 break;
 
             case 2:
                 level = 2;
-                pStateMachine->changeState(GamePlayStateID, static_cast<void*>(&level));
+                pStateMachine->changeState(PlayerSelectionStateID, static_cast<void*>(&level));
                 break;
 
             case 3:

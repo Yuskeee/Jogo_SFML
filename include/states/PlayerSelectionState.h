@@ -1,25 +1,25 @@
-#ifndef _CHOOSE_MENU_STATE_H
-#define _CHOOSE_MENU_STATE_H
+#ifndef _PLAYER_SELECTION_STATE_H
+#define _PLAYER_SELECTION_STATE_H
 
 //nao inclui nada relativo aos estados, esse cabecalho esta dentro de GameStateMachine
 
 namespace GameSM{
 
-class ChooseMenuState:public SM::State{
+class PlayerSelectionState:public SM::State{
 
 private:
 
+    int args[nArgs];
     int selection;
     Managers::textID titleText;
-    Managers::textID level1Text;
-    Managers::textID level2Text;
-    Managers::textID level3Text;
+    Managers::textID singleplayerText;
+    Managers::textID multiplayerText;
     Managers::textID backText;
 
 
 public:
-    ChooseMenuState(SM::StateMachine* pStateMachine = NULL, Managers::Graphics* pGraphicsManager = NULL);
-    ~ChooseMenuState();
+    PlayerSelectionState(SM::StateMachine* pStateMachine = NULL, Managers::Graphics* pGraphicsManager = NULL);
+    ~PlayerSelectionState();
 
     virtual void enter(void* arg);
     virtual void exit();

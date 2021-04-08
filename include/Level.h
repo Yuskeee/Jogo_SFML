@@ -49,7 +49,7 @@ public:
     //    }
     //}
     
-    void startLevel(int n);
+    void startLevel(int n, int players);
     void loadMap(const char* arquivo);
     //void salvar(char* arquivo);
 

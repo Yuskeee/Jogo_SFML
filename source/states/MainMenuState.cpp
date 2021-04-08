@@ -1,6 +1,4 @@
-#include "states/MainMenuState.h"
 #include "states/GameStateMachine.h"
-
 
 using namespace GameSM;
 
@@ -62,7 +60,7 @@ void MainMenuState::update(float dt, Managers::Events* pEventsManager){
         switch(selection){
             case 0:{
                 int level = 0;
-                pStateMachine->changeState(GamePlayStateID, static_cast<void*>(&level));
+                pStateMachine->changeState(PlayerSelectionStateID, static_cast<void*>(&level));
                 break;
             }
             case 1:

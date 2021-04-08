@@ -8,6 +8,8 @@ GameStateMachine::GameStateMachine(Managers::Graphics* pGraphicsManager){
     addState(state);
     state = static_cast<SM::State*>(new ChooseMenuState(static_cast<StateMachine*>(this), pGraphicsManager));
     addState(state);
+    state = static_cast<SM::State*>(new PlayerSelectionState(static_cast<StateMachine*>(this), pGraphicsManager));
+    addState(state);
     state = static_cast<SM::State*>(new GamePlayState(static_cast<StateMachine*>(this), pGraphicsManager));
     addState(state);
     currentStateID = MainMenuStateID;
