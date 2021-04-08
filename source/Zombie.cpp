@@ -90,11 +90,13 @@ void Zombie::ZombieWalkState::update(float dt, Managers::Events* pEventsManager)
         z->setTarget();
         const Player* target = z->getTarget();
 
+        //se o alvo estiver perto e acima
+        //ESTADO PULO
         if(((target->getPos().x - z->pos.x)*(target->getPos().x - z->pos.x) < 1024.0f && target->getPos().y < z->pos.y)
             || z->vel.x*z->vel.x < 10.0f){
             if(z->isGrounded){
                 z->setGrounded(false);
-                pStateMachine->changeState(ZombieJumpStateID, NULL);//chama o pulo com possibilidade de pulo duplo
+                pStateMachine->changeState(ZombieJumpStateID, NULL);
 
                 //muda o retangulo do sprite
                 z->frame = (z->vel.x > 0) ? Managers::spriteRect(JUMP): Managers::spriteRect(JUMP_L);
@@ -133,10 +135,6 @@ void Zombie::ZombieWalkState::update(float dt, Managers::Events* pEventsManager)
                 nRect = !nRect;
             }
         }
-
-        //se o alvo estiver perto e acima
-        //ESTADO PULO
-        printf("velx: %f\n", z->vel.x);
         
     }
 }
