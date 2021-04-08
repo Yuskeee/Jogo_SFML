@@ -24,9 +24,6 @@ public:
     MainMenuState(SM::StateMachine* pStateMachine = NULL, Managers::Graphics* pGraphicsManager = NULL);
     ~MainMenuState();
 
-    virtual void enter();
-    virtual void exit();
-
     virtual void update(float dt, Managers::Events* pEventsManager);
     virtual void render(Managers::Graphics* pGraphicsManager);
 };

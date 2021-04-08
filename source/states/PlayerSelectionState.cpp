@@ -32,10 +32,6 @@ void PlayerSelectionState::enter(void* arg){
     this->args[levelArg] = *(int*)arg;
 }
 
-void PlayerSelectionState::exit(){
-    printf("Saindo da selecao de jogadores\n");
-}
-
 void PlayerSelectionState::update(float dt, Managers::Events* pEventsManager){
 
     if(pEventsManager->keyPressed(Managers::Events::keycode::W))

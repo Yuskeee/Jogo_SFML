@@ -28,14 +28,6 @@ ChooseMenuState::~ChooseMenuState(){
 
 }
 
-void ChooseMenuState::enter(void* arg){
-    printf("Entrando na selecao\n");
-}
-
-void ChooseMenuState::exit(){
-    printf("Saindo da selecao\n");
-}
-
 void ChooseMenuState::update(float dt, Managers::Events* pEventsManager){
 
     if(pEventsManager->keyPressed(Managers::Events::keycode::W))

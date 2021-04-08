@@ -22,7 +22,6 @@ public:
     ~PlayerSelectionState();
 
     virtual void enter(void* arg);
-    virtual void exit();
 
     virtual void update(float dt, Managers::Events* pEventsManager);
     virtual void render(Managers::Graphics* pGraphicsManager);

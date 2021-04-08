@@ -33,13 +33,6 @@ MainMenuState::~MainMenuState(){
 
 }
 
-void MainMenuState::enter(){
-    printf("Entrando no menu\n");
-}
-
-void MainMenuState::exit(){
-    printf("Saindo do menu\n");
-}
 
 void MainMenuState::update(float dt, Managers::Events* pEventsManager){
     timeElapsed += dt;
