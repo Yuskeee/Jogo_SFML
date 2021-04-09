@@ -31,6 +31,7 @@ public:
     void applyGravity(float dt);
 
     void addBody(Body* bd);
+    void removeBody(int id);
 
 };
 }

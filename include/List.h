@@ -84,9 +84,13 @@ public:
 		Iterator(Element<T2> *element = NULL);
 		~Iterator();
 
+		Element<T2>* getElement();
+		Element<T2>* getNext();
+		Element<T2>* getPrev();
+
 //sobrecarga de operadores para iterator
-		T2& operator*();
-		T2* operator->();
+		T2 operator*();
+		T2 operator->();
 		Iterator& operator++();
 		Iterator operator++(int);
 		Iterator& operator--();
@@ -128,6 +132,23 @@ public:
 //operador sobrecarregado para []
 	T2 operator[](int n);
 
+
+void listAll(){
+	printf("\n\nLIST FROM %d to %d:\n", firstElement, lastElement);
+
+	    
+    Element<T2> *aux = firstElement;
+    for(int n = n_elements; n != 0; n--){
+		printf("prev: %d, this:%d, next:%d\n", aux->getPrev(), aux, aux->getNext());
+        if(aux)
+			aux = aux->getNext();
+    }
+    printf("LISTING DONE\n\n");
+	
+			
+}
+
+
 };
 
 /*~~~~~~~~~~~~~~~~class Iterator*/
@@ -142,12 +163,27 @@ List<T2>::Iterator::~Iterator(){
 }
 
 template<class T2>
-T2& List<T2>::Iterator::operator*(){
+Element<T2>* List<T2>::Iterator::getElement(){
+	return element;
+}
+
+template<class T2>
+Element<T2>* List<T2>::Iterator::getNext(){
+	return element->getNext();
+}
+
+template<class T2>
+Element<T2>* List<T2>::Iterator::getPrev(){
+	return element->getPrev();
+}
+
+template<class T2>
+T2 List<T2>::Iterator::operator*(){
 	return element->getInfo();
 }
 
 template<class T2>
-T2* List<T2>::Iterator::operator->(){
+T2 List<T2>::Iterator::operator->(){
 	return *(*this);//usa o operator* de Iterator
 }
 
@@ -181,12 +217,12 @@ typename List<T2>::Iterator List<T2>::Iterator::operator--(int){
 
 template<class T2>
 bool List<T2>::Iterator::operator==(const Iterator& iterator) const{
-	return element == iterator.element;
+		return element == iterator.element;
 }
 
 template<class T2>
 bool List<T2>::Iterator::operator!=(const Iterator& iterator) const{
-	return element != iterator.element;
+		return element != iterator.element;
 }
 
 /*~~~~~~~~~~~~~~~~class List*/
@@ -234,9 +270,14 @@ void List<T2>::pop_back(){
 	if(lastElement){
 		Element<T2> *aux = lastElement->getPrev();
 		delete lastElement;
-		if(aux)
+		if(aux){
 			aux->setNext();
-		lastElement = aux;
+			lastElement = aux;
+		}
+		else{
+			firstElement = NULL;
+			lastElement = NULL;
+		}
 		n_elements--;
 	}
 }
@@ -246,9 +287,14 @@ void List<T2>::pop_front(){
 	if(firstElement){
 		Element<T2> *aux = firstElement->getNext();
 		delete firstElement;
-		if(aux)
-			aux->setNext();
-		firstElement = aux;
+		if(aux){
+			aux->setPrev();
+			firstElement = aux;
+		}
+		else{
+			firstElement = NULL;
+			lastElement = NULL;
+		}
 		n_elements--;
 	}
 }
@@ -260,7 +306,7 @@ typename List<T2>::Iterator List<T2>::begin(){
 
 template<class T2>
 typename List<T2>::Iterator List<T2>::end(){
-	return Iterator();
+	return Iterator(NULL);
 }
 
 template<class T2>
@@ -268,19 +314,20 @@ typename List<T2>::Iterator List<T2>::erase(Iterator iterator){
 //exceções
 	if(iterator == end())//caso null
 		return iterator;
+	
 	if(iterator == begin()){//caso first
 		pop_front();
 		return iterator;
 	}
-	if(iterator->getNext() == *end()){//caso last
-		pop_back;
+	if(iterator.getNext() == NULL){//caso last
+		pop_back();
 		return end();
 	}
 
 //caso "normal"
-	iterator->getNext()->setPrev(iterator->getPrev());
-	iterator->getPrev()->setNext(iterator->getNext());
-	Element<T2> *aux = *iterator;
+	iterator.getNext()->setPrev(iterator.getPrev());
+	iterator.getPrev()->setNext(iterator.getNext());
+	Element<T2> *aux = iterator.getElement();
 	iterator++;
 	n_elements--;
 	delete aux;
@@ -303,6 +350,7 @@ void List<T2>::clear(){
         Element<T2> *aux = firstElement->getNext();
         delete firstElement;
         firstElement = aux;
+		n_elements--;
 	}
 }
 

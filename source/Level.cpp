@@ -7,8 +7,12 @@ Level::Level(Managers::Graphics* pGraphicsManager):map(pGraphicsManager), LevelP
 }
 
 Level::~Level(){
-    for(int i = 0; i < entities.size(); i++)
+    int id;
+    for(int i = 0; i < entities.size(); i++){
+        id = entities[i]->getId();
+        LevelPhysics.removeBody(id);
         delete entities[i];
+    }
 }
 
 void Level::update(float dt, Managers::Events* pEvents){
@@ -23,7 +27,7 @@ void Level::update(float dt, Managers::Events* pEvents){
 void Level::render(){
     map.draw(pGraphicsManager);
     for(int i = 0; i < entities.size(); i++)
-        entities[i]->draw(pGraphicsManager);
+        entities[i]->draw();
 
 }
 
@@ -39,7 +43,7 @@ void Level::startLevel(int n, int players){
     if(players > 1){
         Managers::textureID Player2Texture = pGraphicsManager->loadTexture(PLAYER2_TEXTURE_FILE);
         Managers::spriteID Player2Sprite = pGraphicsManager->createSprite(Player2Texture);
-        Entities::Player* p2 = new Entities::Player(pGraphicsManager, sf::Vector2f(50, 20), sf::Vector2f(0, 0), sf::Vector2f(16, 20), Player2Texture, Player2Sprite);
+        Entities::Player* p2 = new Entities::Player(pGraphicsManager, sf::Vector2f(50, 20), sf::Vector2f(0, 0), sf::Vector2f(16, 20), Player2Texture, Player2Sprite, false);
         entities.push_back(static_cast<Entities::Entity*>(p2));//adiciona o player na lista de entidades da fase
         LevelPhysics.addBody(static_cast<Body*>(p2));//adiciona o player na lista de corpos da fisica
         Entities::Enemy::setPlayers(p1, p2);

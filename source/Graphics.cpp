@@ -66,6 +66,13 @@ spriteID Graphics::createSprite(textureID baseTexture){
 
 }
 
+void Graphics::removeSprite(spriteID sprite){
+    auto i = sprites.begin();
+    for(sprite; sprite > 0; i++, sprite--);
+
+    sprites.erase(i);
+}
+
 void Graphics::setSpriteRect(spriteID sprite, const spriteRect& rect){
 
     sprites[sprite]->setTextureRect(rect);

@@ -10,7 +10,8 @@ enum GameStates{
     MainMenuStateID,
     ChooseMenuStateID,
     PlayerSelectionStateID,
-    GamePlayStateID
+    GamePlayStateID,
+    PauseStateID
 };
 
 enum argType{
@@ -25,6 +26,7 @@ enum argType{
 #include "states/ChooseMenuState.h"
 #include "states/PlayerSelectionState.h"
 #include "states/PlayState.h"
+#include "states/PauseState.h"
 
 namespace GameSM{
 class GameStateMachine:public SM::StateMachine{

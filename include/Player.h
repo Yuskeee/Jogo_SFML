@@ -37,7 +37,7 @@ private:
         bool double_jump;
     public:
         PlayerJumpState(SM::StateMachine* pStateMachine = NULL, Player *p = NULL);
-        ~PlayerJumpState();
+        virtual ~PlayerJumpState();
 
         void enter(void* arg);
 
@@ -49,7 +49,7 @@ private:
         Player *p;
     public:
         PlayerRestState(SM::StateMachine* pStateMachine = NULL, Player *p = NULL);
-        ~PlayerRestState();
+        virtual ~PlayerRestState();
 
         void enter(void* arg){std::cout << "REST\n";}
 
@@ -63,7 +63,7 @@ private:
         float frameTime;
     public:
         PlayerWalkState(SM::StateMachine* pStateMachine = NULL, Player *p = NULL);
-        ~PlayerWalkState();
+        virtual ~PlayerWalkState();
 
         void enter(void* arg){std::cout << "WALK\n"; nRect = false; frameTime = 0.0f;}
 
@@ -77,12 +77,11 @@ private:
     class PlayerStateMachine: public SM::StateMachine{
     public:
         PlayerStateMachine(Player *p = NULL);
-        ~PlayerStateMachine();
+        virtual ~PlayerStateMachine();
     };
 
 private:
-    static bool player1;
-
+    
     const float groundAcceleration = 9;
     const float airAcceleration = 0.5;
     const float velMax = 100;
@@ -98,7 +97,9 @@ private:
 
 public:
 
-    Player(Managers::Graphics* pGraphicsManager = NULL, const sf::Vector2<float>& pos = {0.0f, 0.0f}, const sf::Vector2<float>& vel = {0.0f, 0.0f}, const sf::Vector2<float>& rect = {0.0f, 0.0f}, Managers::textureID idT = -1, Managers::spriteID idS = -1);
+    Player(Managers::Graphics* pGraphicsManager = NULL, const sf::Vector2<float>& pos = {0.0f, 0.0f},
+            const sf::Vector2<float>& vel = {0.0f, 0.0f}, const sf::Vector2<float>& rect = {0.0f, 0.0f},
+            Managers::textureID idT = -1, Managers::spriteID idS = -1, bool player1 = true);
     virtual ~Player();
 
     virtual void update(float dt, Managers::Events* pEventsManager);
@@ -106,7 +107,7 @@ public:
 
 private:
 
-    void loadControl();
+    void loadControl(bool player1);
 
 };
 }

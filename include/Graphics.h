@@ -44,6 +44,7 @@ public:
     textureID loadTexture(const char* file);//carrega textura de arquivo
     
     spriteID createSprite(textureID baseTexture);//cria um sprite baseado em uma textura, retorna seu id
+    void removeSprite(spriteID sprite);
     void setSpriteRect(spriteID sprite, const spriteRect& rect);//seleciona parte da textura para ser renderizada
     void setSpritePos(spriteID sprite, float x, float y);//modifica a posicao do sprite
     void drawSprite(spriteID sprite);//desenha o sprite na tela

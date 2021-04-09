@@ -15,7 +15,7 @@ Map::Map(Managers::Graphics* pGraphicsManager){
 }
 
 Map::~Map(){
-    for(int i = 0; i < MAP_WIDTH; i++)
+    for(int i = 0; i < MAP_HEIGHT; i++)
         delete[] map[i];
     delete[] map;
 }

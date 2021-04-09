@@ -9,7 +9,6 @@ Body::Body(bodyType type, const sf::Vector2<float>& pos, const sf::Vector2<float
 
 Body::~Body(){
 
-
 }
 
 void Body::onCollide(Body* other){

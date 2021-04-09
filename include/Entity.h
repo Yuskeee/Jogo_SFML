@@ -16,6 +16,8 @@ protected:
     bool vulnerability;
 
     //StateMachine gameStateMachine;
+    Managers::Graphics* pGraphicsManager;
+
     Managers::textureID idTextura;
     Managers::spriteID idSprite;
     Managers::spriteRect frame;
@@ -26,7 +28,7 @@ public:
 
     virtual void update(float dt, Managers::Events* pEvents) = 0; //implementar futuramente //gameStateMachine->update(dt);
 
-    virtual void draw(Managers::Graphics* pGraphicsManager);
+    virtual void draw();
 
 };
 

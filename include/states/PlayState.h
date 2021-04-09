@@ -10,10 +10,7 @@ namespace GameSM{
 class GamePlayState:public SM::State{
 
 private:
-    float timeElapsed;
-    Managers::textID playText;//para testes
-    float playTextPosX, playTextPosY;//para testes
-    float textSpeed;//para testes
+    Managers::Graphics* pGraphicsManager;
     World::Level* pLevel;
 
 public:

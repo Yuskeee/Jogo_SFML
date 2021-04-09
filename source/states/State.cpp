@@ -27,7 +27,6 @@ StateMachine::StateMachine(){
 }
 
 StateMachine::~StateMachine(){
-
     for(int i = 0; i<states.size(); i++)
         delete states[i];
 

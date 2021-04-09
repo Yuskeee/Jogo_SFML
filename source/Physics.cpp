@@ -8,7 +8,6 @@ Physics::Physics(Map* pMap){
 
 Physics::~Physics(){
 
-
 }
 
 float Physics::getOffsetX(Body* bd){
@@ -148,4 +147,12 @@ void Physics::applyGravity(float dt){
 
 void Physics::addBody(Body* bd){
     bodies.push_back(bd);
+}
+
+void Physics::removeBody(int id){
+
+    for(auto i = bodies.begin(); i != bodies.end(); i++)
+        if(i->getId() == id)
+            bodies.erase(i);
+        
 }

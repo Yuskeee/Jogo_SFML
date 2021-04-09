@@ -8,7 +8,6 @@ Player::PlayerJumpState::PlayerJumpState(SM::StateMachine* pStateMachine, Player
 }
 
 Player::PlayerJumpState::~PlayerJumpState(){
-
 }
 
 void Player::PlayerJumpState::enter(void* arg){
@@ -60,7 +59,6 @@ Player::PlayerRestState::PlayerRestState(SM::StateMachine* pStateMachine, Player
 }
 
 Player::PlayerRestState::~PlayerRestState(){
-
 }
 
 void Player::PlayerRestState::update(float dt, Managers::Events* pEventsManager){
@@ -98,7 +96,6 @@ Player::PlayerWalkState::PlayerWalkState(SM::StateMachine* pStateMachine, Player
 }
 
 Player::PlayerWalkState::~PlayerWalkState(){
-
 }
 
 void Player::PlayerWalkState::update(float dt, Managers::Events* pEventsManager){
@@ -168,28 +165,26 @@ void Player::PlayerWalkState::render(Managers::Graphics* pGraphicsManager){
 
 //PlayerStateMachine----------------
 Player::PlayerStateMachine::PlayerStateMachine(Player *p){
-    SM::State* state = static_cast<SM::State*>(new PlayerJumpState(static_cast<StateMachine*>(this), p));
+    SM::State* state = static_cast<SM::State*>(new PlayerJumpState(static_cast<SM::StateMachine*>(this), p));
     addState(state);
-    state = static_cast<SM::State*>(new PlayerRestState(static_cast<StateMachine*>(this), p));
+    state = static_cast<SM::State*>(new PlayerRestState(static_cast<SM::StateMachine*>(this), p));
     addState(state);
-    state = static_cast<SM::State*>(new PlayerWalkState(static_cast<StateMachine*>(this), p));
+    state = static_cast<SM::State*>(new PlayerWalkState(static_cast<SM::StateMachine*>(this), p));
     addState(state);
     currentStateID = PlayerRestStateID;
 }
 
 Player::PlayerStateMachine::~PlayerStateMachine(){
-
 }
 
 //Player----------------------------
-bool Player::player1 = true;
 
-Player::Player(Managers::Graphics* pGraphicsManager, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel, const sf::Vector2<float>& rect, Managers::textureID idT, Managers::spriteID idS):
+Player::Player(Managers::Graphics* pGraphicsManager, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel, const sf::Vector2<float>& rect, Managers::textureID idT, Managers::spriteID idS, bool player1):
 Entity(pGraphicsManager, pos, vel, idT, idS), Body(player1 ? player_1:player_2, pos, vel, rect), Being(pos, vel){
 
     this->pGraphicsManager = pGraphicsManager;
 
-    loadControl();
+    loadControl(player1);
 
     if(pGraphicsManager){
         frame = Managers::spriteRect(DEFAULT);
@@ -221,13 +216,11 @@ void Player::onCollide(Entity* other){
 
 }
 
-void Player::loadControl(){
-    if(type == 0){
+void Player::loadControl(bool player1){
+    if(player1){
         _leftKey = Managers::Events::keycode::A;
         _rightKey = Managers::Events::keycode::D;
         _jumpKey = Managers::Events::keycode::Space;
-
-        player1 = false;
     }
     else{
         _leftKey = Managers::Events::keycode::Left;
