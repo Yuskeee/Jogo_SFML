@@ -134,7 +134,7 @@ void Player::PlayerWalkState::update(float dt, Managers::Events* pEventsManager)
         }
 
         //ESTADO PARADO
-        if(pEventsManager->keyReleased(p->_rightKey) || pEventsManager->keyReleased(p->_leftKey)){
+        if(!pEventsManager->keyDown(p->_rightKey) && !pEventsManager->keyDown(p->_leftKey)){
             pStateMachine->changeState(PlayerRestStateID, NULL);
             p->vel.x = 0;
             p->frame = Managers::spriteRect(DEFAULT);
