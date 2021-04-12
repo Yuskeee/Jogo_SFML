@@ -18,12 +18,16 @@ namespace Entities{
 
 #define WALK_ANIMATION_FRAME_TIME 0.1
 
+#define PLAYER_WIDTH   16.0f
+#define PLAYER_HEIGHT  20.0f
+
 #define PLAYER_TEXTURE_FILE   "../assets/green_alien.png"
 #define PLAYER2_TEXTURE_FILE  "../assets/blue_alien.png"
 
 class Player: public Entity, public Body{
 
 private:
+
     enum PlayerStates{
         PlayerJumpStateID,
         PlayerRestStateID,
@@ -97,9 +101,7 @@ private:
 
 public:
 
-    Player(Managers::Graphics* pGraphicsManager = NULL, const sf::Vector2<float>& pos = {0.0f, 0.0f},
-            const sf::Vector2<float>& vel = {0.0f, 0.0f}, const sf::Vector2<float>& rect = {0.0f, 0.0f},
-            Managers::textureID idT = -1, Managers::spriteID idS = -1, bool player1 = true);
+    Player(Managers::Graphics* pGraphicsManager = NULL, World::Level* pLevel = NULL, const sf::Vector2<float>& pos = {0.0f, 0.0f}, const sf::Vector2<float>& vel = {0.0f, 0.0f}, bool player1 = true);
     virtual ~Player();
 
     virtual void update(float dt, Managers::Events* pEventsManager);

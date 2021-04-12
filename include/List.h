@@ -18,12 +18,12 @@ public:
 	~Element();
 
 //funções set
-	void setInfo(T1& info);
+	void setInfo(const T1& info);
 	void setNext(Element<T1> *element = NULL);
 	void setPrev(Element<T1> *element = NULL);
 
 //funções get
-	T1& getInfo();
+	T1 getInfo();
 	Element<T1> *getNext() const;
 	Element<T1> *getPrev() const;
 
@@ -43,7 +43,7 @@ Element<T1>::~Element(){
 }
 
 template<class T1>
-void Element<T1>::setInfo(T1& info){//referencia escondida
+void Element<T1>::setInfo(const T1& info){//referencia escondida
 	this->info = info;
 }
 
@@ -58,7 +58,7 @@ void Element<T1>::setPrev(Element<T1> *element){
 }
 
 template<class T1>
-T1& Element<T1>::getInfo(){
+T1 Element<T1>::getInfo(){
 	return info;
 }
 

@@ -20,7 +20,6 @@ void GamePlayState::enter(void* arg){
 
         pLevel = new World::Level(pGraphicsManager);
         int* rArgs = static_cast<int*>(arg);
-        printf("loaded level %d", rArgs[levelArg]);
         pLevel->startLevel(rArgs[levelArg], rArgs[playersArg]);
     }
 }
@@ -30,7 +29,6 @@ void GamePlayState::exit(){
 }
 
 void GamePlayState::update(float dt, Managers::Events* pEvents){
-
     pLevel->update(dt, pEvents);
 
     if(pEvents->keyDown(Managers::Events::keycode::P))

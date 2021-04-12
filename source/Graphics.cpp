@@ -46,62 +46,108 @@ void Graphics::closeWindow(){
 
 textureID Graphics::loadTexture(const char* file){
 
-    sf::Texture* newTexture = new sf::Texture();
+    auto it = loadedTextures.find(file);
 
-    if(!newTexture->loadFromFile(file))
-        return -1;//problema ao carregar o arquivo
+    if(it != loadedTextures.end())//se a textura ja foi carregada
+        return it->second;//retorna o id
+        
+    else{
+        sf::Texture* newTexture = new sf::Texture();
 
-    textures.push_back(newTexture);
+        if(!newTexture->loadFromFile(file)){
+            printf("error loading file\n");
+            return -1;//problema ao carregar o arquivo
+        }
 
-    return textures.size()-1;//retorna a posicao que guarda a nova textura
+        textures.push_back(newTexture);
+
+        loadedTextures[file] = textures.size()-1;//adiciona o id da textura no mapa de texturas carregadas
+        return textures.size()-1;//retorna a posicao que guarda a nova textura
+    }
 }
 
 spriteID Graphics::createSprite(textureID baseTexture){
 
+    if(baseTexture >= textures.size()){
+        printf("ERROR: texture id out of range\n");
+        return -1;
+    }
+    else{
+        sf::Sprite* newSprite = new sf::Sprite(*textures[baseTexture]);
+        
+        auto i = sprites.begin();
+        spriteID newSpriteID = 0;
+        for(newSpriteID, i; i != sprites.end() && *i != NULL; i++, newSpriteID++);//procura por uma posicao vaga ou pelo fim
 
-    sf::Sprite* newSprite = new sf::Sprite(*textures[baseTexture]);
-    sprites.push_back(newSprite);
+        if(i == sprites.end()){//nao encontrou posicao vaga insere no fim
+            sprites.push_back(newSprite);
+        }  
+        else{
+            i.getElement()->setInfo(newSprite);
+        }
 
-    return sprites.size()-1;
-
+        return newSpriteID;
+        
+    }
 }
 
 void Graphics::removeSprite(spriteID sprite){
-    auto i = sprites.begin();
-    for(sprite; sprite > 0; i++, sprite--);
+    
+    if(sprite >= sprites.size())
+        printf("ERROR: sprite id out of range\n");
+    else{
+        auto i = sprites.begin();
+        for(sprite; sprite > 0; i++, sprite--);
+        delete *i;
 
-    sprites.erase(i);
+        if(sprite == sprites.size()-1)
+            sprites.erase(i);
+        else
+            (i.getElement())->setInfo(NULL);
+    }
 }
 
 void Graphics::setSpriteRect(spriteID sprite, const spriteRect& rect){
-
-    sprites[sprite]->setTextureRect(rect);
+    
+    if(sprite >= sprites.size())
+        printf("ERROR: sprite id out of range\n");
+    else
+        sprites[sprite]->setTextureRect(rect);
 
 }
 
 void Graphics::setSpritePos(spriteID sprite, float x, float y){
 
-    sf::Vector2f pos(x, y);
-    sprites[sprite]->setPosition(pos);
-
+    if(sprite >= sprites.size())
+        printf("ERROR: sprite id out of range\n");
+    else{
+        sf::Vector2f pos(x, y);
+        sprites[sprite]->setPosition(pos);
+    }
 }
 
 void Graphics::drawSprite(spriteID sprite){
 
-    screen.draw(*sprites[sprite]);
+    if(sprite >= sprites.size())
+        printf("ERROR: sprite id out of range\n");
+    else
+        screen.draw(*sprites[sprite]);
 
 }
 
 void Graphics::setBackground(spriteID sprite){
 
-    backgroundSprite = sprite;
+    if(sprite >= sprites.size())
+        printf("ERROR: sprite id out of range\n");
+    else{
+        backgroundSprite = sprite;
 
-    float factorX = screenWidth/sprites[sprite]->getTextureRect().width;
-    float factorY = screenHeight/sprites[sprite]->getTextureRect().height;
+        float factorX = screenWidth/sprites[sprite]->getTextureRect().width;
+        float factorY = screenHeight/sprites[sprite]->getTextureRect().height;
 
-    sprites[sprite]->scale(factorX, factorY);
-    sprites[sprite]->setPosition(0, 0);
-
+        sprites[sprite]->scale(factorX, factorY);
+        sprites[sprite]->setPosition(0, 0);
+    }
 }
 
 fontID Graphics::loadFont(const char* file){

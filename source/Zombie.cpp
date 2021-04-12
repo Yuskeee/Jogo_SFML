@@ -1,9 +1,10 @@
 #include "Zombie.h"
+#include "Level.h"
 
 using namespace Entities;
 
 //ZombieJumpState-------------------
-Zombie::ZombieJumpState::ZombieJumpState(SM::StateMachine* pStateMachine, Zombie *z):State(pStateMachine), double_jump(){
+Zombie::ZombieJumpState::ZombieJumpState(SM::StateMachine* pStateMachine, Zombie *z):State(pStateMachine){
     this->z = z;
 }
 
@@ -89,7 +90,6 @@ void Zombie::ZombieWalkState::update(float dt, Managers::Events* pEventsManager)
 
         z->setTarget();
         const Player* target = z->getTarget();
-
         //se o alvo estiver perto e acima
         //ESTADO PULO
         if(((target->getPos().x - z->pos.x)*(target->getPos().x - z->pos.x) < 1024.0f && target->getPos().y < z->pos.y)
@@ -160,14 +160,16 @@ Zombie::ZombieStateMachine::~ZombieStateMachine(){
 
 //Zombie----------------------------
 
-Zombie::Zombie(Managers::Graphics* pGraphicsManager, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel, const sf::Vector2<float>& rect, Managers::textureID idT, Managers::spriteID idS):
-Enemy(pGraphicsManager, pos, vel, rect, idT, idS), Being(pos, vel){
+Zombie::Zombie(Managers::Graphics* pGraphicsManager, World::Level* pLevel, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel):
+Enemy(pGraphicsManager, pLevel, pos, vel, {ZOMBIE_WIDTH, ZOMBIE_HEIGHT}), Being(pos, vel){
 
     this->pGraphicsManager = pGraphicsManager;
 
     if(pGraphicsManager){
+        idTextura = pGraphicsManager->loadTexture(ZOMBIE_TEXTURE_FILE);
+        idSprite = pGraphicsManager->createSprite(idTextura);
         frame = Managers::spriteRect(DEFAULT);
-        pGraphicsManager->setSpriteRect(idS, frame);
+        pGraphicsManager->setSpriteRect(idSprite, frame);
 
         ZombieSM = new ZombieStateMachine(this);
     }

@@ -1,9 +1,14 @@
 #include "Entity.h"
 
+#include "Level.h"
+
 using namespace Entities;
 
-Entity::Entity(Managers::Graphics* pGraphicsManager, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel, Managers::textureID idT, Managers::spriteID idS):
-Being(pos, vel), pGraphicsManager(pGraphicsManager), lives(0), vulnerability(), idTextura(idT), idSprite(idS), frame(0, 0, 0, 0){
+Entity::Entity(Managers::Graphics* pGraphicsManager, World::Level* pLevel, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel):
+Being(pos, vel), pGraphicsManager(pGraphicsManager), lives(1), vulnerability(), frame(0, 0, 0, 0){
+    this->pLevel = pLevel;
+    idSprite = -1;
+    idTextura = -1;
 }
 
 Entity::~Entity(){
@@ -16,3 +21,6 @@ void Entity::draw(){
     pGraphicsManager->drawSprite(idSprite);
 }
 
+int Entity::getLives(){
+    return lives;
+}

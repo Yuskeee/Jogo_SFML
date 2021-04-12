@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "List.h"
+#include <map>
 
 namespace Managers{
 
@@ -17,6 +18,8 @@ typedef int textID;//int que representa a posicao de uma fonte na lista
 class Graphics{
 
 private:
+    std::map<const char*, textureID> loadedTextures;
+
     sf::RenderWindow screen;//objeto janela da sfml
 
     int screenWidth, screenHeight; //altura e largura da tela em pixels

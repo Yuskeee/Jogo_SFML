@@ -12,9 +12,15 @@ protected:
         player_2,
         enemy,
         //inimigo2,
-        //projetil,
+        projectile,
         nBodyTypes
 
+    };
+    const bool gravitableBodyTypes[nBodyTypes] = {
+        true,//player1
+        true,//player2
+        true,//enemy
+        false//projectile
     };
 
     int type;
@@ -35,6 +41,7 @@ public:
 
     const sf::Vector2<float> getRect() const;
     const bool getGrounded() const;
+    const bool isGravitable() const;
 
 };
 

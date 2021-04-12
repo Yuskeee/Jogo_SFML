@@ -1,12 +1,13 @@
 #include "Enemy.h"
+#include "Level.h"
 
 using namespace Entities;
 
 const Player* Enemy::p1 = NULL;
 const Player* Enemy::p2 = NULL;
 
-Enemy::Enemy(Managers::Graphics* pGraphicsManager, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel, const sf::Vector2<float>& rect, Managers::textureID idT, Managers::spriteID idS, const float accel, const float mVel):
-Entity(pGraphicsManager, pos, vel, idT, idS), Body(enemy, pos, vel, rect), Being(pos, vel), acceleration(accel), velMax(mVel){
+Enemy::Enemy(Managers::Graphics* pGraphicsManager, World::Level* pLevel, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel, const sf::Vector2<float>& rect, const float accel, const float mVel):
+Entity(pGraphicsManager, pLevel, pos, vel), Body(enemy, pos, vel, rect), Being(pos, vel), acceleration(accel), velMax(mVel){
 
 }
 

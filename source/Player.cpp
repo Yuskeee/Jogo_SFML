@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Level.h"
 
 using namespace Entities;
 
@@ -179,8 +180,8 @@ Player::PlayerStateMachine::~PlayerStateMachine(){
 
 //Player----------------------------
 
-Player::Player(Managers::Graphics* pGraphicsManager, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel, const sf::Vector2<float>& rect, Managers::textureID idT, Managers::spriteID idS, bool player1):
-Entity(pGraphicsManager, pos, vel, idT, idS), Body(player1 ? player_1:player_2, pos, vel, rect), Being(pos, vel){
+Player::Player(Managers::Graphics* pGraphicsManager, World::Level* pLevel, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel, bool player1):
+Entity(pGraphicsManager, pLevel, pos, vel), Body(player1 ? player_1:player_2, pos, vel, {PLAYER_WIDTH, PLAYER_HEIGHT}), Being(pos, vel){
 
     this->pGraphicsManager = pGraphicsManager;
 
@@ -188,7 +189,9 @@ Entity(pGraphicsManager, pos, vel, idT, idS), Body(player1 ? player_1:player_2, 
 
     if(pGraphicsManager){
         frame = Managers::spriteRect(DEFAULT);
-        pGraphicsManager->setSpriteRect(idS, frame);
+        idTextura = pGraphicsManager->loadTexture(player1 ? PLAYER_TEXTURE_FILE : PLAYER2_TEXTURE_FILE);
+        idSprite = pGraphicsManager->createSprite(idTextura);
+        pGraphicsManager->setSpriteRect(idSprite, frame);
 
         PlayerSM = new PlayerStateMachine(this);
     }

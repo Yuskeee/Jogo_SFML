@@ -30,3 +30,7 @@ const sf::Vector2<float> Body::getRect() const{
 const bool Body::getGrounded() const{
     return isGrounded;
 }
+
+const bool Body::isGravitable() const{
+    return gravitableBodyTypes[this->type];
+}

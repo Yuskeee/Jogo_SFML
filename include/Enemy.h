@@ -5,6 +5,10 @@
 #include "Body.h"
 #include "Player.h"
 
+namespace World{
+    class Level;
+}
+
 namespace Entities{
 
 class Enemy: public Entity, public Body{
@@ -15,7 +19,7 @@ protected:
     const Player* target;
 
 public:
-    Enemy(Managers::Graphics* pGraphicsManager = NULL, const sf::Vector2<float>& pos = {0.0f, 0.0f}, const sf::Vector2<float>& vel = {0.0f, 0.0f}, const sf::Vector2<float>& rect = {0.0f, 0.0f}, Managers::textureID idT = -1, Managers::spriteID idS = -1, const float accel = 0, const float mVel = 0);
+    Enemy(Managers::Graphics* pGraphicsManager = NULL, World::Level* pLevel = NULL, const sf::Vector2<float>& pos = {0.0f, 0.0f}, const sf::Vector2<float>& vel = {0.0f, 0.0f}, const sf::Vector2<float>& rect = {0.0f, 0.0f}, const float accel = 0, const float mVel = 0);
     virtual ~Enemy();
 
     virtual void loseLife(const int damage);//dano recebido

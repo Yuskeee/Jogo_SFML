@@ -6,11 +6,17 @@
 
 #include "Being.h"
 
+namespace World{
+    class Level;
+}
+
 namespace Entities{
 
 //Serve de base para outras classes de tipo personagem
 class Entity: public virtual Being{
 protected:
+
+    World::Level* pLevel;
 
     int lives;
     bool vulnerability;
@@ -23,12 +29,14 @@ protected:
     Managers::spriteRect frame;
 
 public:
-    Entity(Managers::Graphics* pGraphicsManager = NULL, const sf::Vector2<float>& pos = {0.0f, 0.0f}, const sf::Vector2<float>& vel = {0.0f, 0.0f}, Managers::textureID idT = -1, Managers::spriteID idS = -1);
+    Entity(Managers::Graphics* pGraphicsManager = NULL, World::Level* pLevel = NULL, const sf::Vector2<float>& pos = {0.0f, 0.0f}, const sf::Vector2<float>& vel = {0.0f, 0.0f});
     virtual ~Entity();
 
     virtual void update(float dt, Managers::Events* pEvents) = 0; //implementar futuramente //gameStateMachine->update(dt);
 
     virtual void draw();
+
+    int getLives();
 
 };
 

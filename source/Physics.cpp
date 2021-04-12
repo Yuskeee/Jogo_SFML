@@ -137,10 +137,11 @@ void Physics::collideBodies(){
 
 void Physics::applyGravity(float dt){
     for(int i = bodies.size()-1; i >= 0; i--){
-        if(bodies[i]->getVel().y < maxVertVel)
-            bodies[i]->setVel(sf::Vector2f(bodies[i]->getVel().x, bodies[i]->getVel().y + gravity*dt));
-        else
-            bodies[i]->setVel(sf::Vector2f(bodies[i]->getVel().x, maxVertVel));
+        if(bodies[i]->isGravitable())
+            if(bodies[i]->getVel().y < maxVertVel)
+                bodies[i]->setVel(sf::Vector2f(bodies[i]->getVel().x, bodies[i]->getVel().y + gravity*dt));
+            else
+                bodies[i]->setVel(sf::Vector2f(bodies[i]->getVel().x, maxVertVel));
     }
 
 }

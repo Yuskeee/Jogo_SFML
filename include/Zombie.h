@@ -15,6 +15,9 @@ namespace Entities{
 #define WALK_L1 160, 0, -16, 20
 #define WALK_L2 176, 0, -16, 20
 
+#define ZOMBIE_WIDTH   16.0f
+#define ZOMBIE_HEIGHT  20.0f
+
 #define WALK_ANIMATION_FRAME_TIME 0.1
 
 #define ZOMBIE_TEXTURE_FILE   "../assets/zombie_alien.png"
@@ -31,7 +34,6 @@ private:
     class ZombieJumpState: public SM::State{
     private:
         Zombie *z;
-        bool double_jump;
     public:
         ZombieJumpState(SM::StateMachine* pStateMachine = NULL, Zombie *p = NULL);
         ~ZombieJumpState();
@@ -89,7 +91,7 @@ private:
 
 public:
 
-    Zombie(Managers::Graphics* pGraphicsManager = NULL, const sf::Vector2<float>& pos = {0.0f, 0.0f}, const sf::Vector2<float>& vel = {0.0f, 0.0f}, const sf::Vector2<float>& rect = {0.0f, 0.0f}, Managers::textureID idT = -1, Managers::spriteID idS = -1);
+    Zombie(Managers::Graphics* pGraphicsManager = NULL, World::Level* pLevel = NULL, const sf::Vector2<float>& pos = {0.0f, 0.0f}, const sf::Vector2<float>& vel = {0.0f, 0.0f});
     virtual ~Zombie();
 
     virtual void attack();
