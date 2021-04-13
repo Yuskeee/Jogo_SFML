@@ -232,7 +232,7 @@ void Player::update(float dt, Managers::Events* pEventsManager){
 
     if(attackTimer > attackInterval && pEventsManager->keyPressed(_fireKey)){
         attackTimer = 0;
-        Projectile* proj = new Projectile(pLevel->getGraphicsManager(), pLevel, {pos.x + ((rightDirection) ? rect.x*0.5:-rect.x*0.5),pos.y}, {(rightDirection) ? projectileSpeed:-projectileSpeed, 0.0f}, true);
+        Projectile* proj = new Projectile(pLevel->getGraphicsManager(), pLevel, {pos.x + ((rightDirection) ? rect.x*0.5f:-rect.x*0.5f), pos.y}, {(rightDirection) ? projectileSpeed:-projectileSpeed, 0.0f}, true);
 
         pLevel->addEntity(static_cast<Entities::Entity*>(proj));
         pLevel->addBody(static_cast<Body*>(proj));

@@ -32,8 +32,8 @@ private:
     };
     char levelBackgroundFiles[nLevels][30] = {
         "../assets/background1.png",
-        "../assets/background1.png",
-        "../assets/background1.pmg"
+        "../assets/background2.png",
+        "../assets/background3.jpg"
     };
 
     Managers::Graphics* pGraphicsManager;
