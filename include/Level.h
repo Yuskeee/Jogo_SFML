@@ -30,11 +30,17 @@ private:
         "../assets/map2.txt",
         "../assets/map3.txt"
     };
+    char levelBackgroundFiles[nLevels][30] = {
+        "../assets/background1.png",
+        "../assets/background1.png",
+        "../assets/background1.pmg"
+    };
 
     Managers::Graphics* pGraphicsManager;
     List<Entities::Entity*> entities;
     Map map;
     Physics LevelPhysics;
+    Managers::spriteID backgroundSprite;
 
 public:
     Level(Managers::Graphics* pGraphicsManager);

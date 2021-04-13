@@ -142,10 +142,10 @@ void Graphics::setBackground(spriteID sprite){
     else{
         backgroundSprite = sprite;
 
-        float factorX = screenWidth/sprites[sprite]->getTextureRect().width;
-        float factorY = screenHeight/sprites[sprite]->getTextureRect().height;
-
-        sprites[sprite]->scale(factorX, factorY);
+        float factorX = (float)screenWidth/sprites[sprite]->getTextureRect().width;
+        float factorY = (float)screenHeight/sprites[sprite]->getTextureRect().height;
+        printf("scaling factors: %f, %f", factorX, factorY);
+        sprites[sprite]->setScale(factorX, factorY);
         sprites[sprite]->setPosition(0, 0);
     }
 }
