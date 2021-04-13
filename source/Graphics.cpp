@@ -50,7 +50,7 @@ textureID Graphics::loadTexture(const char* file){
 
     if(it != loadedTextures.end())//se a textura ja foi carregada
         return it->second;//retorna o id
-        
+
     else{
         sf::Texture* newTexture = new sf::Texture();
 
@@ -74,25 +74,25 @@ spriteID Graphics::createSprite(textureID baseTexture){
     }
     else{
         sf::Sprite* newSprite = new sf::Sprite(*textures[baseTexture]);
-        
+
         auto i = sprites.begin();
         spriteID newSpriteID = 0;
         for(newSpriteID, i; i != sprites.end() && *i != NULL; i++, newSpriteID++);//procura por uma posicao vaga ou pelo fim
 
         if(i == sprites.end()){//nao encontrou posicao vaga insere no fim
             sprites.push_back(newSprite);
-        }  
+        }
         else{
             i.getElement()->setInfo(newSprite);
         }
 
         return newSpriteID;
-        
+
     }
 }
 
 void Graphics::removeSprite(spriteID sprite){
-    
+
     if(sprite >= sprites.size())
         printf("ERROR: sprite id out of range\n");
     else{
@@ -108,7 +108,7 @@ void Graphics::removeSprite(spriteID sprite){
 }
 
 void Graphics::setSpriteRect(spriteID sprite, const spriteRect& rect){
-    
+
     if(sprite >= sprites.size())
         printf("ERROR: sprite id out of range\n");
     else
@@ -173,6 +173,10 @@ textID Graphics::createText(fontID baseFont, const char* text, int size){
 void Graphics::setTextColor(textID text, int red, int green, int blue, int alpha){
 
     texts[text]->setFillColor(sf::Color(red, green, blue, alpha));
+}
+
+void Graphics::setString(textID text, std::string newText){
+    texts[text]->setString(newText);
 }
 
 void Graphics::drawText(textID text){

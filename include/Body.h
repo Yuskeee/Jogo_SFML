@@ -34,7 +34,7 @@ public:
     Body(bodyType type = player_1, const sf::Vector2<float>& pos = {0.0f, 0.0f}, const sf::Vector2<float>& vel = {0.0f, 0.0f}, const sf::Vector2<float>& rect = {0.0f, 0.0f}, bool isGrounded = false);
     virtual ~Body();
 
-    void onCollide(Body* other);
+    virtual void onCollide(Body* other);
 
     void setRect(const sf::Vector2<float>& rect);
     void setGrounded(const bool& isGrounded);

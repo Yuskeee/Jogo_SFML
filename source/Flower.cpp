@@ -49,6 +49,7 @@ void Flower::attack(){
 }
 
 void Flower::onCollide(Body* other){
-
-
+    if((dynamic_cast<Projectile*>(other) && dynamic_cast<Projectile*>(other)->fromPlayer())){
+        lives -= 1;
+    }
 }

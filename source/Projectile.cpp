@@ -3,8 +3,8 @@
 
 using namespace Entities;
 
-Projectile::Projectile(Managers::Graphics* pGraphicsManager, World::Level* pLevel, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel):
-Entity(pGraphicsManager, pLevel, pos, vel), Body(projectile, pos, vel, {PROJECTILE_WIDTH, PROJECTILE_HEIGHT}), Being(pos, vel){
+Projectile::Projectile(Managers::Graphics* pGraphicsManager, World::Level* pLevel, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel, const bool isPlayers):
+Entity(pGraphicsManager, pLevel, pos, vel), Body(projectile, pos, vel, {PROJECTILE_WIDTH, PROJECTILE_HEIGHT}), Being(pos, vel), _isPlayers(isPlayers){
 
     velXStart = vel.x;
     velYStart = vel.y;
@@ -30,5 +30,11 @@ void Projectile::update(float dt, Managers::Events* pEvents){
 }
 
 void Projectile::onCollide(Body* other){
+    if((!dynamic_cast<Player*>(other) && _isPlayers) || (dynamic_cast<Player*>(other) && !_isPlayers)){
+        lives = 0;
+    }
+}
 
+const bool Projectile::fromPlayer() const{
+    return _isPlayers;
 }
