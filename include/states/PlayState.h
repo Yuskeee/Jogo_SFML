@@ -13,6 +13,10 @@ private:
     Managers::Graphics* pGraphicsManager;
     World::Level* pLevel;
 
+    Managers::textID scoreText;
+
+    float score;
+
 public:
     GamePlayState(SM::StateMachine* pStateMachine = NULL, Managers::Graphics* pGraphicsManager = NULL);
     ~GamePlayState();

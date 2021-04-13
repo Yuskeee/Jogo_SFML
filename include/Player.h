@@ -60,6 +60,7 @@ private:
         void update(float dt, Managers::Events* pEventsManager);
         void render(Managers::Graphics* pGraphicsManager);
     };
+
     class PlayerWalkState: public SM::State{
     private:
         Player *p;
@@ -74,10 +75,6 @@ private:
         void update(float dt, Managers::Events* pEventsManager);
         void render(Managers::Graphics* pGraphicsManager);
     };
-    /*
-    class PlayerFireState: public State{
-    };
-    */
     class PlayerStateMachine: public SM::StateMachine{
     public:
         PlayerStateMachine(Player *p = NULL);
@@ -85,7 +82,7 @@ private:
     };
 
 private:
-    
+
     const float groundAcceleration = 9;
     const float airAcceleration = 0.5;
     const float velMax = 100;
@@ -93,19 +90,28 @@ private:
 
     SM::StateMachine *PlayerSM;
     Managers::Graphics* pGraphicsManager;
+    World::Level* pLevel;
 
     Managers::Events::keycode _leftKey;
     Managers::Events::keycode _rightKey;
     Managers::Events::keycode _jumpKey;
-    //Managers::Events::keycode _fireKey;
+    Managers::Events::keycode _fireKey;
+
+    bool rightDirection;
+
+    float vulnerability_timer;
+
+    const float attackInterval = 0.5f;
+    const float projectileSpeed = 300.0f;
+    float attackTimer;
 
 public:
 
     Player(Managers::Graphics* pGraphicsManager = NULL, World::Level* pLevel = NULL, const sf::Vector2<float>& pos = {0.0f, 0.0f}, const sf::Vector2<float>& vel = {0.0f, 0.0f}, bool player1 = true);
     virtual ~Player();
 
-    virtual void update(float dt, Managers::Events* pEventsManager);
-    virtual void onCollide(Entity* other);
+    void update(float dt, Managers::Events* pEventsManager);
+    void onCollide(Body* other) override;
 
 private:
 

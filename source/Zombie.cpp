@@ -113,7 +113,7 @@ void Zombie::ZombieWalkState::update(float dt, Managers::Events* pEventsManager)
 
             //muda o retangulo do sprite
             z->frame = (nRect) ? Managers::spriteRect(WALK_R1): Managers::spriteRect(WALK_R2);
-            
+
             frameTime += dt;
             if(frameTime > WALK_ANIMATION_FRAME_TIME){
                 frameTime = 0;
@@ -135,7 +135,7 @@ void Zombie::ZombieWalkState::update(float dt, Managers::Events* pEventsManager)
                 nRect = !nRect;
             }
         }
-        
+
     }
 }
 
@@ -195,6 +195,7 @@ void Zombie::update(float dt, Managers::Events* pEventsManager){
 }
 
 void Zombie::onCollide(Body* other){
-
-
+    if((dynamic_cast<Projectile*>(other) && dynamic_cast<Projectile*>(other)->fromPlayer())){
+        lives -= 1;
+    }
 }

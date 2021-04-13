@@ -2,9 +2,12 @@
 
 using namespace GameSM;
 
-GamePlayState::GamePlayState(SM::StateMachine* pStateMachine, Managers::Graphics* pGraphicsManager):SM::State(pStateMachine){
+GamePlayState::GamePlayState(SM::StateMachine* pStateMachine, Managers::Graphics* pGraphicsManager):SM::State(pStateMachine), score(0){
     this->pGraphicsManager = pGraphicsManager;
     pLevel = NULL;
+
+    scoreText = pGraphicsManager->createText(0, "Score: 0", 20);
+    pGraphicsManager->setTextPos(scoreText, 255, 20);
 }
 
 GamePlayState::~GamePlayState(){
@@ -33,9 +36,15 @@ void GamePlayState::update(float dt, Managers::Events* pEvents){
 
     if(pEvents->keyDown(Managers::Events::keycode::P))
         pStateMachine->changeState(PauseStateID, NULL);
+
+    score += dt;
+    std::string text = "Score: " + std::to_string(static_cast<unsigned long int>(score));
+
+    pGraphicsManager->setString(scoreText, text);
 }
 
 void GamePlayState::render(Managers::Graphics* pGraphicsManager){
     pLevel->render();
+    pGraphicsManager->drawText(scoreText);
     //printf("Jogando\nTempo decorrido: %f\n\n", timeElapsed);
 }

@@ -21,6 +21,7 @@ void Player::PlayerJumpState::update(float dt, Managers::Events* pEventsManager)
     if(p){
 
         if(pEventsManager->keyDown(p->_rightKey)){ //DIREITA
+            p->rightDirection = true;
             //atualiza velocidades
             p->vel.x += p->airAcceleration;
             if(p->vel.x > p->velMax)
@@ -28,6 +29,7 @@ void Player::PlayerJumpState::update(float dt, Managers::Events* pEventsManager)
         }
 
         if(pEventsManager->keyDown(p->_leftKey)){ //ESQUERDA
+            p->rightDirection = false;
             //atualiza velocidades
             p->vel.x -= p->airAcceleration;
             if(p->vel.x < -p->velMax)
@@ -104,6 +106,7 @@ void Player::PlayerWalkState::update(float dt, Managers::Events* pEventsManager)
         if(p->vel.y*p->vel.y > 5.0f)
             p->setGrounded(false);
         if(pEventsManager->keyDown(p->_rightKey)){ //DIREITA
+            p->rightDirection = true;
             //atualiza velocidades
             p->vel.x += p->groundAcceleration;
             if(p->vel.x > p->velMax)
@@ -120,6 +123,7 @@ void Player::PlayerWalkState::update(float dt, Managers::Events* pEventsManager)
         }
 
         if(pEventsManager->keyDown(p->_leftKey)){ //ESQUERDA
+            p->rightDirection = false;
             //atualiza velocidades
             p->vel.x -= p->groundAcceleration;
             if(p->vel.x < -p->velMax)
@@ -181,9 +185,11 @@ Player::PlayerStateMachine::~PlayerStateMachine(){
 //Player----------------------------
 
 Player::Player(Managers::Graphics* pGraphicsManager, World::Level* pLevel, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel, bool player1):
-Entity(pGraphicsManager, pLevel, pos, vel), Body(player1 ? player_1:player_2, pos, vel, {PLAYER_WIDTH, PLAYER_HEIGHT}), Being(pos, vel){
+Entity(pGraphicsManager, pLevel, pos, vel), Body(player1 ? player_1:player_2, pos, vel, {PLAYER_WIDTH, PLAYER_HEIGHT}), Being(pos, vel), rightDirection(true), vulnerability_timer(0), attackTimer(0){
 
     this->pGraphicsManager = pGraphicsManager;
+
+    this->pLevel = pLevel;
 
     loadControl(player1);
 
@@ -202,6 +208,8 @@ Player::~Player(){
     delete PlayerSM;
 }
 
+#define VULNERABILITY_MAX 0.5f
+
 void Player::update(float dt, Managers::Events* pEventsManager){
 
     if(PlayerSM)
@@ -212,11 +220,41 @@ void Player::update(float dt, Managers::Events* pEventsManager){
     if(pGraphicsManager)
         pGraphicsManager->setSpriteRect(idSprite, frame);
 
+    if(!vulnerability){
+        if(vulnerability_timer > VULNERABILITY_MAX){
+            vulnerability = true;
+            vulnerability_timer = 0;
+        }
+        vulnerability_timer += dt;
+    }
+
+    attackTimer += dt;
+
+    if(attackTimer > attackInterval && pEventsManager->keyPressed(_fireKey)){
+        attackTimer = 0;
+        Projectile* proj = new Projectile(pLevel->getGraphicsManager(), pLevel, {pos.x + ((rightDirection) ? rect.x*0.5:-rect.x*0.5),pos.y}, {(rightDirection) ? projectileSpeed:-projectileSpeed, 0.0f}, true);
+
+        pLevel->addEntity(static_cast<Entities::Entity*>(proj));
+        pLevel->addBody(static_cast<Body*>(proj));
+    }
+
+    std::cout << lives << std::endl;
+
 }
 
-void Player::onCollide(Entity* other){
-
-
+void Player::onCollide(Body* other){
+    if(vulnerability){
+        if(dynamic_cast<Projectile*>(other) != 0){
+            if(!dynamic_cast<Projectile*>(other)->fromPlayer()){
+                lives -= 1;
+                vulnerability = false;
+            }
+        }
+        else if(dynamic_cast<Enemy*>(other) != 0){
+            lives -= 1;
+            vulnerability = false;
+        }
+    }
 }
 
 void Player::loadControl(bool player1){
@@ -224,10 +262,12 @@ void Player::loadControl(bool player1){
         _leftKey = Managers::Events::keycode::A;
         _rightKey = Managers::Events::keycode::D;
         _jumpKey = Managers::Events::keycode::Space;
+        _fireKey = Managers::Events::keycode::G;
     }
     else{
         _leftKey = Managers::Events::keycode::Left;
         _rightKey = Managers::Events::keycode::Right;
         _jumpKey = Managers::Events::keycode::RControl;
+        _fireKey = Managers::Events::keycode::RShift;
     }
 }
