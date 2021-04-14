@@ -55,7 +55,7 @@ public:
     void setBackground(spriteID sprite);//usa um sprite como plano de fundo
 
     fontID loadFont(const char* file);
-    textID createText(fontID baseFont, const char* text, int size);//cria um texto baseado em uma fonte, retorna seu id
+    textID createText(fontID baseFont, std::string text, int size);//cria um texto baseado em uma fonte, retorna seu id
     void setTextPos(textID text, float x, float y);
     void setTextColor(textID text, int red, int green, int blue, int alpha);
     void setString(textID text, std::string newText);

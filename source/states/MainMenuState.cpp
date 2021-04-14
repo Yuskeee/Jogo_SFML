@@ -25,7 +25,7 @@ MainMenuState::MainMenuState(SM::StateMachine* pStateMachine, Managers::Graphics
 
     quitText = pGraphics->createText(0, "Sair", 15);
     pGraphics->setTextPos(quitText, 225, 130);
-    
+
 
 }
 
@@ -64,12 +64,13 @@ void MainMenuState::update(float dt, Managers::Events* pEventsManager){
                 break;
 
             case 3:
+                pStateMachine->changeState(RankingViewStateID, NULL);
                 break;
 
             case 4:
                 quit = true;
                 break;
-           
+
            }
 
     }
@@ -105,7 +106,7 @@ void MainMenuState::render(Managers::Graphics* pGraphicsManager){
             pGraphicsManager->setTextColor(quitText, 255, 10, 10, 255);
             pGraphicsManager->setTextColor(playText, 255, 255, 255, 255);
             break;
-    
+
         default:
             break;
     }

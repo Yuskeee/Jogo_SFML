@@ -2,13 +2,14 @@
 #define _GAMESTATEMACHINE_H
 
 #include <stdio.h>
-#include <states/State.h>
+#include "states/State.h"
 
 namespace GameSM{
 
 enum GameStates{
     MainMenuStateID,
     ChooseMenuStateID,
+    RankingViewStateID,
     PlayerSelectionStateID,
     GamePlayStateID,
     PauseStateID
@@ -22,11 +23,12 @@ enum argType{
 }
 
 //cabecalhos de estados especificos sao incluidos depois de declarado o que lhes é necessario
-#include "states/MainMenuState.h"
-#include "states/ChooseMenuState.h"
-#include "states/PlayerSelectionState.h"
-#include "states/PlayState.h"
-#include "states/PauseState.h"
+#include "MainMenuState.h"
+#include "ChooseMenuState.h"
+#include "RankingViewState.h"
+#include "PlayerSelectionState.h"
+#include "PlayState.h"
+#include "PauseState.h"
 
 namespace GameSM{
 class GameStateMachine:public SM::StateMachine{

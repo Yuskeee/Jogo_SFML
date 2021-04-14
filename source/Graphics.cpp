@@ -162,7 +162,7 @@ fontID Graphics::loadFont(const char* file){
 
 }
 
-textID Graphics::createText(fontID baseFont, const char* text, int size){
+textID Graphics::createText(fontID baseFont, std::string text, int size){
 
     sf::Text* newText = new sf::Text(text, *fonts[baseFont], size);
 
