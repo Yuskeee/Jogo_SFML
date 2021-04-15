@@ -8,6 +8,7 @@ GamePlayState::GamePlayState(SM::StateMachine* pStateMachine, Managers::Graphics
 
     scoreText = pGraphicsManager->createText(0, "Score: 0", 20);
     pGraphicsManager->setTextPos(scoreText, 255, 20);
+    pGraphicsManager->setTextColor(scoreText, 255, 255, 0, 255);
 }
 
 GamePlayState::~GamePlayState(){
