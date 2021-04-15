@@ -21,6 +21,6 @@ void Entity::draw(){
     pGraphicsManager->drawSprite(idSprite);
 }
 
-int Entity::getLives(){
+int Entity::getLives() const{
     return lives;
 }

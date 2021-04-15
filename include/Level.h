@@ -1,12 +1,13 @@
 #ifndef _LEVEL_H
 #define _LEVEL_H
 
-#include <fstream> 
+#include <fstream>
 
 #include "Graphics.h"
 #include "Map.h"
 #include "Physics.h"
 #include "List.h"
+#include "PlayerStats.h"
 
 #include "Entity.h"
 #include "Player.h"
@@ -41,6 +42,7 @@ private:
     Map map;
     Physics LevelPhysics;
     Managers::spriteID backgroundSprite;
+    PlayerStats* playersStats;
 
 public:
     Level(Managers::Graphics* pGraphicsManager);
@@ -53,7 +55,7 @@ public:
     void removeEntity(int id);
     void addBody(Body* pBody);//adiciona um corpo na lista da fisica
     void removeBody(int id);
-    
+
     void startLevel(int n, int players);
     void loadMap(const char* arquivo);
     //void salvar(char* arquivo);

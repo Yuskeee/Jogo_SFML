@@ -28,6 +28,9 @@ void Level::update(float dt, Managers::Events* pEvents){
             removeEntity(i->getId());
         }
 
+    if(playersStats)
+        playersStats->update();
+
     LevelPhysics.applyGravity(dt);
     LevelPhysics.collideMap();
     LevelPhysics.collideBodies();
@@ -38,6 +41,9 @@ void Level::render(){
     for(int i = 0; i < entities.size(); i++)
         entities[i]->draw();
 
+    if(playersStats)
+        playersStats->draw();
+
 }
 
 void Level::addEntity(Entities::Entity* pEntity){//adiciona uma entidade no vetor de entidades
@@ -46,7 +52,7 @@ void Level::addEntity(Entities::Entity* pEntity){//adiciona uma entidade no veto
 
 void Level::removeEntity(int id){
 
-    
+
     for(auto i = entities.begin(); i != entities.end(); i++){
         if(i->getId() == id){
             delete *i;
@@ -75,10 +81,13 @@ void Level::startLevel(int n, int players){
         addEntity(static_cast<Entities::Entity*>(p2));//adiciona o player na lista de entidades da fase
         LevelPhysics.addBody(static_cast<Body*>(p2));//adiciona o player na lista de corpos da fisica
         Entities::Enemy::setPlayers(p1, p2);
+        playersStats = PlayerStats::getPlayerStatsInstance(pGraphicsManager, this, p1, p2);
     }
-    else
+    else{
         Entities::Enemy::setPlayers(p1);
- 
+        playersStats = PlayerStats::getPlayerStatsInstance(pGraphicsManager, this, p1);
+    }
+
     Entities::Zombie* z1 = new Entities::Zombie(pGraphicsManager, this, sf::Vector2f(80, 20), sf::Vector2f(0, 0));
     addEntity(static_cast<Entities::Entity*>(z1));//adiciona o zumbi na lista de entidades da fase
     addBody(static_cast<Body*>(z1));//adiciona o zumbi na lista de corpos da fisica
