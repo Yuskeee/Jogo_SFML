@@ -28,8 +28,7 @@ GameOverState::~GameOverState(){
 }
 
 void GameOverState::enter(void* arg){
-    scoreStr += std::to_string(*(int*)arg);
-    printf("Game over %d\n", *(int*)arg);
+    scoreStr = "Pontuacao: " + std::to_string(*(int*)arg);
 }
 
 void GameOverState::update(float dt, Managers::Events* pEventsManager){

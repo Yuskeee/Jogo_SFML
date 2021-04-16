@@ -36,7 +36,7 @@ public:
 
     virtual void draw();
 
-    int getLives();
+    int getLives() const;
 
 };
 

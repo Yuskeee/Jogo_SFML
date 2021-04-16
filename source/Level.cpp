@@ -20,7 +20,6 @@ Level::~Level(){
 void Level::update(float dt, Managers::Events* pEvents){
 
     for(auto i = entities.begin(); i != entities.end(); i++){//da para fazer esses loops com iterator tambem (talvez seja melhor)
-        printf("updating entity %d\n", i);
         i->update(dt, pEvents);
     }
 
@@ -28,17 +27,22 @@ void Level::update(float dt, Managers::Events* pEvents){
         if(i->getLives() <= 0){
             if(i->getType() == Being::player_1){
                 Entities::Enemy::setPlayer1(NULL); //tira a referencia do player 1 do inimigo
+                PlayerStats::setPlayer1(NULL);
                 //addEntity(...)//cria o fantasma do player 1
                 players--;
             }
-            else if(i->getType() == Being::player_1){
+            else if(i->getType() == Being::player_2){
                 Entities::Enemy::setPlayer2(NULL); //tira a referencia do player 2 do inimigo
+                PlayerStats::setPlayer2(NULL);
                 //addEntity(...)//cria o fantasma do player 2
                 players--;
             }
             removeBody(i->getId());
             removeEntity(i->getId());
         }
+
+    if(playersStats)
+        playersStats->update();
 
     LevelPhysics.applyGravity(dt);
     LevelPhysics.collideMap();
@@ -51,6 +55,9 @@ void Level::render(){
     for(int i = 0; i < entities.size(); i++)
         entities[i]->draw();
 
+    if(playersStats)
+        playersStats->draw();
+
 }
 
 void Level::addEntity(Entities::Entity* pEntity){//adiciona uma entidade no vetor de entidades
@@ -59,7 +66,7 @@ void Level::addEntity(Entities::Entity* pEntity){//adiciona uma entidade no veto
 
 void Level::removeEntity(int id){
 
-    
+
     for(auto i = entities.begin(); i != entities.end(); i++){
         if(i->getId() == id){
             delete *i;
@@ -90,9 +97,12 @@ void Level::startLevel(int n, int players){
         LevelPhysics.addBody(static_cast<Body*>(p2));//adiciona o player na lista de corpos da fisica
         Entities::Enemy::setPlayer1(p1);
         Entities::Enemy::setPlayer2(p2);
+        playersStats = PlayerStats::getPlayerStatsInstance(pGraphicsManager, this, p1, p2);
     }
-    else
+    else{
         Entities::Enemy::setPlayer1(p1);
+        playersStats = PlayerStats::getPlayerStatsInstance(pGraphicsManager, this, p1);
+    }
  
     Entities::Zombie* z1 = new Entities::Zombie(pGraphicsManager, this, sf::Vector2f(80, 20), sf::Vector2f(0, 0));
     addEntity(static_cast<Entities::Entity*>(z1));//adiciona o zumbi na lista de entidades da fase

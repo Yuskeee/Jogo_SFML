@@ -205,9 +205,7 @@ Entity(pGraphicsManager, pLevel, pos, vel), Body(pos, vel, {PLAYER_WIDTH, PLAYER
 }
 
 Player::~Player(){
-    printf("destroying player\n");
     delete PlayerSM;
-    printf("destroyed player\n");
 }
 
 #define VULNERABILITY_MAX 0.5f

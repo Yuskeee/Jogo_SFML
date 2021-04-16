@@ -8,6 +8,7 @@ GamePlayState::GamePlayState(SM::StateMachine* pStateMachine, Managers::Graphics
 
     scoreText = pGraphicsManager->createText(0, "Score: 0", 20);
     pGraphicsManager->setTextPos(scoreText, 255, 20);
+    pGraphicsManager->setTextColor(scoreText, 255, 255, 0, 255);
 }
 
 GamePlayState::~GamePlayState(){
@@ -43,7 +44,6 @@ void GamePlayState::update(float dt, Managers::Events* pEvents){
     pGraphicsManager->setString(scoreText, text);
 
     if(!pLevel->getPlayers()){
-        printf("changing state to gameover\n");
         int finalScore = (int)score;
         pStateMachine->changeState(GameOverStateID, (void*)&finalScore);
     }
