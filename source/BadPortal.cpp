@@ -32,8 +32,6 @@ void BadPortal::update(float dt, Managers::Events* pEventsManager){
     durationTimer += dt;
 
     if(cycleTimer > cycleTime){
-
-        printf("newframe %d, from %d and %d\n", (frame.left + (int)BAD_PORTAL_WIDTH)%(int)BAD_PORTAL_WIDTH, frame.left, (int)BAD_PORTAL_WIDTH);
         frame = Managers::spriteRect(frame.left ? 0 : BAD_PORTAL_WIDTH, 0, BAD_PORTAL_WIDTH, BAD_PORTAL_HEIGHT);
         cycleTimer = 0;
     }
