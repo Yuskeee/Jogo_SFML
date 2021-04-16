@@ -2,8 +2,9 @@
 
 int Being::nBeings = 0;
 
-Being::Being(const sf::Vector2<float>& pos, const sf::Vector2<float>& vel){
+Being::Being(beingType type, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel){
     id = nBeings++;
+    this->type = type;
     this->pos = pos;
     this->vel = vel;
 }
@@ -17,6 +18,10 @@ void Being::setPos(const sf::Vector2<float>& pos){
 
 void Being::setVel(const sf::Vector2<float>& vel){
     this->vel = vel;
+}
+
+const Being::beingType Being::getType() const{
+    return type;
 }
 
 const int Being::getId() const{

@@ -22,7 +22,7 @@ void GamePlayState::enter(void* arg){
         printf("loading level\n");
 
         pLevel = new World::Level(pGraphicsManager);
-        int* rArgs = static_cast<int*>(arg);
+        int* rArgs = (int*)(arg);
         pLevel->startLevel(rArgs[levelArg], rArgs[playersArg]);
     }
 }
@@ -41,6 +41,12 @@ void GamePlayState::update(float dt, Managers::Events* pEvents){
     std::string text = "Score: " + std::to_string(static_cast<unsigned long int>(score));
 
     pGraphicsManager->setString(scoreText, text);
+
+    if(!pLevel->getPlayers()){
+        printf("changing state to gameover\n");
+        int finalScore = (int)score;
+        pStateMachine->changeState(GameOverStateID, (void*)&finalScore);
+    }
 }
 
 void GamePlayState::render(Managers::Graphics* pGraphicsManager){

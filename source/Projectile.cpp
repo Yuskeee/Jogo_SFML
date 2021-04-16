@@ -4,7 +4,7 @@
 using namespace Entities;
 
 Projectile::Projectile(Managers::Graphics* pGraphicsManager, World::Level* pLevel, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel, const bool isPlayers):
-Entity(pGraphicsManager, pLevel, pos, vel), Body(projectile, pos, vel, {PROJECTILE_WIDTH, PROJECTILE_HEIGHT}), Being(pos, vel), _isPlayers(isPlayers){
+Entity(pGraphicsManager, pLevel, pos, vel), Body(pos, vel, {PROJECTILE_WIDTH, PROJECTILE_HEIGHT}), Being(projectile, pos, vel), _isPlayers(isPlayers){
 
     velXStart = vel.x;
     velYStart = vel.y;

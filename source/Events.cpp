@@ -65,6 +65,16 @@ bool Events::keyDown(keycode key){
     return keysDown[key];
 }
 
+std::string Events::getInputAsString(){
+
+    std::string input = "";
+    for(char i = 0; i < 26; i++)
+        if(keysPressed[i])
+            input += ('A' + (char)i);
+
+    return input;
+}
+
 bool Events::getCloseEvent(){
     return closeEvent;
 }

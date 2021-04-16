@@ -30,7 +30,8 @@ public:
 
     void setTarget();
 
-    static void setPlayers(const Player *p1, const Player *p2 = NULL);
+    static void setPlayer1(const Player *p1);
+    static void setPlayer2(const Player *p2);
 
     const Player* getTarget();
 

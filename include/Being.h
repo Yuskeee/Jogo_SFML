@@ -4,21 +4,36 @@
 #include "SFML/System.hpp"
 
 class Being{
+
+public:
+    enum beingType{
+        player_1,
+        player_2,
+        enemy,
+        //inimigo2,
+        projectile,
+        nBeingTypes
+    };
+
+
 private:
     static int nBeings;
 protected:
+
+    beingType type;
     int id;
     sf::Vector2<float> pos, vel;
 
 public:
 
-    Being(const sf::Vector2<float>& pos = {0.0f, 0.0f}, const sf::Vector2<float>& vel = {0.0f, 0.0f});
+    Being(beingType type = player_1, const sf::Vector2<float>& pos = {0.0f, 0.0f}, const sf::Vector2<float>& vel = {0.0f, 0.0f});
     virtual ~Being();
 
     void setPos(const sf::Vector2<float>& pos);
     void setVel(const sf::Vector2<float>& vel);
 
     const int getId() const;
+    const beingType getType() const;
     const sf::Vector2<float> getPos() const;
     const sf::Vector2<float> getVel() const;
 

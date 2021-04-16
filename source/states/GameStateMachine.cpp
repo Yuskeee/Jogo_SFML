@@ -16,6 +16,8 @@ GameStateMachine::GameStateMachine(Managers::Graphics* pGraphicsManager){
     addState(state);
     state = static_cast<SM::State*>(new PauseState(static_cast<SM::StateMachine*>(this), pGraphicsManager));
     addState(state);
+    state = static_cast<SM::State*>(new GameOverState(static_cast<SM::StateMachine*>(this), pGraphicsManager));
+    addState(state);
     currentStateID = MainMenuStateID;
 }
 

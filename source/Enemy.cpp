@@ -7,7 +7,7 @@ const Player* Enemy::p1 = NULL;
 const Player* Enemy::p2 = NULL;
 
 Enemy::Enemy(Managers::Graphics* pGraphicsManager, World::Level* pLevel, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel, const sf::Vector2<float>& rect, const float accel, const float mVel):
-Entity(pGraphicsManager, pLevel, pos, vel), Body(enemy, pos, vel, rect), Being(pos, vel), acceleration(accel), velMax(mVel){
+Entity(pGraphicsManager, pLevel, pos, vel), Body(pos, vel, rect), Being(enemy, pos, vel), acceleration(accel), velMax(mVel){
 
 }
 
@@ -32,12 +32,19 @@ void Enemy::setTarget(){
             target = (distanceTo1 <= distanceTo2) ? p1 : p2;
         }
     }
+    else
+        target = NULL;
 }
 
-void Enemy::setPlayers(const Player *p1, const Player *p2){
+void Enemy::setPlayer1(const Player *p1){
     Enemy::p1 = p1;
+}
+
+void Enemy::setPlayer2(const Player *p2){
     Enemy::p2 = p2;
 }
+
+
 
 const Player* Enemy::getTarget(){
     return target;

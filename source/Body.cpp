@@ -1,8 +1,7 @@
 #include "Body.h"
 
 
-Body::Body(bodyType type, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel, const sf::Vector2<float>& rect, bool isGrounded): Being(pos, vel){
-    this->type = type;
+Body::Body(const sf::Vector2<float>& pos, const sf::Vector2<float>& vel, const sf::Vector2<float>& rect, bool isGrounded, beingType type): Being(type, pos, vel){
     this->rect = rect;
     this->isGrounded = isGrounded;
 }
@@ -32,5 +31,5 @@ const bool Body::getGrounded() const{
 }
 
 const bool Body::isGravitable() const{
-    return gravitableBodyTypes[this->type];
+    return gravitableBeingTypes[type];
 }

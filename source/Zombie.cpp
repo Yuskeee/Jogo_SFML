@@ -161,7 +161,7 @@ Zombie::ZombieStateMachine::~ZombieStateMachine(){
 //Zombie----------------------------
 
 Zombie::Zombie(Managers::Graphics* pGraphicsManager, World::Level* pLevel, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel):
-Enemy(pGraphicsManager, pLevel, pos, vel, {ZOMBIE_WIDTH, ZOMBIE_HEIGHT}), Being(pos, vel){
+Enemy(pGraphicsManager, pLevel, pos, vel, {ZOMBIE_WIDTH, ZOMBIE_HEIGHT}), Being(enemy, pos, vel){
 
     this->pGraphicsManager = pGraphicsManager;
 

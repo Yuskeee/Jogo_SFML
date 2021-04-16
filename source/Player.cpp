@@ -185,7 +185,7 @@ Player::PlayerStateMachine::~PlayerStateMachine(){
 //Player----------------------------
 
 Player::Player(Managers::Graphics* pGraphicsManager, World::Level* pLevel, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel, bool player1):
-Entity(pGraphicsManager, pLevel, pos, vel), Body(player1 ? player_1:player_2, pos, vel, {PLAYER_WIDTH, PLAYER_HEIGHT}), Being(pos, vel), rightDirection(true), vulnerability_timer(0), attackTimer(0){
+Entity(pGraphicsManager, pLevel, pos, vel), Body(pos, vel, {PLAYER_WIDTH, PLAYER_HEIGHT}), Being(player1 ? player_1:player_2, pos, vel), rightDirection(true), vulnerability_timer(0), attackTimer(0){
 
     this->pGraphicsManager = pGraphicsManager;
 
@@ -205,7 +205,9 @@ Entity(pGraphicsManager, pLevel, pos, vel), Body(player1 ? player_1:player_2, po
 }
 
 Player::~Player(){
+    printf("destroying player\n");
     delete PlayerSM;
+    printf("destroyed player\n");
 }
 
 #define VULNERABILITY_MAX 0.5f

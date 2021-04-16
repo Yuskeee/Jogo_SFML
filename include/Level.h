@@ -36,6 +36,7 @@ private:
         "../assets/background3.jpg"
     };
 
+    int players;
     Managers::Graphics* pGraphicsManager;
     List<Entities::Entity*> entities;
     Map map;
@@ -56,8 +57,9 @@ public:
     
     void startLevel(int n, int players);
     void loadMap(const char* arquivo);
+    
     //void salvar(char* arquivo);
-
+    int getPlayers();
     Managers::Graphics* getGraphicsManager();
 
 

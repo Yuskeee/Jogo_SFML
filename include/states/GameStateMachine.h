@@ -12,12 +12,14 @@ enum GameStates{
     RankingViewStateID,
     PlayerSelectionStateID,
     GamePlayStateID,
-    PauseStateID
+    PauseStateID,
+    GameOverStateID
 };
 
 enum argType{
     levelArg,
     playersArg,
+    scoreArg,
     nArgs
 };
 }
@@ -29,6 +31,7 @@ enum argType{
 #include "PlayerSelectionState.h"
 #include "PlayState.h"
 #include "PauseState.h"
+#include "GameOverState.h"
 
 namespace GameSM{
 class GameStateMachine:public SM::StateMachine{

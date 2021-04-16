@@ -6,24 +6,12 @@
 class Body: public virtual Being{
 
 protected:
-
-    enum bodyType{
-        player_1,
-        player_2,
-        enemy,
-        //inimigo2,
-        projectile,
-        nBodyTypes
-
-    };
-    const bool gravitableBodyTypes[nBodyTypes] = {
+    const bool gravitableBeingTypes[nBeingTypes] = {
         true,//player1
         true,//player2
         true,//enemy
         false//projectile
     };
-
-    int type;
 
     sf::Vector2<float> rect;
     bool isGrounded;
@@ -31,7 +19,7 @@ protected:
 
 public:
 
-    Body(bodyType type = player_1, const sf::Vector2<float>& pos = {0.0f, 0.0f}, const sf::Vector2<float>& vel = {0.0f, 0.0f}, const sf::Vector2<float>& rect = {0.0f, 0.0f}, bool isGrounded = false);
+    Body(const sf::Vector2<float>& pos = {0.0f, 0.0f}, const sf::Vector2<float>& vel = {0.0f, 0.0f}, const sf::Vector2<float>& rect = {0.0f, 0.0f}, bool isGrounded = false, beingType type = Being::player_1);
     virtual ~Body();
 
     virtual void onCollide(Body* other);

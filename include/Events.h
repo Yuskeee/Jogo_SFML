@@ -36,6 +36,7 @@ public:
     bool keyReleased(keycode key);//busca por uma certa tecla na lista de liberadas
     bool keyDown(keycode key);//busca por uma certa tecla na lista de atualmente pressionadas
 
+    std::string getInputAsString();
     bool getCloseEvent();
 
 };
