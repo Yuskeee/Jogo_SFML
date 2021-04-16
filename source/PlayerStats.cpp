@@ -56,9 +56,11 @@ PlayerStats* PlayerStats::getPlayerStatsInstance(Managers::Graphics *pGraphicsMa
 PlayerStats::~PlayerStats(){
     if(p1){
         delete[] hearts_p1;
+        hearts_p1 = NULL;
     }
     if(p2){
         delete[] hearts_p2;
+        hearts_p2 = NULL;
     }
 }
 
@@ -96,4 +98,11 @@ void PlayerStats::setPlayer1(Entities::Player *p1){
 
 void PlayerStats::setPlayer2(Entities::Player *p2){
     PlayerStats::p2 = p2;
+}
+
+void PlayerStats::eraseInstance(){
+    std::cout << "INSTANCIA PLAYERSTATS APAGADA" << std::endl;
+    if(instance)
+        delete instance;
+    instance = NULL;
 }

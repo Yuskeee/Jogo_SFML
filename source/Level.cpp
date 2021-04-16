@@ -10,6 +10,7 @@ Level::Level(Managers::Graphics* pGraphicsManager):map(pGraphicsManager), LevelP
 
 Level::~Level(){
     int id;
+    PlayerStats::eraseInstance();
     for(int i = 0; i < entities.size(); i++){
         id = entities[i]->getId();
         LevelPhysics.removeBody(id);
@@ -103,7 +104,7 @@ void Level::startLevel(int n, int players){
         Entities::Enemy::setPlayer1(p1);
         playersStats = PlayerStats::getPlayerStatsInstance(pGraphicsManager, this, p1);
     }
- 
+
     Entities::Zombie* z1 = new Entities::Zombie(pGraphicsManager, this, sf::Vector2f(80, 20), sf::Vector2f(0, 0));
     addEntity(static_cast<Entities::Entity*>(z1));//adiciona o zumbi na lista de entidades da fase
     addBody(static_cast<Body*>(z1));//adiciona o zumbi na lista de corpos da fisica

@@ -40,6 +40,8 @@ public:
 
     static void setPlayer1(Entities::Player *p1);
     static void setPlayer2(Entities::Player *p2);
+
+    static void eraseInstance();//Necessário, pois não é automático
 };
 
 #endif
