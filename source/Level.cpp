@@ -29,13 +29,19 @@ void Level::update(float dt, Managers::Events* pEvents){
             if(i->getType() == Being::player_1){
                 Entities::Enemy::setPlayer1(NULL); //tira a referencia do player 1 do inimigo
                 PlayerStats::setPlayer1(NULL);
-                //addEntity(...)//cria o fantasma do player 1
+
+                Entities::Ghost* g1 = new Entities::Ghost(pGraphicsManager, this, i->getPos(), sf::Vector2f(0, 0), true);
+                addEntity(static_cast<Entities::Entity*>(g1));//cria o fantasma do player 1
+                
                 players--;
             }
             else if(i->getType() == Being::player_2){
                 Entities::Enemy::setPlayer2(NULL); //tira a referencia do player 2 do inimigo
                 PlayerStats::setPlayer2(NULL);
-                //addEntity(...)//cria o fantasma do player 2
+
+                Entities::Ghost* g2 = new Entities::Ghost(pGraphicsManager, this, i->getPos(), sf::Vector2f(0, 0), false);
+                addEntity(static_cast<Entities::Entity*>(g2));//cria o fantasma do player 2
+                
                 players--;
             }
             removeBody(i->getId());

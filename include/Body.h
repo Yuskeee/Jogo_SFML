@@ -9,6 +9,8 @@ protected:
     const bool gravitableBeingTypes[nBeingTypes] = {
         true,//player1
         true,//player2
+        false,//ghost1
+        false,//ghost2
         true,//enemy
         false//projectile
     };

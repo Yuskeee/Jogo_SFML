@@ -9,6 +9,8 @@ public:
     enum beingType{
         player_1,
         player_2,
+        ghost_1,
+        ghost_2,
         enemy,
         //inimigo2,
         projectile,

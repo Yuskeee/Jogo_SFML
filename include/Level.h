@@ -13,6 +13,7 @@
 #include "Player.h"
 #include "Zombie.h"
 #include "Flower.h"
+#include "Ghost.h"
 
 namespace World{
 
