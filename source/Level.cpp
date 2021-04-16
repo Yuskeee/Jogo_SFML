@@ -2,7 +2,7 @@
 
 using namespace World;
 
-Level::Level(Managers::Graphics* pGraphicsManager):map(pGraphicsManager), LevelPhysics(&map){
+Level::Level(Managers::Graphics* pGraphicsManager):map(pGraphicsManager), LevelPhysics(&map), LevelEnemyGenerator(this, &map){
     this->pGraphicsManager = pGraphicsManager;
     backgroundSprite = -1;
     players = -1;
@@ -50,6 +50,8 @@ void Level::update(float dt, Managers::Events* pEvents){
 
     if(playersStats)
         playersStats->update();
+
+    LevelEnemyGenerator.update(dt);
 
     LevelPhysics.applyGravity(dt);
     LevelPhysics.collideMap();
@@ -111,9 +113,6 @@ void Level::startLevel(int n, int players){
         playersStats = PlayerStats::getPlayerStatsInstance(pGraphicsManager, this, p1);
     }
 
-    Entities::Zombie* z1 = new Entities::Zombie(pGraphicsManager, this, sf::Vector2f(80, 20), sf::Vector2f(0, 0));
-    addEntity(static_cast<Entities::Entity*>(z1));//adiciona o zumbi na lista de entidades da fase
-    addBody(static_cast<Body*>(z1));//adiciona o zumbi na lista de corpos da fisica
 
     Entities::Flower* f1 = new Entities::Flower(pGraphicsManager, this, sf::Vector2f(100, 40));
     addEntity(static_cast<Entities::Entity*>(f1));//adiciona a flor na lista de entidades da fase
@@ -127,6 +126,10 @@ void Level::startLevel(int n, int players){
 
 void Level::loadMap(const char* arquivo){
     map.load(arquivo);
+}
+
+EnemyGenerator* Level::getEnemyGenerator(){
+    return &LevelEnemyGenerator;
 }
 
 Managers::Graphics* Level::getGraphicsManager(){

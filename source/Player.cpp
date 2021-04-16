@@ -238,7 +238,7 @@ void Player::update(float dt, Managers::Events* pEventsManager){
         pLevel->addBody(static_cast<Body*>(proj));
     }
 
-    std::cout << lives << std::endl;
+    //std::cout << lives << std::endl;
 
 }
 

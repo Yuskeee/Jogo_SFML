@@ -17,6 +17,7 @@ Entity::~Entity(){
 }
 
 void Entity::draw(){
+    pGraphicsManager->setSpriteRect(idSprite, frame);
     pGraphicsManager->setSpritePos(idSprite, pos.x, pos.y);
     pGraphicsManager->drawSprite(idSprite);
 }

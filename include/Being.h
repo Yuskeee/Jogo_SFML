@@ -11,6 +11,7 @@ public:
         player_2,
         ghost_1,
         ghost_2,
+        portal,
         enemy,
         //inimigo2,
         projectile,

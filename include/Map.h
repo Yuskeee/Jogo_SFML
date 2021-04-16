@@ -51,6 +51,9 @@ public:
     void draw(Managers::Graphics* pGraphicsManager);//constroi e desenha o mapa com base na matriz de letras (cada letra representa um bloco diferente)
     bool isPositionSolid(float x, float y);
 
+    inline int getWidth(){return MAP_WIDTH;}
+    inline int getHeight(){return MAP_HEIGHT;}
+
 };
 }
 

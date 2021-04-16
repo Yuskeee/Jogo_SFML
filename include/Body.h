@@ -11,6 +11,7 @@ protected:
         true,//player2
         false,//ghost1
         false,//ghost2
+        false,//portal
         true,//enemy
         false//projectile
     };

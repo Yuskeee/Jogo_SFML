@@ -23,8 +23,6 @@ Entity(pGraphicsManager, pLevel, pos, vel), Being(player1 ? ghost_1:ghost_2, pos
 Ghost::~Ghost(){
 }
 
-#define VULNERABILITY_MAX 0.5f
-
 void Ghost::update(float dt, Managers::Events* pEventsManager){
 
 

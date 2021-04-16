@@ -9,9 +9,9 @@
 #include "List.h"
 #include "PlayerStats.h"
 
+
 #include "Entity.h"
-#include "Player.h"
-#include "Zombie.h"
+#include "EnemyGenerator.h"
 #include "Flower.h"
 #include "Ghost.h"
 
@@ -43,6 +43,7 @@ private:
     List<Entities::Entity*> entities;
     Map map;
     Physics LevelPhysics;
+    EnemyGenerator LevelEnemyGenerator;
     Managers::spriteID backgroundSprite;
     PlayerStats* playersStats;
 
@@ -63,6 +64,7 @@ public:
     
     //void salvar(char* arquivo);
     int getPlayers();
+    EnemyGenerator* getEnemyGenerator();
     Managers::Graphics* getGraphicsManager();
 
 
