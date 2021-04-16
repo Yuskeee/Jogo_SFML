@@ -113,12 +113,6 @@ void Level::startLevel(int n, int players){
         playersStats = PlayerStats::getPlayerStatsInstance(pGraphicsManager, this, p1);
     }
 
-
-    Entities::Flower* f1 = new Entities::Flower(pGraphicsManager, this, sf::Vector2f(100, 40));
-    addEntity(static_cast<Entities::Entity*>(f1));//adiciona a flor na lista de entidades da fase
-    addBody(static_cast<Body*>(f1));//adiciona a flor na lista de corpos da fisica
-
-
     backgroundSprite = pGraphicsManager->createSprite(pGraphicsManager->loadTexture(levelBackgroundFiles[n]));
     pGraphicsManager->setBackground(backgroundSprite);
 
