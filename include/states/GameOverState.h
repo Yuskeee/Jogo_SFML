@@ -3,6 +3,8 @@
 
 //nao inclui nada relativo aos estados, esse cabecalho esta dentro de GameStateMachine
 
+#include "Ranking.h"
+
 namespace GameSM{
 
 class GameOverState:public SM::State{
@@ -16,6 +18,7 @@ private:
     Managers::textID scoreText;
     Managers::textID nameText;
     Managers::textID enterText;
+    Ranking *ranking;
 
 
 public:
@@ -23,6 +26,7 @@ public:
     ~GameOverState();
 
     virtual void enter(void* arg);
+    virtual void exit();
 
     virtual void update(float dt, Managers::Events* pEventsManager);
     virtual void render(Managers::Graphics* pGraphicsManager);

@@ -19,22 +19,28 @@ GameOverState::GameOverState(SM::StateMachine* pStateMachine, Managers::Graphics
 
     enterText = pGraphics->createText(0, "Pressione ENTER para inserir", 15);
     pGraphics->setTextPos(enterText, 70, 110);
-    
 
 }
 
 GameOverState::~GameOverState(){
-
+    Ranking::deleteInstance();
 }
 
 void GameOverState::enter(void* arg){
+    ranking = Ranking::getInstance();
+
     scoreStr = std::to_string(*(int*)arg);
+}
+
+void GameOverState::exit(){
+
 }
 
 void GameOverState::update(float dt, Managers::Events* pEventsManager){
 
     if(pEventsManager->keyPressed(Managers::Events::keycode::Enter)){
-        pStateMachine->changeState(MainMenuStateID, NULL);
+        ranking->add(std::stoul(scoreStr), name);
+        pStateMachine->changeState(RankingViewStateID, NULL);
 
     }
     else if(pEventsManager->keyPressed(Managers::Events::keycode::BackSpace)){

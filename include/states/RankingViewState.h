@@ -2,9 +2,11 @@
 #define _RANKING_VIEW_STATE_H
 
 #include <string>
-//#include "Ranking.h"
+#include "Ranking.h"
 
 #define MAX_ENTRIES 5
+
+#define DEFAULT_TEXT "0 - VAZIO"
 
 namespace GameSM{
 
@@ -12,6 +14,7 @@ class RankingViewState:public SM::State{
 
 private:
 
+    Managers::Graphics* pGraphicsManager;
     int selection;
     std::string score_nameText;
     Managers::textID titleText;
@@ -19,11 +22,18 @@ private:
     Managers::textID backText;
     Managers::textID eraseText;
 
-    //Ranking ranking;
+    Ranking *ranking;
+
+private:
+    void updateRanking();
+    void clear();
 
 public:
     RankingViewState(SM::StateMachine* pStateMachine = NULL, Managers::Graphics* pGraphicsManager = NULL);
     ~RankingViewState();
+
+    virtual void enter(void* arg);
+    virtual void exit();
 
     virtual void update(float dt, Managers::Events* pEventsManager);
     virtual void render(Managers::Graphics* pGraphicsManager);

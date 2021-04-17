@@ -2,18 +2,32 @@
 
 using namespace GameSM;
 
+void RankingViewState::updateRanking(){
+    ranking = Ranking::getInstance();
+    for(int i = 0; i < MAX_ENTRIES; i++){
+        pGraphicsManager->setString(positions[i], (i < ranking->getSize()) ? ranking->getEntry():DEFAULT_TEXT);
+    }
+}
+
+void RankingViewState::clear(){
+    ranking->clear();
+}
+
 RankingViewState::RankingViewState(SM::StateMachine* pStateMachine, Managers::Graphics* pGraphicsManager): SM::State(pStateMachine){
 
-    score_nameText = "0 - VAZIO";
+    this->pGraphicsManager = pGraphicsManager;
+
     selection = 0;
+
+    ranking = Ranking::getInstance();
+
+    for(int i = 0; i < MAX_ENTRIES; i++){
+        positions[i] = pGraphicsManager->createText(0, DEFAULT_TEXT, 15);
+        pGraphicsManager->setTextPos(positions[i], 225, 50 + 30 * i);
+    }
 
     titleText = pGraphicsManager->createText(0, "PONTUACOES", 20);
     pGraphicsManager->setTextPos(titleText, 225, 20);
-
-    for(int i = 0; i < MAX_ENTRIES; i++){
-        positions[i] = pGraphicsManager->createText(0, score_nameText, 15);
-        pGraphicsManager->setTextPos(positions[i], 225, 50 + 30 * i);
-    }
 
     backText = pGraphicsManager->createText(0, "Voltar", 20);
     pGraphicsManager->setTextPos(backText, 50, 270);
@@ -25,6 +39,14 @@ RankingViewState::RankingViewState(SM::StateMachine* pStateMachine, Managers::Gr
 
 RankingViewState::~RankingViewState(){
 
+}
+
+void RankingViewState::enter(void* arg){
+    updateRanking();
+}
+
+void RankingViewState::exit(){
+    Ranking::deleteInstance();
 }
 
 void RankingViewState::update(float dt, Managers::Events* pEventsManager){
@@ -50,6 +72,8 @@ void RankingViewState::update(float dt, Managers::Events* pEventsManager){
 
             case 1:
                 //APAGAR RANKING
+                clear();
+                updateRanking();
                 break;
            }
     }
