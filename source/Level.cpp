@@ -4,8 +4,12 @@ using namespace World;
 
 Level::Level(Managers::Graphics* pGraphicsManager):map(pGraphicsManager), LevelPhysics(&map), LevelEnemyGenerator(this, &map){
     this->pGraphicsManager = pGraphicsManager;
+    currentLevel = -1;
     backgroundSprite = -1;
     players = -1;
+    changeRequested = false;
+    isExitOpen = false;
+    levelScore = 0;
 }
 
 Level::~Level(){
@@ -57,6 +61,11 @@ void Level::update(float dt, Managers::Events* pEvents){
     LevelPhysics.collideMap();
     LevelPhysics.collideBodies();
 
+    if(levelScore >= EXIT_SCORE + currentLevel*EXIT_SCORE)
+        openExit();//abre um portal de saida com base no score total
+
+    if(changeRequested)//ao final do processamento, muda o nivel caso tenha sido requisitado
+        changeLevel();
 }
 
 void Level::render(){
@@ -93,6 +102,11 @@ void Level::removeBody(int id){
 }
 
 void Level::startLevel(int n, int players){
+    currentLevel = n;
+    totalPlayers = players;
+    isExitOpen = false;
+    changeRequested = false;
+
     loadMap(levelMapFiles[n]);
     this->players = players;
 
@@ -115,11 +129,55 @@ void Level::startLevel(int n, int players){
 
     backgroundSprite = pGraphicsManager->createSprite(pGraphicsManager->loadTexture(levelBackgroundFiles[n]));
     pGraphicsManager->setBackground(backgroundSprite);
-
 }
 
 void Level::loadMap(const char* arquivo){
     map.load(arquivo);
+}
+
+void Level::requestLevelChange(){
+    changeRequested = true;
+}
+
+void Level::changeLevel(){
+
+    if(currentLevel == nLevels-1)
+        players = 0;//se for o ultimo nivel, game over
+
+    else{
+        currentLevel++;
+
+        Entities::Enemy::setPlayer1(NULL); //tira as referencias do player 1
+        PlayerStats::setPlayer1(NULL);
+        Entities::Enemy::setPlayer2(NULL); //tira as referencias do player 2
+        PlayerStats::setPlayer2(NULL);
+
+        //limpa o que sera reiniciado no novo nivel
+        PlayerStats::eraseInstance();
+
+        for(auto i = entities.begin(); i != entities.end(); i = entities.erase(i)){
+            LevelPhysics.removeBody(i->getId());
+            delete *i;
+        }
+
+        startLevel(currentLevel, totalPlayers);//inicia um novo nivel
+        
+    }
+}
+
+void Level::openExit(){
+    if(!isExitOpen){
+        LevelEnemyGenerator.spawnExitPortal();
+        isExitOpen = true;
+    }
+}
+
+void Level::setScore(int score){
+    levelScore = score;
+}
+
+int Level::getScore(){
+    return levelScore;
 }
 
 EnemyGenerator* Level::getEnemyGenerator(){

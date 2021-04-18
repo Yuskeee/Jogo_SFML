@@ -15,6 +15,8 @@
 #include "Flower.h"
 #include "Ghost.h"
 
+#define EXIT_SCORE 10
+
 namespace World{
 
 class Level{
@@ -38,7 +40,12 @@ private:
         "../assets/background3.jpg"
     };
 
+    int currentLevel;
     int players;
+    int totalPlayers;
+    bool isExitOpen;
+    bool changeRequested;
+    int levelScore;
     Managers::Graphics* pGraphicsManager;
     List<Entities::Entity*> entities;
     Map map;
@@ -61,8 +68,13 @@ public:
 
     void startLevel(int n, int players);
     void loadMap(const char* arquivo);
+    void requestLevelChange();
+    void changeLevel();
+    void openExit();
     
+    void setScore(int score);
     //void salvar(char* arquivo);
+    int getScore();
     int getPlayers();
     EnemyGenerator* getEnemyGenerator();
     Managers::Graphics* getGraphicsManager();

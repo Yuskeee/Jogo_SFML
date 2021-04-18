@@ -12,6 +12,8 @@ namespace Entities{
 
 #define FLOWER_TEXTURE_FILE "../assets/evil_flower.png"
 
+#define FLOWER_SCORE_VALUE 10
+
 class Flower: public Enemy{
 
 private:

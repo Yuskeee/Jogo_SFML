@@ -47,6 +47,27 @@ void EnemyGenerator::spawnRandomPortal(){
     }
 
     Entities::BadPortal *p = new Entities::BadPortal(pLevel->getGraphicsManager(), pLevel, {(float)portalPosX, (float)portalPosY});
-    pLevel->addEntity(p);
+    pLevel->addEntity(static_cast<Entities::Entity*>(p));
 
+}
+
+void EnemyGenerator::spawnExitPortal(){
+    int portalPosX = rand()%(pMap->getWidth()-2)*TILE_WIDTH + rand()%TILE_WIDTH;
+    int portalPosY = rand()%(pMap->getHeight()-2)*TILE_HEIGHT + rand()%TILE_HEIGHT;
+
+    //sorteia uma posicao para o portal até que ele esteja fora de um bloco mas proximo do chao
+    while(pMap->isPositionSolid(portalPosX, portalPosY) || pMap->isPositionSolid(portalPosX + GOOD_PORTAL_WIDTH, portalPosY + GOOD_PORTAL_HEIGHT)
+        ||!pMap->isPositionSolid(portalPosX + (GOOD_PORTAL_WIDTH/2), portalPosY + GOOD_PORTAL_HEIGHT + 8)){
+        portalPosX = rand()%(pMap->getWidth()-2)*TILE_WIDTH + rand()%TILE_WIDTH;
+        portalPosY = rand()%(pMap->getHeight()-2)*TILE_HEIGHT + rand()%TILE_HEIGHT;
+    }
+   
+    Entities::GoodPortal *p = new Entities::GoodPortal(pLevel->getGraphicsManager(), pLevel, {(float)portalPosX, (float)portalPosY});
+    pLevel->addEntity(static_cast<Entities::Entity*>(p));
+    pLevel->addBody(static_cast<Body*>(p));
+
+}
+
+void EnemyGenerator::setMap(World::Map* pMap){
+    this->pMap = pMap;
 }

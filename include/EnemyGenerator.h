@@ -3,6 +3,7 @@
 #include "Zombie.h"
 #include "Flower.h"
 #include "BadPortal.h"
+#include "GoodPortal.h"
 #include <stdlib.h>
 #include <ctime>
 
@@ -26,6 +27,9 @@ public:
     void update(float dt);
     void spawnEnemy(const sf::Vector2<float>& pos);
     void spawnRandomPortal();
+    void spawnExitPortal();
+
+    void setMap(World::Map* pMap);
 
 
 };

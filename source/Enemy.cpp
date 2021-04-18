@@ -12,7 +12,6 @@ Entity(pGraphicsManager, pLevel, pos, vel), Body(pos, vel, rect), Being(enemy, p
 }
 
 Enemy::~Enemy(){
-
 }
 
 void Enemy::loseLife(const int damage){

@@ -22,6 +22,8 @@ namespace Entities{
 
 #define ZOMBIE_TEXTURE_FILE   "../assets/zombie_alien.png"
 
+#define ZOMBIE_SCORE_VALUE 10
+
 class Zombie: public Enemy{
 
 private:

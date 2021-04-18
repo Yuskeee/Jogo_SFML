@@ -33,6 +33,8 @@ public:
     void addBody(Body* bd);
     void removeBody(int id);
 
+    void setMap(World::Map* pMap);
+
 };
 }
 

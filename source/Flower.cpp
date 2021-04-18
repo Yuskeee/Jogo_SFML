@@ -51,5 +51,7 @@ void Flower::attack(){
 void Flower::onCollide(Body* other){
     if((dynamic_cast<Projectile*>(other) && dynamic_cast<Projectile*>(other)->fromPlayer())){
         lives -= 1;
+        if(lives == 0)
+            pLevel->setScore(pLevel->getScore() + FLOWER_SCORE_VALUE);
     }
 }

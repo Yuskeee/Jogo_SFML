@@ -157,3 +157,7 @@ void Physics::removeBody(int id){
             bodies.erase(i);
         
 }
+
+void Physics::setMap(World::Map* pMap){
+    this->pMap = pMap;
+}

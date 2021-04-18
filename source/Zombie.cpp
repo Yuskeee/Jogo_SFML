@@ -197,5 +197,7 @@ void Zombie::update(float dt, Managers::Events* pEventsManager){
 void Zombie::onCollide(Body* other){
     if((dynamic_cast<Projectile*>(other) && dynamic_cast<Projectile*>(other)->fromPlayer())){
         lives -= 1;
+        if(lives == 0)
+            pLevel->setScore(pLevel->getScore() + ZOMBIE_SCORE_VALUE);
     }
 }

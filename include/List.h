@@ -316,10 +316,12 @@ typename List<T2>::Iterator List<T2>::erase(Iterator iterator){
 		return iterator;
 	
 	if(iterator == begin()){//caso first
+		iterator++;
 		pop_front();
 		return iterator;
 	}
 	if(iterator.getNext() == NULL){//caso last
+		iterator--;
 		pop_back();
 		return end();
 	}

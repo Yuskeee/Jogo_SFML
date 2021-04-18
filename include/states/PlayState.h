@@ -15,7 +15,7 @@ private:
 
     Managers::textID scoreText;
 
-    float score;
+    int score;
 
 public:
     GamePlayState(SM::StateMachine* pStateMachine = NULL, Managers::Graphics* pGraphicsManager = NULL);

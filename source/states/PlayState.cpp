@@ -34,17 +34,16 @@ void GamePlayState::exit(){
 
 void GamePlayState::update(float dt, Managers::Events* pEvents){
     pLevel->update(dt, pEvents);
-
     if(pEvents->keyDown(Managers::Events::keycode::P))
         pStateMachine->changeState(PauseStateID, NULL);
 
-    score += dt;
+    score = pLevel->getScore();
     std::string text = "Score: " + std::to_string(static_cast<unsigned long int>(score));
 
     pGraphicsManager->setString(scoreText, text);
 
     if(!pLevel->getPlayers()){
-        int finalScore = (int)score;
+        int finalScore = score;
         pStateMachine->changeState(GameOverStateID, (void*)&finalScore);
     }
 }
