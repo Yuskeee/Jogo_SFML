@@ -24,6 +24,8 @@ namespace Entities{
 #define PLAYER_TEXTURE_FILE   "../assets/green_alien.png"
 #define PLAYER2_TEXTURE_FILE  "../assets/blue_alien.png"
 
+#define VULNERABILITY_MAX 0.5f
+
 class Player: public Entity, public Body{
 
 private:

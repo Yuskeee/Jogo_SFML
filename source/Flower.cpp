@@ -29,6 +29,14 @@ void Flower::update(float dt, Managers::Events* pEventsManager){
     if(attackTimer >= attackInterval)
         attack();
 
+    if(!vulnerability){
+        if(vulnerability_timer > VULNERABILITY_MAX){
+            vulnerability = true;
+            vulnerability_timer = 0;
+        }
+        vulnerability_timer += dt;
+    }
+
     pos += vel*dt;
 }
 

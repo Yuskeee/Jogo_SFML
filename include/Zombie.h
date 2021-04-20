@@ -24,6 +24,8 @@ namespace Entities{
 
 #define ZOMBIE_SCORE_VALUE 10
 
+#define VULNERABILITY_MAX 0.5f
+
 class Zombie: public Enemy{
 
 private:
@@ -87,6 +89,7 @@ private:
     const float airAcceleration = 0.5;
     const float velMax = 60;
     const float jumpVel = 300;
+    float vulnerability_timer;
 
     SM::StateMachine *ZombieSM;
     Managers::Graphics* pGraphicsManager;

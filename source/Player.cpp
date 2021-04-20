@@ -208,8 +208,6 @@ Player::~Player(){
     delete PlayerSM;
 }
 
-#define VULNERABILITY_MAX 0.5f
-
 void Player::update(float dt, Managers::Events* pEventsManager){
 
     if(PlayerSM)

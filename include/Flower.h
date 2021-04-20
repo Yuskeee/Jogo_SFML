@@ -14,6 +14,8 @@ namespace Entities{
 
 #define FLOWER_SCORE_VALUE 10
 
+#define VULNERABILITY_MAX 0.5f
+
 class Flower: public Enemy{
 
 private:
@@ -21,6 +23,7 @@ private:
     const float attackInterval = 5.0f;
     const float projectileSpeed = 100.0f;
     float attackTimer;
+    float vulnerability_timer;
 
 public:
     Flower(Managers::Graphics* pGraphicsManager = NULL, World::Level* pLevel = NULL,

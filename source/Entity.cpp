@@ -22,6 +22,13 @@ void Entity::draw(){
     pGraphicsManager->drawSprite(idSprite);
 }
 
+void Entity::damage(int damage){
+    if(vulnerability){
+        lives -= damage;
+        vulnerability = false;
+    }
+}
+
 int Entity::getLives() const{
     return lives;
 }

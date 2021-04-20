@@ -36,7 +36,10 @@ public:
 
     virtual void draw();
 
+    void damage(int damage);
+
     int getLives() const;
+    
 
 };
 

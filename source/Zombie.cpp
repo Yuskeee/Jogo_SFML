@@ -190,6 +190,14 @@ void Zombie::update(float dt, Managers::Events* pEventsManager){
 
     pos += vel*dt;
 
+    if(!vulnerability){
+        if(vulnerability_timer > VULNERABILITY_MAX){
+            vulnerability = true;
+            vulnerability_timer = 0;
+        }
+        vulnerability_timer += dt;
+    }
+
     if(pGraphicsManager)
         pGraphicsManager->setSpriteRect(idSprite, frame);
 }

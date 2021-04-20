@@ -63,9 +63,30 @@ void EnemyGenerator::spawnRandomTreadmill(){
         treadmillPosY = rand()%(pMap->getHeight()-3)*TILE_HEIGHT + rand()%TILE_HEIGHT;
     }
    
-    Entities::Obstacles::Treadmill *p = new Entities::Obstacles::Treadmill(pLevel->getGraphicsManager(), pLevel, {(float)treadmillPosX, (float)treadmillPosY});
-    pLevel->addEntity(static_cast<Entities::Entity*>(p));
-    pLevel->addBody(static_cast<Body*>(p));
+    Entities::Obstacles::Treadmill *t = new Entities::Obstacles::Treadmill(pLevel->getGraphicsManager(), pLevel, {(float)treadmillPosX, (float)treadmillPosY});
+    pLevel->addEntity(static_cast<Entities::Entity*>(t));
+    pLevel->addBody(static_cast<Body*>(t));
+
+
+}
+
+void EnemyGenerator::spawnRandomSpears(){
+
+    int spearsPosX = rand()%(pMap->getWidth()-5)*TILE_WIDTH + rand()%TILE_WIDTH;
+    int spearsPosY = rand()%(pMap->getHeight()-3)*TILE_HEIGHT + rand()%TILE_HEIGHT;
+
+    //sorteia uma posicao para o spears até que ele esteja fora de um bloco mas proximo do chao
+    while(pMap->isPositionSolid(spearsPosX, spearsPosY) || pMap->isPositionSolid(spearsPosX + SPEARS_WIDTH, spearsPosY + SPEARS_HEIGHT) 
+        ||!pMap->isPositionSolid(spearsPosX, spearsPosY + SPEARS_HEIGHT+1) || !pMap->isPositionSolid(spearsPosX + SPEARS_WIDTH, spearsPosY + SPEARS_HEIGHT+1)){
+        spearsPosX = rand()%(pMap->getWidth()-5)*TILE_WIDTH + rand()%TILE_WIDTH;
+        spearsPosY = rand()%(pMap->getHeight()-3)*TILE_HEIGHT + rand()%TILE_HEIGHT;
+        printf("pos: %d, %d\n", spearsPosX, spearsPosY);
+        printf("tests: %d, %d, %d, %d\n", pMap->isPositionSolid(spearsPosX, spearsPosY), pMap->isPositionSolid(spearsPosX + SPEARS_WIDTH, spearsPosY + SPEARS_HEIGHT-1), !pMap->isPositionSolid(spearsPosX, spearsPosY + SPEARS_HEIGHT), !pMap->isPositionSolid(spearsPosX + SPEARS_WIDTH, spearsPosY + SPEARS_HEIGHT+1));
+    }
+   
+    Entities::Obstacles::Spears *s = new Entities::Obstacles::Spears(pLevel->getGraphicsManager(), pLevel, {(float)spearsPosX, (float)spearsPosY + 0.5f});//deve ser colocado ligeramente mais abaixo que a posicao inteira sorteada, para que o sprite toque o chao visualmente
+    pLevel->addEntity(static_cast<Entities::Entity*>(s));
+    pLevel->addBody(static_cast<Body*>(s));
 
 
 }
@@ -89,6 +110,7 @@ void EnemyGenerator::spawnExitPortal(){
 
 void EnemyGenerator::generateObstacles(){
     spawnRandomTreadmill();
+    spawnRandomSpears();
 }
 
 void EnemyGenerator::setMap(World::Map* pMap){

@@ -14,6 +14,7 @@ protected:
         false,//portal
         true,//enemy
         false,//treadmill
+        false,//spears
         false//projectile
     };
 

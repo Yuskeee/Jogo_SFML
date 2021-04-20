@@ -5,6 +5,7 @@
 #include "BadPortal.h"
 #include "GoodPortal.h"
 #include "Treadmill.h"
+#include "Spears.h"
 #include <stdlib.h>
 #include <ctime>
 
@@ -29,6 +30,7 @@ public:
     void spawnEnemy(const sf::Vector2<float>& pos);
     void spawnRandomPortal();
     void spawnRandomTreadmill();
+    void spawnRandomSpears();
     void spawnExitPortal();
 
     void generateObstacles();

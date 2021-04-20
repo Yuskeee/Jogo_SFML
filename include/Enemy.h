@@ -22,8 +22,6 @@ public:
     Enemy(Managers::Graphics* pGraphicsManager = NULL, World::Level* pLevel = NULL, const sf::Vector2<float>& pos = {0.0f, 0.0f}, const sf::Vector2<float>& vel = {0.0f, 0.0f}, const sf::Vector2<float>& rect = {0.0f, 0.0f}, const float accel = 0, const float mVel = 0);
     virtual ~Enemy();
 
-    virtual void loseLife(const int damage);//dano recebido
-
     virtual void update(float dt, Managers::Events* pEventsManager) = 0;
     virtual void attack() = 0;
     virtual void onCollide(Body* other, float dt) = 0;

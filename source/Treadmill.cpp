@@ -13,6 +13,7 @@ Entity(pGraphicsManager, pLevel, pos, {0.0f, 0.0f}), Body(pos, {0.0f, 0.0f}, {TR
 
     this->pLevel = pLevel;
 
+    vulnerability = false;
 
     if(pGraphicsManager){
         frame = Managers::spriteRect(0, 0, 48, 6);

@@ -15,6 +15,7 @@ public:
         enemy,
         projectile,
         treadmill,
+        spears,
         nBeingTypes
     };
 
