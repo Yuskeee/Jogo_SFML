@@ -10,7 +10,7 @@ Body::~Body(){
 
 }
 
-void Body::onCollide(Body* other){
+void Body::onCollide(Body* other, float dt){
 
 }
 

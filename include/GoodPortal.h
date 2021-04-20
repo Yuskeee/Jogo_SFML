@@ -27,7 +27,7 @@ public:
     virtual ~GoodPortal();
 
     void update(float dt, Managers::Events* pEventsManager);
-    void onCollide(Body* other);
+    void onCollide(Body* other, float dt);
 
 
 };

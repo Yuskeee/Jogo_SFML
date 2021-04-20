@@ -23,7 +23,7 @@ public:
 
     virtual void update(float dt, Managers::Events* pEvents);
 
-    virtual void onCollide(Body* other);
+    virtual void onCollide(Body* other, float dt);
 
     const bool fromPlayer() const;
 

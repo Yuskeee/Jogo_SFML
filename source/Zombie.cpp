@@ -194,7 +194,7 @@ void Zombie::update(float dt, Managers::Events* pEventsManager){
         pGraphicsManager->setSpriteRect(idSprite, frame);
 }
 
-void Zombie::onCollide(Body* other){
+void Zombie::onCollide(Body* other, float dt){
     if((dynamic_cast<Projectile*>(other) && dynamic_cast<Projectile*>(other)->fromPlayer())){
         lives -= 1;
         if(lives == 0)

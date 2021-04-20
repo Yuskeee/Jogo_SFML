@@ -26,7 +26,7 @@ public:
 
     virtual void update(float dt, Managers::Events* pEventsManager) = 0;
     virtual void attack() = 0;
-    virtual void onCollide(Body* other) = 0;
+    virtual void onCollide(Body* other, float dt) = 0;
 
     void setTarget();
 

@@ -36,7 +36,7 @@ void GoodPortal::update(float dt, Managers::Events* pEventsManager){
 
 }
 
-void GoodPortal::onCollide(Body* other){
+void GoodPortal::onCollide(Body* other, float dt){
 
     if(dynamic_cast<Player*>(other))
         pLevel->requestLevelChange();//notifica a fase que uma mudanca é esperada, mas nao muda agora pois o processamento das entidades ainda esta em curso

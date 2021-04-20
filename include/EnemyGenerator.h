@@ -4,6 +4,7 @@
 #include "Flower.h"
 #include "BadPortal.h"
 #include "GoodPortal.h"
+#include "Treadmill.h"
 #include <stdlib.h>
 #include <ctime>
 
@@ -27,7 +28,10 @@ public:
     void update(float dt);
     void spawnEnemy(const sf::Vector2<float>& pos);
     void spawnRandomPortal();
+    void spawnRandomTreadmill();
     void spawnExitPortal();
+
+    void generateObstacles();
 
     void setMap(World::Map* pMap);
 

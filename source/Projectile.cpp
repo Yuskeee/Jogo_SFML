@@ -29,7 +29,7 @@ void Projectile::update(float dt, Managers::Events* pEvents){
     pos += vel*dt;
 }
 
-void Projectile::onCollide(Body* other){
+void Projectile::onCollide(Body* other, float dt){
     if((!dynamic_cast<Player*>(other) && _isPlayers) || (dynamic_cast<Player*>(other) && !_isPlayers)){
         lives = 0;
     }

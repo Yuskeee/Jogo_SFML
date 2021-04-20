@@ -242,7 +242,7 @@ void Player::update(float dt, Managers::Events* pEventsManager){
 
 }
 
-void Player::onCollide(Body* other){
+void Player::onCollide(Body* other, float dt){
     if(vulnerability){
         if(dynamic_cast<Projectile*>(other) != 0){
             if(!dynamic_cast<Projectile*>(other)->fromPlayer()){

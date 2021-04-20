@@ -59,7 +59,7 @@ void Level::update(float dt, Managers::Events* pEvents){
 
     LevelPhysics.applyGravity(dt);
     LevelPhysics.collideMap();
-    LevelPhysics.collideBodies();
+    LevelPhysics.collideBodies(dt);
 
     if(levelScore >= EXIT_SCORE + currentLevel*EXIT_SCORE)
         openExit();//abre um portal de saida com base no score total
@@ -129,6 +129,8 @@ void Level::startLevel(int n, int players){
 
     backgroundSprite = pGraphicsManager->createSprite(pGraphicsManager->loadTexture(levelBackgroundFiles[n]));
     pGraphicsManager->setBackground(backgroundSprite);
+
+    LevelEnemyGenerator.generateObstacles();
 }
 
 void Level::loadMap(const char* arquivo){

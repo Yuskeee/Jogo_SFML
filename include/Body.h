@@ -13,6 +13,7 @@ protected:
         false,//ghost2
         false,//portal
         true,//enemy
+        false,//treadmill
         false//projectile
     };
 
@@ -25,7 +26,7 @@ public:
     Body(const sf::Vector2<float>& pos = {0.0f, 0.0f}, const sf::Vector2<float>& vel = {0.0f, 0.0f}, const sf::Vector2<float>& rect = {0.0f, 0.0f}, bool isGrounded = false, beingType type = Being::player_1);
     virtual ~Body();
 
-    virtual void onCollide(Body* other);
+    virtual void onCollide(Body* other, float dt);
 
     void setRect(const sf::Vector2<float>& rect);
     void setGrounded(const bool& isGrounded);

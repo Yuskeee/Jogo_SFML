@@ -13,8 +13,8 @@ public:
         ghost_2,
         portal,
         enemy,
-        //inimigo2,
         projectile,
+        treadmill,
         nBeingTypes
     };
 

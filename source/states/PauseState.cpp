@@ -64,7 +64,7 @@ void PauseState::render(Managers::Graphics* pGraphicsManager){
 
     switch(selection){
         case 0:
-            pGraphicsManager->setTextColor(titleText, 255, 255, 255, 255);
+            pGraphicsManager->setTextColor(quitText, 255, 255, 255, 255);
             pGraphicsManager->setTextColor(backText, 255, 10, 10, 255);
             pGraphicsManager->setTextColor(saveText, 255, 255, 255, 255);
             break;

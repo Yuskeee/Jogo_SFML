@@ -30,7 +30,7 @@ public:
     virtual void update(float dt, Managers::Events* pEventsManager);
     virtual void attack();
 
-    virtual void onCollide(Body* other);
+    virtual void onCollide(Body* other, float dt);
 
 
 };

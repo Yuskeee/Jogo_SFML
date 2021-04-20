@@ -26,7 +26,7 @@ public:
     ~Physics();
 
     void collideMap();//colide todas as corpos com o mapa
-    void collideBodies();//colide todas as corpos entre si
+    void collideBodies(float dt);//colide todas as corpos entre si
 
     void applyGravity(float dt);
 

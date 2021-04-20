@@ -119,7 +119,7 @@ void Physics::collideMap(){
     }
 }
 
-void Physics::collideBodies(){
+void Physics::collideBodies(float dt){
     Body *a, *b;
     for(int i = bodies.size()-1; i >= 0; i--){
         for(int j = i - 1; j >= 0; j--)
@@ -128,8 +128,8 @@ void Physics::collideBodies(){
             b = bodies[j];
             
             if(checkBodyCollision(a, b)){///se a colidiu com b, chama os metodos de colisao de cada uma passando ponteiro para a outra
-                a->onCollide(b);
-                b->onCollide(a);
+                a->onCollide(b, dt);
+                b->onCollide(a, dt);
             }
         }
     }

@@ -111,7 +111,7 @@ public:
     virtual ~Player();
 
     void update(float dt, Managers::Events* pEventsManager);
-    void onCollide(Body* other) override;
+    void onCollide(Body* other, float dt) override;
 
 private:
 
