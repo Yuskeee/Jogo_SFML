@@ -80,8 +80,6 @@ void EnemyGenerator::spawnRandomSpears(){
         ||!pMap->isPositionSolid(spearsPosX, spearsPosY + SPEARS_HEIGHT+1) || !pMap->isPositionSolid(spearsPosX + SPEARS_WIDTH, spearsPosY + SPEARS_HEIGHT+1)){
         spearsPosX = rand()%(pMap->getWidth()-5)*TILE_WIDTH + rand()%TILE_WIDTH;
         spearsPosY = rand()%(pMap->getHeight()-3)*TILE_HEIGHT + rand()%TILE_HEIGHT;
-        printf("pos: %d, %d\n", spearsPosX, spearsPosY);
-        printf("tests: %d, %d, %d, %d\n", pMap->isPositionSolid(spearsPosX, spearsPosY), pMap->isPositionSolid(spearsPosX + SPEARS_WIDTH, spearsPosY + SPEARS_HEIGHT-1), !pMap->isPositionSolid(spearsPosX, spearsPosY + SPEARS_HEIGHT), !pMap->isPositionSolid(spearsPosX + SPEARS_WIDTH, spearsPosY + SPEARS_HEIGHT+1));
     }
    
     Entities::Obstacles::Spears *s = new Entities::Obstacles::Spears(pLevel->getGraphicsManager(), pLevel, {(float)spearsPosX, (float)spearsPosY + 0.5f});//deve ser colocado ligeramente mais abaixo que a posicao inteira sorteada, para que o sprite toque o chao visualmente
