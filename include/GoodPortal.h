@@ -18,9 +18,6 @@ private:
     const float cycleTime = 0.2;
     float cycleTimer;
 
-    const float durationTime = 2;
-    float durationTimer;
-
 public:
 
     GoodPortal(Managers::Graphics* pGraphicsManager = NULL, World::Level* pLevel = NULL, const sf::Vector2<float>& pos = {0.0f, 0.0f});
