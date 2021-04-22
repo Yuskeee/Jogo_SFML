@@ -3,8 +3,8 @@
 
 using namespace Entities;
 
-Projectile::Projectile(Managers::Graphics* pGraphicsManager, World::Level* pLevel, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel, const bool isPlayers):
-Entity(pGraphicsManager, pLevel, pos, vel), Body(pos, vel, {PROJECTILE_WIDTH, PROJECTILE_HEIGHT}), Being(projectile, pos, vel), _isPlayers(isPlayers){
+Projectile::Projectile(Managers::Graphics* pGraphicsManager, World::Level* pLevel, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel, const bool isPlayers, const bool fromBoss):
+Entity(pGraphicsManager, pLevel, pos, vel), Body(pos, vel, {PROJECTILE_WIDTH, PROJECTILE_HEIGHT}), Being(((fromBoss)? boss_projectile:projectile), pos, vel), _isPlayers(isPlayers), _fromBoss(fromBoss){
 
     velXStart = vel.x;
     velYStart = vel.y;
@@ -23,7 +23,7 @@ Projectile::~Projectile(){
 }
 
 void Projectile::update(float dt, Managers::Events* pEvents){
-    if(velXStart != vel.x || velYStart != vel.y)//se bateu em um bloco, a velocidade foi zerada.
+    if(velXStart != vel.x || (!_fromBoss && velYStart != vel.y))//se bateu em um bloco, a velocidade foi zerada.
         lives = 0;
 
     pos += vel*dt;

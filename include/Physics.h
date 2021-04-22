@@ -7,10 +7,10 @@
 
 namespace World{
 
-class Physics{ 
+class Physics{
 
 private:
-    const float gravity = 1050/*210*/;
+    static const float gravity;
     const float maxVertVel = 300;
 
     Map* pMap;//ponteiro para o mapa (alocado em Level)
@@ -34,6 +34,8 @@ public:
     void removeBody(int id);
 
     void setMap(World::Map* pMap);
+
+    static const float getGravityValue();
 
 };
 }

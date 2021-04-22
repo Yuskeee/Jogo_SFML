@@ -15,7 +15,8 @@ protected:
         true,//enemy
         false,//treadmill
         false,//spears
-        false//projectile
+        false,//projectile
+        true//boss_projectile
     };
 
     sf::Vector2<float> rect;

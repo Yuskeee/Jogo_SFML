@@ -9,6 +9,7 @@ namespace Obstacles{
 
 #define SPEARS_WIDTH   16
 #define SPEARS_HEIGHT  20
+#define SPEARS_HEIGHT_DOWN 1
 
 #define SPEARS_TEXTURE_FILE   "../assets/spears.png"
 
@@ -21,6 +22,7 @@ private:
     float cycleTimer;
 
     bool active;
+    float startPosX, startPosY;
 
 
 public:

@@ -36,7 +36,7 @@ void Level::update(float dt, Managers::Events* pEvents){
 
                 Entities::Ghost* g1 = new Entities::Ghost(pGraphicsManager, this, i->getPos(), sf::Vector2f(0, 0), true);
                 addEntity(static_cast<Entities::Entity*>(g1));//cria o fantasma do player 1
-                
+
                 players--;
             }
             else if(i->getType() == Being::player_2){
@@ -45,7 +45,7 @@ void Level::update(float dt, Managers::Events* pEvents){
 
                 Entities::Ghost* g2 = new Entities::Ghost(pGraphicsManager, this, i->getPos(), sf::Vector2f(0, 0), false);
                 addEntity(static_cast<Entities::Entity*>(g2));//cria o fantasma do player 2
-                
+
                 players--;
             }
             removeBody(i->getId());
@@ -126,6 +126,11 @@ void Level::startLevel(int n, int players){
         Entities::Enemy::setPlayer1(p1);
         playersStats = PlayerStats::getPlayerStatsInstance(pGraphicsManager, this, p1);
     }
+    if(n == 2){
+        Entities::Boss* b = new Entities::Boss(pGraphicsManager, this, sf::Vector2f(500, 400), sf::Vector2f(0, 0));
+        addEntity(static_cast<Entities::Entity*>(b));
+        LevelPhysics.addBody(static_cast<Body*>(b));
+    }
 
     backgroundSprite = pGraphicsManager->createSprite(pGraphicsManager->loadTexture(levelBackgroundFiles[n]));
     pGraphicsManager->setBackground(backgroundSprite);
@@ -163,7 +168,7 @@ void Level::changeLevel(){
         }
 
         startLevel(currentLevel, totalPlayers);//inicia um novo nivel
-        
+
     }
 }
 

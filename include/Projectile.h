@@ -16,9 +16,10 @@ class Projectile: public Entity, public Body{
 private:
     float velXStart, velYStart;
     const bool _isPlayers;
+    const bool _fromBoss;
 
 public:
-    Projectile(Managers::Graphics* pGraphicsManager = NULL, World::Level* pLevel = NULL, const sf::Vector2<float>& pos = {0.0f, 0.0f}, const sf::Vector2<float>& vel = {0.0f, 0.0f}, const bool isPlayers = false);
+    Projectile(Managers::Graphics* pGraphicsManager = NULL, World::Level* pLevel = NULL, const sf::Vector2<float>& pos = {0.0f, 0.0f}, const sf::Vector2<float>& vel = {0.0f, 0.0f}, const bool isPlayers = false, const bool fromBoss = false);
     ~Projectile();
 
     virtual void update(float dt, Managers::Events* pEvents);

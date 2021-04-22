@@ -14,6 +14,7 @@
 #include "EnemyGenerator.h"
 #include "Flower.h"
 #include "Ghost.h"
+#include "Boss.h"
 
 #define EXIT_SCORE 10
 
@@ -71,7 +72,7 @@ public:
     void requestLevelChange();
     void changeLevel();
     void openExit();
-    
+
     void setScore(int score);
     //void salvar(char* arquivo);
     int getScore();
