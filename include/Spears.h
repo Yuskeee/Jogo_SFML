@@ -7,9 +7,9 @@
 namespace Entities{
 namespace Obstacles{
 
-#define SPEARS_WIDTH   16
-#define SPEARS_HEIGHT  20
-#define SPEARS_HEIGHT_DOWN 1
+#define SPEARS_WIDTH   16.0f
+#define SPEARS_HEIGHT  20.0f
+#define SPEARS_HEIGHT_DOWN 2.0f
 
 #define SPEARS_TEXTURE_FILE   "../assets/spears.png"
 
