@@ -124,6 +124,7 @@ void Level::startLevel(int n, int players){
     }
     else{
         Entities::Enemy::setPlayer1(p1);
+        Entities::Enemy::setPlayer2(NULL);
         playersStats = PlayerStats::getPlayerStatsInstance(pGraphicsManager, this, p1);
     }
     if(n == 2){
