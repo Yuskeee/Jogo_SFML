@@ -26,7 +26,6 @@ Entity(pGraphicsManager, pLevel, pos, {0.0f, 0.0f}), Body(pos, {0.0f, 0.0f}, {SP
     startPosX = this->pos.x;
     startPosY = this->pos.y;
 
-    printf("spear at %f, %f\n", startPosX, startPosY);
 }
 
 Spears::~Spears(){
@@ -45,17 +44,12 @@ void Spears::update(float dt, Managers::Events* pEventsManager){
     }
     if(cycleTimer > cycleTime){
         if(active){
-            printf("pos was: %f, %f\n", pos.x, pos.y);
-            printf("flipping down: %f, %f\n", startPosX, startPosY);
             pos = {startPosX, startPosY + SPEARS_HEIGHT - SPEARS_HEIGHT_DOWN};
             rect = {SPEARS_WIDTH, SPEARS_HEIGHT_DOWN};
             frame = Managers::spriteRect(0, SPEARS_HEIGHT - SPEARS_HEIGHT_DOWN, SPEARS_WIDTH, SPEARS_HEIGHT_DOWN);
-            printf("pos is: %f, %f\n", pos.x, pos.y);
         }
         else{
             frame = Managers::spriteRect(32, 0, SPEARS_WIDTH, SPEARS_HEIGHT);
-            printf("flipping up: %f, %f\n", startPosX, startPosY);
-            printf("pos is: %f, %f\n", pos.x, pos.y);   
         }
 
         active = !active;
