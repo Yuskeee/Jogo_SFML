@@ -78,13 +78,13 @@ Ranking::~Ranking(){
 }
 
 void Ranking::add(unsigned long int score, std::string name){
-    if(score > records.begin()->first){
-        if(records.size() == MAX)
-            records.erase(records.begin());
+    if(records.size() == MAX && score < records.begin()->first)//se o ranking estiver cheio e o score inserido é muito baixo
+        return;
+    if(records.size() == MAX)//se o ranking estiver cheio e o score é mais alto que a entrada mais baixa
+        records.erase(records.begin());
 
-        records.insert(Records::value_type(score, name));
-        entries++;
-    }
+    records.insert(Records::value_type(score, name));
+    entries++;
 }
 
 int Ranking::getSize(){
@@ -106,7 +106,7 @@ std::string Ranking::getEntry(){
         return aux;
     }
     ranking_iterator = records.rbegin();//reinicia o iterador
-    return "\0";//retorna NULL avisando que acabou a cont�iner
+    return "\0";//retorna NULL avisando que acabou a contêiner
 }
 
 void Ranking::clear(){
