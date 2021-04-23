@@ -11,7 +11,7 @@
 
 
 #include "Entity.h"
-#include "EnemyGenerator.h"
+#include "Generator.h"
 #include "Flower.h"
 #include "Ghost.h"
 #include "Boss.h"
@@ -51,7 +51,7 @@ private:
     List<Entities::Entity*> entities;
     Map map;
     Physics LevelPhysics;
-    EnemyGenerator LevelEnemyGenerator;
+    Generator LevelGenerator;
     Managers::spriteID backgroundSprite;
     PlayerStats* playersStats;
 
@@ -77,7 +77,7 @@ public:
     //void salvar(char* arquivo);
     int getScore();
     int getPlayers();
-    EnemyGenerator* getEnemyGenerator();
+    Generator* getGenerator();
     Managers::Graphics* getGraphicsManager();
     World::Physics* getPhysics();
 

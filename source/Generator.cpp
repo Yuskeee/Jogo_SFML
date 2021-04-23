@@ -1,19 +1,19 @@
-#include "EnemyGenerator.h"
+#include "Generator.h"
 #include "Level.h"
 #include "Map.h"
 
-EnemyGenerator::EnemyGenerator(World::Level* pLevel, World::Map* pMap){
+Generator::Generator(World::Level* pLevel, World::Map* pMap){
     this->pLevel = pLevel;
     this->pMap = pMap;
     spawnTimer = 0;
     srand(time(NULL));
 
 }
-EnemyGenerator::~EnemyGenerator(){
+Generator::~Generator(){
 
 }
 
-void EnemyGenerator::update(float dt){
+void Generator::update(float dt){
     spawnTimer += dt;
 
     if(spawnTimer > spawnTime){
@@ -23,7 +23,7 @@ void EnemyGenerator::update(float dt){
 
 }
 
-void EnemyGenerator::spawnEnemy(const sf::Vector2<float>& pos){
+void Generator::spawnEnemy(const sf::Vector2<float>& pos){
     if(rand()%2){
         Entities::Zombie* z1 = new Entities::Zombie(pLevel->getGraphicsManager(), pLevel, pos, sf::Vector2f(0, 0));
         pLevel->addEntity(static_cast<Entities::Entity*>(z1));//adiciona o zumbi na lista de entidades da fase
@@ -37,7 +37,7 @@ void EnemyGenerator::spawnEnemy(const sf::Vector2<float>& pos){
 
 }
 
-void EnemyGenerator::spawnRandomPortal(){
+void Generator::spawnRandomPortal(){
     int portalPosX = rand()%pMap->getWidth()*TILE_WIDTH;
     int portalPosY = rand()%pMap->getHeight()*TILE_HEIGHT;
 
@@ -51,7 +51,7 @@ void EnemyGenerator::spawnRandomPortal(){
 
 }
 
-void EnemyGenerator::spawnRandomTreadmill(){
+void Generator::spawnRandomTreadmill(){
 
     int treadmillPosX = rand()%(pMap->getWidth()-5)*TILE_WIDTH + rand()%TILE_WIDTH;
     int treadmillPosY = rand()%(pMap->getHeight()-3)*TILE_HEIGHT + rand()%TILE_HEIGHT;
@@ -71,7 +71,7 @@ void EnemyGenerator::spawnRandomTreadmill(){
 
 }
 
-void EnemyGenerator::spawnRandomSpears(){
+void Generator::spawnRandomSpears(){
 
     int spearsPosX = rand()%(pMap->getWidth()-5)*TILE_WIDTH + rand()%TILE_WIDTH;
     int spearsPosY = rand()%(pMap->getHeight()-3)*TILE_HEIGHT + rand()%TILE_HEIGHT;
@@ -91,7 +91,7 @@ void EnemyGenerator::spawnRandomSpears(){
 
 }
 
-void EnemyGenerator::spawnRandomSaw(){
+void Generator::spawnRandomSaw(){
 
     int sawPosX = rand()%(pMap->getWidth()-5)*TILE_WIDTH + rand()%TILE_WIDTH;
     int sawPosY = rand()%(pMap->getHeight()-3)*TILE_HEIGHT + rand()%TILE_HEIGHT;
@@ -111,7 +111,7 @@ void EnemyGenerator::spawnRandomSaw(){
 
 }
 
-void EnemyGenerator::spawnExitPortal(){
+void Generator::spawnExitPortal(){
     int portalPosX = rand()%(pMap->getWidth()-2)*TILE_WIDTH + rand()%TILE_WIDTH;
     int portalPosY = rand()%(pMap->getHeight()-2)*TILE_HEIGHT + rand()%TILE_HEIGHT;
 
@@ -128,7 +128,7 @@ void EnemyGenerator::spawnExitPortal(){
 
 }
 
-void EnemyGenerator::generateObstacles(){
+void Generator::generateObstacles(){
 
     int firstType, secondType;
     firstType = rand()%3;
@@ -147,6 +147,6 @@ void EnemyGenerator::generateObstacles(){
             spawnRandomSaw();
 }
 
-void EnemyGenerator::setMap(World::Map* pMap){
+void Generator::setMap(World::Map* pMap){
     this->pMap = pMap;
 }

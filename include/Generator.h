@@ -15,7 +15,7 @@ namespace World{
     class Map;
 }
 
-class EnemyGenerator{
+class Generator{
 private:
 
     const float spawnTime = 10;
@@ -24,8 +24,8 @@ private:
     World::Map* pMap;
 
 public:
-    EnemyGenerator(World::Level* pLevel, World::Map* pMap);
-    ~EnemyGenerator();
+    Generator(World::Level* pLevel, World::Map* pMap);
+    ~Generator();
 
     void update(float dt);
     void spawnEnemy(const sf::Vector2<float>& pos);

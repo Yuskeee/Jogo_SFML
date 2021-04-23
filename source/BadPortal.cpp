@@ -36,7 +36,7 @@ void BadPortal::update(float dt, Managers::Events* pEventsManager){
         cycleTimer = 0;
     }
     if(durationTimer > durationTime){
-        pLevel->getEnemyGenerator()->spawnEnemy(pos);
+        pLevel->getGenerator()->spawnEnemy(pos);
         lives = 0;
     }
 

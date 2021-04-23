@@ -2,7 +2,7 @@
 
 using namespace World;
 
-Level::Level(Managers::Graphics* pGraphicsManager):map(pGraphicsManager), LevelPhysics(&map), LevelEnemyGenerator(this, &map){
+Level::Level(Managers::Graphics* pGraphicsManager):map(pGraphicsManager), LevelPhysics(&map), LevelGenerator(this, &map){
     this->pGraphicsManager = pGraphicsManager;
     currentLevel = -1;
     backgroundSprite = -1;
@@ -55,7 +55,7 @@ void Level::update(float dt, Managers::Events* pEvents){
     if(playersStats)
         playersStats->update();
 
-    LevelEnemyGenerator.update(dt);
+    LevelGenerator.update(dt);
 
     LevelPhysics.applyGravity(dt);
     LevelPhysics.collideMap();
@@ -136,7 +136,7 @@ void Level::startLevel(int n, int players){
     backgroundSprite = pGraphicsManager->createSprite(pGraphicsManager->loadTexture(levelBackgroundFiles[n]));
     pGraphicsManager->setBackground(backgroundSprite);
 
-    LevelEnemyGenerator.generateObstacles();
+    LevelGenerator.generateObstacles();
 }
 
 void Level::loadMap(const char* arquivo){
@@ -175,7 +175,7 @@ void Level::changeLevel(){
 
 void Level::openExit(){
     if(!isExitOpen){
-        LevelEnemyGenerator.spawnExitPortal();
+        LevelGenerator.spawnExitPortal();
         isExitOpen = true;
     }
 }
@@ -188,8 +188,8 @@ int Level::getScore(){
     return levelScore;
 }
 
-EnemyGenerator* Level::getEnemyGenerator(){
-    return &LevelEnemyGenerator;
+Generator* Level::getGenerator(){
+    return &LevelGenerator;
 }
 
 Managers::Graphics* Level::getGraphicsManager(){
