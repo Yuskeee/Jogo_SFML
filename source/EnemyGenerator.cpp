@@ -89,6 +89,25 @@ void EnemyGenerator::spawnRandomSpears(){
 
 }
 
+void EnemyGenerator::spawnRandomSaw(){
+
+    int sawPosX = rand()%(pMap->getWidth()-5)*TILE_WIDTH + rand()%TILE_WIDTH;
+    int sawPosY = rand()%(pMap->getHeight()-3)*TILE_HEIGHT + rand()%TILE_HEIGHT;
+
+    //sorteia uma posicao para o saw até que ele esteja fora de um bloco mas proximo do chao
+    while(pMap->isPositionSolid(sawPosX, sawPosY) || pMap->isPositionSolid(sawPosX + SAW_WIDTH, sawPosY + SAW_HEIGHT) 
+        ||!pMap->isPositionSolid(sawPosX, sawPosY + SAW_HEIGHT+1) || !pMap->isPositionSolid(sawPosX + SAW_WIDTH, sawPosY + SAW_HEIGHT+1)){
+        sawPosX = rand()%(pMap->getWidth()-5)*TILE_WIDTH + rand()%TILE_WIDTH;
+        sawPosY = rand()%(pMap->getHeight()-3)*TILE_HEIGHT + rand()%TILE_HEIGHT;
+    }
+   
+    Entities::Obstacles::Saw *s = new Entities::Obstacles::Saw(pLevel->getGraphicsManager(), pLevel, {(float)sawPosX, (float)sawPosY + 0.5f});//deve ser colocado ligeramente mais abaixo que a posicao inteira sorteada, para que o sprite toque o chao visualmente
+    pLevel->addEntity(static_cast<Entities::Entity*>(s));
+    pLevel->addBody(static_cast<Body*>(s));
+
+
+}
+
 void EnemyGenerator::spawnExitPortal(){
     int portalPosX = rand()%(pMap->getWidth()-2)*TILE_WIDTH + rand()%TILE_WIDTH;
     int portalPosY = rand()%(pMap->getHeight()-2)*TILE_HEIGHT + rand()%TILE_HEIGHT;
@@ -107,8 +126,22 @@ void EnemyGenerator::spawnExitPortal(){
 }
 
 void EnemyGenerator::generateObstacles(){
-    spawnRandomTreadmill();
-    spawnRandomSpears();
+
+    int firstType, secondType;
+    firstType = rand()%3;
+
+    do secondType = rand()%3;
+    while(firstType == secondType);//garante que os tipos sao diferentes
+
+    if(firstType == 0 || secondType == 0)
+        for(int i = 5 + rand()%3; i > 0; i--)//spawna de 5 a 7
+            spawnRandomTreadmill();
+    if(firstType == 1 || secondType == 1)
+        for(int i = 5 + rand()%3; i > 0; i--)//spawna de 5 a 7
+            spawnRandomSpears();
+    if(firstType == 2 || secondType == 2)
+        for(int i = 5 + rand()%3; i > 0; i--)//spawna de 5 a 7
+            spawnRandomSaw();
 }
 
 void EnemyGenerator::setMap(World::Map* pMap){

@@ -16,6 +16,7 @@ public:
         projectile,
         treadmill,
         spears,
+        saw,
         boss_projectile,
         nBeingTypes
     };

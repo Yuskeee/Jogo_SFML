@@ -13,9 +13,10 @@ protected:
         false,//ghost2
         false,//portal
         true,//enemy
+        false,//projectile
         false,//treadmill
         false,//spears
-        false,//projectile
+        false,//saw
         true//boss_projectile
     };
 

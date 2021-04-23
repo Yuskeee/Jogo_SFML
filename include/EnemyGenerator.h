@@ -6,6 +6,7 @@
 #include "GoodPortal.h"
 #include "Treadmill.h"
 #include "Spears.h"
+#include "Saw.h"
 #include <stdlib.h>
 #include <ctime>
 
@@ -31,6 +32,7 @@ public:
     void spawnRandomPortal();
     void spawnRandomTreadmill();
     void spawnRandomSpears();
+    void spawnRandomSaw();
     void spawnExitPortal();
 
     void generateObstacles();
