@@ -199,3 +199,7 @@ Managers::Graphics* Level::getGraphicsManager(){
 int Level::getPlayers(){
     return players;
 }
+
+World::Physics* Level::getPhysics(){
+    return &LevelPhysics;
+}

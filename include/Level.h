@@ -79,6 +79,7 @@ public:
     int getPlayers();
     EnemyGenerator* getEnemyGenerator();
     Managers::Graphics* getGraphicsManager();
+    World::Physics* getPhysics();
 
 
 };

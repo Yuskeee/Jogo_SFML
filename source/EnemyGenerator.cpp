@@ -58,12 +58,13 @@ void EnemyGenerator::spawnRandomTreadmill(){
 
     //sorteia uma posicao para o treadmill até que ele esteja fora de um bloco mas proximo do chao
     while(pMap->isPositionSolid(treadmillPosX, treadmillPosY) || pMap->isPositionSolid(treadmillPosX + TREADMILL_WIDTH/2, treadmillPosY + TREADMILL_HEIGHT/2) || pMap->isPositionSolid(treadmillPosX + TREADMILL_WIDTH, treadmillPosY + TREADMILL_HEIGHT)
-        ||!pMap->isPositionSolid(treadmillPosX, treadmillPosY + TREADMILL_HEIGHT + 1) || !pMap->isPositionSolid(treadmillPosX + TREADMILL_WIDTH, treadmillPosY + TREADMILL_HEIGHT + 1)){
+        ||!pMap->isPositionSolid(treadmillPosX, treadmillPosY + TREADMILL_HEIGHT + 1) || !pMap->isPositionSolid(treadmillPosX + TREADMILL_WIDTH, treadmillPosY + TREADMILL_HEIGHT + 1)
+        ||pLevel->getPhysics()->isLocationOcupied({(float)treadmillPosX, (float)treadmillPosY},{TREADMILL_WIDTH, TREADMILL_HEIGHT})){
         treadmillPosX = rand()%(pMap->getWidth()-5)*TILE_WIDTH + rand()%TILE_WIDTH;
         treadmillPosY = rand()%(pMap->getHeight()-3)*TILE_HEIGHT + rand()%TILE_HEIGHT;
     }
    
-    Entities::Obstacles::Treadmill *t = new Entities::Obstacles::Treadmill(pLevel->getGraphicsManager(), pLevel, {(float)treadmillPosX, (float)treadmillPosY});
+    Entities::Obstacles::Treadmill *t = new Entities::Obstacles::Treadmill(pLevel->getGraphicsManager(), pLevel, {(float)treadmillPosX, (float)treadmillPosY + 0.9f});
     pLevel->addEntity(static_cast<Entities::Entity*>(t));
     pLevel->addBody(static_cast<Body*>(t));
 
@@ -77,12 +78,13 @@ void EnemyGenerator::spawnRandomSpears(){
 
     //sorteia uma posicao para o spears até que ele esteja fora de um bloco mas proximo do chao
     while(pMap->isPositionSolid(spearsPosX, spearsPosY) || pMap->isPositionSolid(spearsPosX + SPEARS_WIDTH, spearsPosY + SPEARS_HEIGHT) 
-        ||!pMap->isPositionSolid(spearsPosX, spearsPosY + SPEARS_HEIGHT+1) || !pMap->isPositionSolid(spearsPosX + SPEARS_WIDTH, spearsPosY + SPEARS_HEIGHT+1)){
+        ||!pMap->isPositionSolid(spearsPosX, spearsPosY + SPEARS_HEIGHT+1) || !pMap->isPositionSolid(spearsPosX + SPEARS_WIDTH, spearsPosY + SPEARS_HEIGHT+1)
+        ||pLevel->getPhysics()->isLocationOcupied({(float)spearsPosX, (float)spearsPosY},{SPEARS_WIDTH, SPEARS_HEIGHT})){
         spearsPosX = rand()%(pMap->getWidth()-5)*TILE_WIDTH + rand()%TILE_WIDTH;
         spearsPosY = rand()%(pMap->getHeight()-3)*TILE_HEIGHT + rand()%TILE_HEIGHT;
     }
    
-    Entities::Obstacles::Spears *s = new Entities::Obstacles::Spears(pLevel->getGraphicsManager(), pLevel, {(float)spearsPosX, (float)spearsPosY + 0.5f});//deve ser colocado ligeramente mais abaixo que a posicao inteira sorteada, para que o sprite toque o chao visualmente
+    Entities::Obstacles::Spears *s = new Entities::Obstacles::Spears(pLevel->getGraphicsManager(), pLevel, {(float)spearsPosX, (float)spearsPosY + 0.9f});//deve ser colocado ligeramente mais abaixo que a posicao inteira sorteada, para que o sprite toque o chao visualmente
     pLevel->addEntity(static_cast<Entities::Entity*>(s));
     pLevel->addBody(static_cast<Body*>(s));
 
@@ -96,7 +98,8 @@ void EnemyGenerator::spawnRandomSaw(){
 
     //sorteia uma posicao para o saw até que ele esteja fora de um bloco mas proximo do chao
     while(pMap->isPositionSolid(sawPosX, sawPosY) || pMap->isPositionSolid(sawPosX + SAW_WIDTH, sawPosY + SAW_HEIGHT) 
-        ||!pMap->isPositionSolid(sawPosX, sawPosY + SAW_HEIGHT+1) || !pMap->isPositionSolid(sawPosX + SAW_WIDTH, sawPosY + SAW_HEIGHT+1)){
+        ||!pMap->isPositionSolid(sawPosX, sawPosY + SAW_HEIGHT+1) || !pMap->isPositionSolid(sawPosX + SAW_WIDTH, sawPosY + SAW_HEIGHT+1)
+        ||pLevel->getPhysics()->isLocationOcupied({(float)sawPosX, (float)sawPosY},{SAW_WIDTH, SAW_HEIGHT})){
         sawPosX = rand()%(pMap->getWidth()-5)*TILE_WIDTH + rand()%TILE_WIDTH;
         sawPosY = rand()%(pMap->getHeight()-3)*TILE_HEIGHT + rand()%TILE_HEIGHT;
     }
@@ -112,7 +115,7 @@ void EnemyGenerator::spawnExitPortal(){
     int portalPosX = rand()%(pMap->getWidth()-2)*TILE_WIDTH + rand()%TILE_WIDTH;
     int portalPosY = rand()%(pMap->getHeight()-2)*TILE_HEIGHT + rand()%TILE_HEIGHT;
 
-    //sorteia uma posicao para a esteira até que ela esteja fora de um bloco mas chao
+    //sorteia uma posicao para o portal até que ele esteja fora de um bloco mas chao
     while(pMap->isPositionSolid(portalPosX, portalPosY) || pMap->isPositionSolid(portalPosX + GOOD_PORTAL_WIDTH, portalPosY + GOOD_PORTAL_HEIGHT)
         ||!pMap->isPositionSolid(portalPosX + (GOOD_PORTAL_WIDTH/2), portalPosY + GOOD_PORTAL_HEIGHT + 5)){
         portalPosX = rand()%(pMap->getWidth()-2)*TILE_WIDTH + rand()%TILE_WIDTH;
@@ -134,13 +137,13 @@ void EnemyGenerator::generateObstacles(){
     while(firstType == secondType);//garante que os tipos sao diferentes
 
     if(firstType == 0 || secondType == 0)
-        for(int i = 5 + rand()%3; i > 0; i--)//spawna de 5 a 7
+        for(int i = 5 + rand()%3; i > 0; i--)//gera de 5 a 7
             spawnRandomTreadmill();
     if(firstType == 1 || secondType == 1)
-        for(int i = 5 + rand()%3; i > 0; i--)//spawna de 5 a 7
+        for(int i = 5 + rand()%3; i > 0; i--)//gera de 5 a 7
             spawnRandomSpears();
     if(firstType == 2 || secondType == 2)
-        for(int i = 5 + rand()%3; i > 0; i--)//spawna de 5 a 7
+        for(int i = 5 + rand()%3; i > 0; i--)//gera de 5 a 7
             spawnRandomSaw();
 }
 

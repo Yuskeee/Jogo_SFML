@@ -19,7 +19,7 @@ private:
     float getOffsetY(Body* bd);//calcula quanto uma corpo entrou verticalmente em um bloco solido do mapa
     float getOffsetX(Body* bd);//calcula quanto uma corpo entrou verticalmente em um bloco solido do mapa
 
-    bool checkBodyCollision(Body* a, Body* b);
+    const bool checkBodyCollision(const Body* a, const Body* b) const;
 
 public:
     Physics(Map* pMap = NULL);
@@ -31,6 +31,7 @@ public:
     void applyGravity(float dt);
 
     void addBody(Body* bd);
+    const bool isLocationOcupied(const sf::Vector2<float>& pos, const sf::Vector2<float>& rect);
     void removeBody(int id);
 
     void setMap(World::Map* pMap);

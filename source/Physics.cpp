@@ -59,7 +59,7 @@ float Physics::getOffsetY(Body* bd){
             return 0;//se a parte de cima da entidade nao esta dentro de um bloco solido, nao ha offset para ser retorado
 }
 
-bool Physics::checkBodyCollision(Body* a, Body* b){
+const bool Physics::checkBodyCollision(const Body* a, const Body* b) const{
     if(a->getPos().x > b->getPos().x + b->getRect().x || a->getPos().x + a->getRect().x < b->getPos().x)
         return false;
     else if(a->getPos().y > b->getPos().y + b->getRect().y || a->getPos().y + a->getRect().y < b->getPos().y)
@@ -151,6 +151,16 @@ void Physics::applyGravity(float dt){
 
 void Physics::addBody(Body* bd){
     bodies.push_back(bd);
+}
+
+const bool Physics::isLocationOcupied(const sf::Vector2<float>& pos, const sf::Vector2<float>& rect){
+    Body location(pos, {0, 0}, rect, false);//cria um falso corpo temporario que representa a localizacao
+
+    for(int i = bodies.size()-1; i >= 0; i--){
+        if(checkBodyCollision(&location, bodies[i]))//testa se ha algum corpo na localizacao
+            return 1;
+    }
+    return 0;
 }
 
 void Physics::removeBody(int id){
