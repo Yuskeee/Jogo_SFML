@@ -196,6 +196,10 @@ Managers::Graphics* Level::getGraphicsManager(){
     return pGraphicsManager;
 }
 
+Managers::spriteID Level::getBackground(){
+    return backgroundSprite;
+}
+
 int Level::getPlayers(){
     return players;
 }

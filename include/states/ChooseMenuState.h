@@ -3,11 +3,15 @@
 
 //nao inclui nada relativo aos estados, esse cabecalho esta dentro de GameStateMachine
 
+#define CHOOSE_MENU_BACKGROUND_FILE "../assets/ground_top.png"
+
 namespace GameSM{
 
 class ChooseMenuState:public SM::State{
 
 private:
+
+    Managers::Graphics* pGraphicsManager;
 
     int selection;
     Managers::textID titleText;
@@ -16,10 +20,14 @@ private:
     Managers::textID level3Text;
     Managers::textID backText;
 
+    Managers::spriteID background;
+
 
 public:
     ChooseMenuState(SM::StateMachine* pStateMachine = NULL, Managers::Graphics* pGraphicsManager = NULL);
     ~ChooseMenuState();
+
+    virtual void enter(void* arg);
 
     virtual void update(float dt, Managers::Events* pEventsManager);
     virtual void render(Managers::Graphics* pGraphicsManager);

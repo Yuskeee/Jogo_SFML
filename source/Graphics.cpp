@@ -193,7 +193,7 @@ void Graphics::render(){
     if(screen.isOpen()){
         screen.display();
         screen.clear();
-        if(backgroundSprite > 0)//se houver um plano de fundo definido
+        if(backgroundSprite >= 0)//se houver um plano de fundo definido
             screen.draw(*sprites[backgroundSprite]);
     }
 }

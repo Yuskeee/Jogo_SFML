@@ -3,11 +3,15 @@
 
 //nao inclui nada relativo aos estados, esse cabecalho esta dentro de GameStateMachine
 
+#define PLAYER_SELECTION_BACKGROUND_FILE "../assets/ground_top.png"
+
 namespace GameSM{
 
 class PlayerSelectionState:public SM::State{
 
 private:
+
+    Managers::Graphics* pGraphicsManager;
 
     int args[nArgs];
     int selection;
@@ -15,6 +19,8 @@ private:
     Managers::textID singleplayerText;
     Managers::textID multiplayerText;
     Managers::textID backText;
+
+    Managers::spriteID background;
 
 
 public:

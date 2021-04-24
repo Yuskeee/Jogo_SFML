@@ -79,6 +79,7 @@ public:
     int getPlayers();
     Generator* getGenerator();
     Managers::Graphics* getGraphicsManager();
+    Managers::spriteID getBackground();
     World::Physics* getPhysics();
 
 

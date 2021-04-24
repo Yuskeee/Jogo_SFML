@@ -35,6 +35,8 @@ RankingViewState::RankingViewState(SM::StateMachine* pStateMachine, Managers::Gr
     eraseText = pGraphicsManager->createText(0, "Apagar Ranking", 20);
     pGraphicsManager->setTextPos(eraseText, 50, 320);
 
+    background = pGraphicsManager->createSprite(pGraphicsManager->loadTexture(RANKING_VIEW_BACKGROUND_FILE));
+
 }
 
 RankingViewState::~RankingViewState(){
@@ -43,6 +45,7 @@ RankingViewState::~RankingViewState(){
 
 void RankingViewState::enter(void* arg){
     updateRanking();
+    pGraphicsManager->setBackground(background);
 }
 
 void RankingViewState::exit(){

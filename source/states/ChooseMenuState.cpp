@@ -2,30 +2,37 @@
 
 using namespace GameSM;
 
-ChooseMenuState::ChooseMenuState(SM::StateMachine* pStateMachine, Managers::Graphics* pGraphics):SM::State(pStateMachine){
+ChooseMenuState::ChooseMenuState(SM::StateMachine* pStateMachine, Managers::Graphics* pGraphicsManager):SM::State(pStateMachine){
 
     selection = 0;
 
-    titleText = pGraphics->createText(0, "SELECIONE A FASE", 20);
-    pGraphics->setTextPos(titleText, 225, 20);
+    titleText = pGraphicsManager->createText(0, "SELECIONE A FASE", 20);
+    pGraphicsManager->setTextPos(titleText, 225, 20);
 
-    level1Text = pGraphics->createText(0, "Fase 1", 15);
-    pGraphics->setTextPos(level1Text, 225, 50);
+    level1Text = pGraphicsManager->createText(0, "Fase 1", 15);
+    pGraphicsManager->setTextPos(level1Text, 225, 50);
 
-    level2Text = pGraphics->createText(0, "Fase 2", 15);
-    pGraphics->setTextPos(level2Text, 225, 70);
+    level2Text = pGraphicsManager->createText(0, "Fase 2", 15);
+    pGraphicsManager->setTextPos(level2Text, 225, 70);
 
-    level3Text = pGraphics->createText(0, "Fase 3", 15);
-    pGraphics->setTextPos(level3Text, 225, 90);
+    level3Text = pGraphicsManager->createText(0, "Fase 3", 15);
+    pGraphicsManager->setTextPos(level3Text, 225, 90);
 
-    backText = pGraphics->createText(0, "Voltar", 15);
-    pGraphics->setTextPos(backText, 225, 110);
+    backText = pGraphicsManager->createText(0, "Voltar", 15);
+    pGraphicsManager->setTextPos(backText, 225, 110);
     
+    background = pGraphicsManager->createSprite(pGraphicsManager->loadTexture(CHOOSE_MENU_BACKGROUND_FILE));
+
+    this->pGraphicsManager = pGraphicsManager;
 
 }
 
 ChooseMenuState::~ChooseMenuState(){
 
+}
+
+void ChooseMenuState::enter(void* arg){
+    pGraphicsManager->setBackground(background);
 }
 
 void ChooseMenuState::update(float dt, Managers::Events* pEventsManager){

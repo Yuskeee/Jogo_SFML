@@ -2,24 +2,27 @@
 
 using namespace GameSM;
 
-PlayerSelectionState::PlayerSelectionState(SM::StateMachine* pStateMachine, Managers::Graphics* pGraphics):SM::State(pStateMachine){
+PlayerSelectionState::PlayerSelectionState(SM::StateMachine* pStateMachine, Managers::Graphics* pGraphicsManager):SM::State(pStateMachine){
 
     selection = 0;
     args[playersArg] = 1;
     args[levelArg] = 0;
 
-    titleText = pGraphics->createText(0, "SELECIONE O NUMERO DE JOGADORES", 20);
-    pGraphics->setTextPos(titleText, 70, 20);
+    titleText = pGraphicsManager->createText(0, "SELECIONE O NUMERO DE JOGADORES", 20);
+    pGraphicsManager->setTextPos(titleText, 70, 20);
 
-    singleplayerText = pGraphics->createText(0, "Um Jogador", 15);
-    pGraphics->setTextPos(singleplayerText, 70, 50);
+    singleplayerText = pGraphicsManager->createText(0, "Um Jogador", 15);
+    pGraphicsManager->setTextPos(singleplayerText, 70, 50);
 
-    multiplayerText = pGraphics->createText(0, "Dois Jogadores", 15);
-    pGraphics->setTextPos(multiplayerText, 70, 70);
+    multiplayerText = pGraphicsManager->createText(0, "Dois Jogadores", 15);
+    pGraphicsManager->setTextPos(multiplayerText, 70, 70);
 
-    backText = pGraphics->createText(0, "Voltar", 15);
-    pGraphics->setTextPos(backText, 70, 110);
+    backText = pGraphicsManager->createText(0, "Voltar", 15);
+    pGraphicsManager->setTextPos(backText, 70, 110);
     
+    background = pGraphicsManager->createSprite(pGraphicsManager->loadTexture(PLAYER_SELECTION_BACKGROUND_FILE));
+
+    this->pGraphicsManager = pGraphicsManager;
 
 }
 
@@ -30,6 +33,7 @@ PlayerSelectionState::~PlayerSelectionState(){
 void PlayerSelectionState::enter(void* arg){
     printf("Entrando na selecao de jogadores\n");
     this->args[levelArg] = *(int*)arg;
+    pGraphicsManager->setBackground(background);
 }
 
 void PlayerSelectionState::update(float dt, Managers::Events* pEventsManager){

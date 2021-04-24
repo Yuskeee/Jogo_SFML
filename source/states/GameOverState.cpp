@@ -2,23 +2,27 @@
 
 using namespace GameSM;
 
-GameOverState::GameOverState(SM::StateMachine* pStateMachine, Managers::Graphics* pGraphics):SM::State(pStateMachine){
+GameOverState::GameOverState(SM::StateMachine* pStateMachine, Managers::Graphics* pGraphicsManager):SM::State(pStateMachine){
 
     name = "";
     scoreStr = "";
     args[scoreArg] = 1;
 
-    titleText = pGraphics->createText(0, "GAME OVER", 20);
-    pGraphics->setTextPos(titleText, 70, 20);
+    titleText = pGraphicsManager->createText(0, "GAME OVER", 20);
+    pGraphicsManager->setTextPos(titleText, 70, 20);
 
-    scoreText = pGraphics->createText(0, "Pontuacao: ", 15);
-    pGraphics->setTextPos(scoreText, 70, 50);
+    scoreText = pGraphicsManager->createText(0, "Pontuacao: ", 15);
+    pGraphicsManager->setTextPos(scoreText, 70, 50);
 
-    nameText = pGraphics->createText(0, "Digite seu nome: ", 15);
-    pGraphics->setTextPos(nameText, 70, 70);
+    nameText = pGraphicsManager->createText(0, "Digite seu nome: ", 15);
+    pGraphicsManager->setTextPos(nameText, 70, 70);
 
-    enterText = pGraphics->createText(0, "Pressione ENTER para inserir", 15);
-    pGraphics->setTextPos(enterText, 70, 110);
+    enterText = pGraphicsManager->createText(0, "Pressione ENTER para inserir", 15);
+    pGraphicsManager->setTextPos(enterText, 70, 110);
+
+    background = pGraphicsManager->createSprite(pGraphicsManager->loadTexture(GAME_OVER_BACKGROUND_FILE));
+
+    this->pGraphicsManager = pGraphicsManager;
 
 }
 
@@ -30,6 +34,8 @@ void GameOverState::enter(void* arg){
     ranking = Ranking::getInstance();
 
     scoreStr = std::to_string(*(int*)arg);
+
+    pGraphicsManager->setBackground(background);
 }
 
 void GameOverState::exit(){

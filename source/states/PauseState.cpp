@@ -2,22 +2,26 @@
 
 using namespace GameSM;
 
-PauseState::PauseState(SM::StateMachine* pStateMachine, Managers::Graphics* pGraphics):SM::State(pStateMachine){
+PauseState::PauseState(SM::StateMachine* pStateMachine, Managers::Graphics* pGraphicsManager):SM::State(pStateMachine){
     timeElapsed = 0;
 
     selection = 0;
 
-    titleText = pGraphics->createText(0, "PAUSA", 20);
-    pGraphics->setTextPos(titleText, 225, 20);
+    titleText = pGraphicsManager->createText(0, "PAUSA", 20);
+    pGraphicsManager->setTextPos(titleText, 225, 20);
 
-    backText = pGraphics->createText(0, "Retornar ao Jogo", 15);
-    pGraphics->setTextPos(backText, 225, 50);
+    backText = pGraphicsManager->createText(0, "Retornar ao Jogo", 15);
+    pGraphicsManager->setTextPos(backText, 225, 50);
 
-    saveText = pGraphics->createText(0, "Salvar Jogo", 15);
-    pGraphics->setTextPos(saveText, 225, 70);
+    saveText = pGraphicsManager->createText(0, "Salvar Jogo", 15);
+    pGraphicsManager->setTextPos(saveText, 225, 70);
 
-    quitText = pGraphics->createText(0, "Sair", 15);
-    pGraphics->setTextPos(quitText, 225, 90);
+    quitText = pGraphicsManager->createText(0, "Sair", 15);
+    pGraphicsManager->setTextPos(quitText, 225, 90);
+
+    background = pGraphicsManager->createSprite(pGraphicsManager->loadTexture(PAUSE_BACKGROUND_FILE));
+
+    this->pGraphicsManager = pGraphicsManager;
     
 
 }
@@ -26,6 +30,9 @@ PauseState::~PauseState(){
 
 }
 
+void PauseState::enter(void* arg){
+    pGraphicsManager->setBackground(background);
+}
 
 void PauseState::update(float dt, Managers::Events* pEventsManager){
     timeElapsed += dt;

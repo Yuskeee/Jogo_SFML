@@ -26,6 +26,9 @@ void GamePlayState::enter(void* arg){
         int* rArgs = (int*)(arg);
         pLevel->startLevel(rArgs[levelArg], rArgs[playersArg]);
     }
+    else if(pLevel){
+        pGraphicsManager->setBackground(pLevel->getBackground());
+    }
 }
 
 void GamePlayState::exit(){

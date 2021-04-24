@@ -2,35 +2,42 @@
 
 using namespace GameSM;
 
-MainMenuState::MainMenuState(SM::StateMachine* pStateMachine, Managers::Graphics* pGraphics):SM::State(pStateMachine){
+MainMenuState::MainMenuState(SM::StateMachine* pStateMachine, Managers::Graphics* pGraphicsManager):SM::State(pStateMachine){
     timeElapsed = 0;
 
     selection = 0;
     quit = false;
 
-    titleText = pGraphics->createText(0, "NOME DO JOGO", 20);
-    pGraphics->setTextPos(titleText, 225, 20);
+    titleText = pGraphicsManager->createText(0, "NOME DO JOGO", 20);
+    pGraphicsManager->setTextPos(titleText, 225, 20);
 
-    playText = pGraphics->createText(0, "Jogar", 15);
-    pGraphics->setTextPos(playText, 225, 50);
+    playText = pGraphicsManager->createText(0, "Jogar", 15);
+    pGraphicsManager->setTextPos(playText, 225, 50);
 
-    chooseText = pGraphics->createText(0, "Escolher Fase", 15);
-    pGraphics->setTextPos(chooseText, 225, 70);
+    chooseText = pGraphicsManager->createText(0, "Escolher Fase", 15);
+    pGraphicsManager->setTextPos(chooseText, 225, 70);
 
-    loadText = pGraphics->createText(0, "Carregar Jogo Salvo", 15);
-    pGraphics->setTextPos(loadText, 225, 90);
+    loadText = pGraphicsManager->createText(0, "Carregar Jogo Salvo", 15);
+    pGraphicsManager->setTextPos(loadText, 225, 90);
 
-    scoreText = pGraphics->createText(0, "Pontuacoes", 15);
-    pGraphics->setTextPos(scoreText, 225, 110);
+    scoreText = pGraphicsManager->createText(0, "Pontuacoes", 15);
+    pGraphicsManager->setTextPos(scoreText, 225, 110);
 
-    quitText = pGraphics->createText(0, "Sair", 15);
-    pGraphics->setTextPos(quitText, 225, 130);
+    quitText = pGraphicsManager->createText(0, "Sair", 15);
+    pGraphicsManager->setTextPos(quitText, 225, 130);
 
+    background = pGraphicsManager->createSprite(pGraphicsManager->loadTexture(MAIN_MENU_BACKGROUND_FILE));
+
+    this->pGraphicsManager = pGraphicsManager;
 
 }
 
 MainMenuState::~MainMenuState(){
 
+}
+
+void MainMenuState::enter(void* arg){
+    pGraphicsManager->setBackground(background);
 }
 
 

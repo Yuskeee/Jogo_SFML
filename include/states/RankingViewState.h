@@ -8,6 +8,8 @@
 
 #define DEFAULT_TEXT "0 - VAZIO"
 
+#define RANKING_VIEW_BACKGROUND_FILE "../assets/ground_top.png"
+
 namespace GameSM{
 
 class RankingViewState:public SM::State{
@@ -21,6 +23,8 @@ private:
     Managers::textID positions[MAX_ENTRIES];
     Managers::textID backText;
     Managers::textID eraseText;
+
+    Managers::spriteID background;
 
     Ranking *ranking;
 

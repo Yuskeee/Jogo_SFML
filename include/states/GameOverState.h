@@ -3,6 +3,8 @@
 
 //nao inclui nada relativo aos estados, esse cabecalho esta dentro de GameStateMachine
 
+#define GAME_OVER_BACKGROUND_FILE "../assets/ground_top.png"
+
 #include "Ranking.h"
 
 namespace GameSM{
@@ -11,6 +13,8 @@ class GameOverState:public SM::State{
 
 private:
 
+    Managers::Graphics* pGraphicsManager;
+
     int args[nArgs];
     std::string name;
     std::string scoreStr;
@@ -18,8 +22,12 @@ private:
     Managers::textID scoreText;
     Managers::textID nameText;
     Managers::textID enterText;
+
+    Managers::spriteID background;
+
     Ranking *ranking;
 
+    
 
 public:
     GameOverState(SM::StateMachine* pStateMachine = NULL, Managers::Graphics* pGraphicsManager = NULL);
