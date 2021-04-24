@@ -11,13 +11,17 @@
 #define CHARGING_TIME 1.5
 #define RUN_TIME 5
 
-#define BOSS_DEFAULT 144, 0,  16, 20
-//#define BOSS_RUN 144, 0,  16, 20
+#define BOSS_DEFAULT_LEFT     0,  0,  20, 20
+#define BOSS_DEFAULT_RIGHT    20, 0, -20, 20
+#define BOSS_RUN1_LEFT        20, 0,  20, 20
+#define BOSS_RUN1_RIGHT       40, 0, -20, 20
+#define BOSS_RUN2_LEFT        40, 0,  20, 20
+#define BOSS_RUN2_RIGHT       60, 0, -20, 20
 
-#define BOSS_WIDTH   16.0f
+#define BOSS_WIDTH   20.0f
 #define BOSS_HEIGHT  20.0f
 
-#define BOSS_TEXTURE_FILE "../assets/zombie_alien.png"
+#define BOSS_TEXTURE_FILE "../assets/boss.png"
 
 namespace Entities{
 
@@ -32,6 +36,8 @@ private:
     private:
         Boss *b;
         float lastPosX;
+        const float cycleTime = 0.2;
+        float cycleTimer;
 
     public:
         BossRunState(SM::StateMachine* pStateMachine = NULL, Boss *b = NULL);

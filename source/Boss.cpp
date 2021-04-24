@@ -13,15 +13,25 @@ Boss::BossRunState::~BossRunState(){
 void Boss::BossRunState::enter(void* arg){
     lastPosX = -1;//reinicia ultima posicao em x
     b->vulnerability = true;
+    b->frame = b->to_right ? Managers::spriteRect(BOSS_RUN1_RIGHT) : Managers::spriteRect(BOSS_RUN1_LEFT);
 }
 
 void Boss::BossRunState::update(float dt, Managers::Events* pEventsManager){
 
     b->vel.x = (b->to_right) ? b->velMax:-b->velMax;
 
+    cycleTimer += dt;
+    if(cycleTimer >= cycleTime){
+        cycleTimer = 0;
+        if(b->to_right)
+            b->frame = b->frame == Managers::spriteRect(BOSS_RUN1_RIGHT) ? Managers::spriteRect(BOSS_RUN2_RIGHT) : Managers::spriteRect(BOSS_RUN1_RIGHT);
+        else
+            b->frame = b->frame == Managers::spriteRect(BOSS_RUN1_LEFT) ? Managers::spriteRect(BOSS_RUN2_LEFT) : Managers::spriteRect(BOSS_RUN1_LEFT);
+    }
+
     if(b->pos.x == lastPosX){
-        pStateMachine->changeState(BossChargingStateID, NULL);
         b->to_right = !b->to_right;
+        pStateMachine->changeState(BossChargingStateID, NULL);
     }
 
     lastPosX = b->pos.x;
@@ -45,14 +55,14 @@ Boss::BossChargingState::~BossChargingState(){
 void Boss::BossChargingState::enter(void* arg){
     fire_timer = 0;
     run_timer = 0;
-    b->frame = Managers::spriteRect(BOSS_DEFAULT);
+    b->frame = b->to_right ? Managers::spriteRect(BOSS_DEFAULT_RIGHT) : Managers::spriteRect(BOSS_DEFAULT_LEFT);
     b->vulnerability = false;
 }
 
 void Boss::BossChargingState::update(float dt, Managers::Events* pEventsManager){
     fire_timer += dt;
     run_timer += dt;
-
+    
     if(fire_timer >= CHARGING_TIME){//chamada para atacar dado certo tempo
         b->attack();
         fire_timer = 0;
@@ -91,7 +101,7 @@ Enemy(pGraphicsManager, pLevel, pos, vel, {BOSS_WIDTH, BOSS_HEIGHT}), Being(enem
     if(pGraphicsManager){
         idTextura = pGraphicsManager->loadTexture(BOSS_TEXTURE_FILE);
         idSprite = pGraphicsManager->createSprite(idTextura);
-        frame = Managers::spriteRect(BOSS_DEFAULT);
+        frame = Managers::spriteRect(BOSS_DEFAULT_LEFT);
         pGraphicsManager->setSpriteRect(idSprite, frame);
 
         BossSM = new BossStateMachine(this);
