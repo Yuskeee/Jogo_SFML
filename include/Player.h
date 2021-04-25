@@ -115,13 +115,15 @@ public:
     void update(float dt, Managers::Events* pEventsManager);
     void onCollide(Body* other, float dt) override;
 
+    void saveEntity(std::ofstream& out) const;
+    void loadEntity(std::ifstream& in);
+
 private:
 
     void loadControl(bool player1);
 
 };
+
 }
-
-
 
 #endif

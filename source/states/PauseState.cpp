@@ -2,7 +2,9 @@
 
 using namespace GameSM;
 
-PauseState::PauseState(SM::StateMachine* pStateMachine, Managers::Graphics* pGraphicsManager):SM::State(pStateMachine){
+World::Level* PauseState::pLevel = NULL;
+
+PauseState::PauseState(SM::StateMachine* pStateMachine, Managers::Graphics* pGraphicsManager):SM::State(pStateMachine), _isSaved(false){
     timeElapsed = 0;
 
     selection = 0;
@@ -16,13 +18,16 @@ PauseState::PauseState(SM::StateMachine* pStateMachine, Managers::Graphics* pGra
     saveText = pGraphicsManager->createText(0, "Salvar Jogo", 15);
     pGraphicsManager->setTextPos(saveText, 225, 70);
 
+    saveCheckText = pGraphicsManager->createText(0, "SALVO COM SUCESSO!", 15);
+    pGraphicsManager->setTextPos(saveCheckText, 300, 400);
+
     quitText = pGraphicsManager->createText(0, "Sair", 15);
     pGraphicsManager->setTextPos(quitText, 225, 90);
 
     background = pGraphicsManager->createSprite(pGraphicsManager->loadTexture(PAUSE_BACKGROUND_FILE));
 
     this->pGraphicsManager = pGraphicsManager;
-    
+
 
 }
 
@@ -32,6 +37,8 @@ PauseState::~PauseState(){
 
 void PauseState::enter(void* arg){
     pGraphicsManager->setBackground(background);
+    
+    _isSaved = false;
 }
 
 void PauseState::update(float dt, Managers::Events* pEventsManager){
@@ -55,11 +62,16 @@ void PauseState::update(float dt, Managers::Events* pEventsManager){
                 pStateMachine->changeState(GamePlayStateID, NULL);
                 break;
             case 1:
-                //salva o jogo
+                if(pLevel){
+                    pLevel->save();
+                    _isSaved = true;
+                }
+                else
+                    std::cerr << "Erro: Ponteiro para level aterrado!" << std::endl;
                 break;
             case 2:
                 pStateMachine->changeState(MainMenuStateID, NULL);
-                break;    
+                break;
            }
 
     }
@@ -93,5 +105,13 @@ void PauseState::render(Managers::Graphics* pGraphicsManager){
     pGraphicsManager->drawText(backText);
     pGraphicsManager->drawText(saveText);
     pGraphicsManager->drawText(quitText);
+
+    if(_isSaved)
+        pGraphicsManager->drawText(saveCheckText);
+
     //printf("Estado: Menu\nTempo decorrido: %f\nPressione 'J' para jogar\n\n", timeElapsed);
+}
+
+void PauseState::setpLevel(World::Level *pLevel){
+    PauseState::pLevel = pLevel;
 }

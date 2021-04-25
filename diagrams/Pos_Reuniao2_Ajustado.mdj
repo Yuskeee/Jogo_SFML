@@ -39186,6 +39186,7 @@
 										"reference": {
 											"$ref": "AAAAAAF4O5oSYwf5Ayo="
 										},
+										"navigable": false,
 										"aggregation": "composite",
 										"multiplicity": "1"
 									}

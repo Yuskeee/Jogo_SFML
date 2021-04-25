@@ -32,3 +32,11 @@ void Entity::damage(int damage){
 int Entity::getLives() const{
     return lives;
 }
+
+void Entity::saveEntity(std::ofstream& out) const{
+
+}
+
+void Entity::loadEntity(std::ifstream& in){
+
+}

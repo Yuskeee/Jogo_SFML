@@ -18,6 +18,8 @@
 
 #define EXIT_SCORE 10
 
+#define SAVE_FILE "../saves/Save.dat"
+
 namespace World{
 
 class Level{
@@ -74,13 +76,15 @@ public:
     void openExit();
 
     void setScore(int score);
-    //void salvar(char* arquivo);
     int getScore();
     int getPlayers();
     Generator* getGenerator();
     Managers::Graphics* getGraphicsManager();
     Managers::spriteID getBackground();
     World::Physics* getPhysics();
+
+    void save();
+    void load();
 
 
 };

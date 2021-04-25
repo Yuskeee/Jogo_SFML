@@ -2,6 +2,7 @@
 #define _BEING_H
 
 #include "SFML/System.hpp"
+#include <fstream>
 
 class Being{
 

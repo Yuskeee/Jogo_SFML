@@ -25,6 +25,7 @@ void GamePlayState::enter(void* arg){
         pLevel = new World::Level(pGraphicsManager);
         int* rArgs = (int*)(arg);
         pLevel->startLevel(rArgs[levelArg], rArgs[playersArg]);
+        PauseState::setpLevel(pLevel);
     }
     else if(pLevel){
         pGraphicsManager->setBackground(pLevel->getBackground());

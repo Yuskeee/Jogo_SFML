@@ -207,3 +207,31 @@ int Level::getPlayers(){
 World::Physics* Level::getPhysics(){
     return &LevelPhysics;
 }
+
+void Level::save(){
+    std::ofstream file(SAVE_FILE, std::ios::out | std::ios::trunc | std::ios::binary);
+    List<Entities::Entity*>::Iterator aux_iterator = entities.begin();
+
+    if(file.is_open()){
+
+        while(aux_iterator != entities.end()){
+
+            try{
+                file << *(*aux_iterator);
+            }
+            catch(std::invalid_argument e){
+
+            }
+
+            aux_iterator++;
+        }
+
+        file.close();
+    }
+    else
+        std::cerr << "Error: File could not be open while saving game!\n";
+}
+
+void Level::load(){
+
+}

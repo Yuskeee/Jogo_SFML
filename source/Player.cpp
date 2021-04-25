@@ -269,3 +269,21 @@ void Player::loadControl(bool player1){
         _fireKey = Managers::Events::keycode::RShift;
     }
 }
+
+void Player::saveEntity(std::ofstream& out) const{
+    if(this){
+        out <<  this->getType()             << " " <<
+                this->getId()               << " " <<
+                this->getPos().x            << " " <<
+                this->getPos().y            << " " <<
+                this->getVel().x            << " " <<
+                this->getVel().y            << " " <<
+                this->getLives()            << " " <<
+                this->getGrounded()         << " " <<
+                this->rightDirection        << std::endl;
+    }
+}
+
+void Player::loadEntity(std::ifstream& in){
+
+}

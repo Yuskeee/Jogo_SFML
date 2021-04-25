@@ -39,10 +39,22 @@ public:
     void damage(int damage);
 
     int getLives() const;
-    
+
+    virtual void saveEntity(std::ofstream& out) const;
+    virtual void loadEntity(std::ifstream& in);
 
 };
 
+}
+
+inline std::ofstream& operator<<(std::ofstream& out, const Entities::Entity& pEntity){
+    pEntity.saveEntity(out);
+    return out;
+}
+
+inline std::ifstream& operator>>(std::ifstream& in, Entities::Entity& pEntity){
+    pEntity.loadEntity(in);
+    return in;
 }
 
 #endif
