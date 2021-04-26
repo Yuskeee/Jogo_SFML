@@ -33,6 +33,24 @@ int Entity::getLives() const{
     return lives;
 }
 
+void Entity::saveEntityInfo(std::ofstream& out) const{
+    out <<  this->getType()             << " " <<
+            this->getId()               << " " <<
+            this->idTextura             << " " <<
+            this->idSprite              << " " <<
+            this->frame.left            << " " <<
+            this->frame.top             << " " <<
+            this->frame.width           << " " <<
+            this->frame.height          << " " <<
+            this->getPos().x            << " " <<
+            this->getPos().y            << " " <<
+            this->getVel().x            << " " <<
+            this->getVel().y            << " " <<
+            this->getLives()            << " " <<
+            this->vulnerability;
+
+}
+
 void Entity::saveEntity(std::ofstream& out) const{
 
 }

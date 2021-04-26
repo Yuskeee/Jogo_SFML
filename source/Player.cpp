@@ -272,14 +272,8 @@ void Player::loadControl(bool player1){
 
 void Player::saveEntity(std::ofstream& out) const{
     if(this){
-        out <<  this->getType()             << " " <<
-                this->getId()               << " " <<
-                this->getPos().x            << " " <<
-                this->getPos().y            << " " <<
-                this->getVel().x            << " " <<
-                this->getVel().y            << " " <<
-                this->getLives()            << " " <<
-                this->getGrounded()         << " " <<
+        this->saveEntityInfo(out);
+        out <<  this->getGrounded()         << " " <<
                 this->rightDirection        << std::endl;
     }
 }

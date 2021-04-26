@@ -40,6 +40,8 @@ public:
 
     int getLives() const;
 
+    void saveEntityInfo(std::ofstream& out) const;
+
     virtual void saveEntity(std::ofstream& out) const;
     virtual void loadEntity(std::ifstream& in);
 
