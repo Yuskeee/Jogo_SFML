@@ -18,9 +18,12 @@ ChooseMenuState::ChooseMenuState(SM::StateMachine* pStateMachine, Managers::Grap
     level3Text = pGraphicsManager->createText(0, "Fase 3", 15);
     pGraphicsManager->setTextPos(level3Text, 225, 90);
 
+    level4Text = pGraphicsManager->createText(0, "Fase 3 (Thread)", 15);
+    pGraphicsManager->setTextPos(level4Text, 225, 110);
+
     backText = pGraphicsManager->createText(0, "Voltar", 15);
-    pGraphicsManager->setTextPos(backText, 225, 110);
-    
+    pGraphicsManager->setTextPos(backText, 225, 130);
+
     background = pGraphicsManager->createSprite(pGraphicsManager->loadTexture(CHOOSE_MENU_BACKGROUND_FILE));
 
     this->pGraphicsManager = pGraphicsManager;
@@ -43,8 +46,8 @@ void ChooseMenuState::update(float dt, Managers::Events* pEventsManager){
         selection++;
 
     if(selection < 0)
-        selection = 3;
-    else if(selection > 3)
+        selection = 4;
+    else if(selection > 4)
         selection = 0;
 
     if(pEventsManager->keyPressed(Managers::Events::keycode::Enter)||
@@ -57,7 +60,7 @@ void ChooseMenuState::update(float dt, Managers::Events* pEventsManager){
                 level = 0;
                 pStateMachine->changeState(PlayerSelectionStateID, static_cast<void*>(&level));
                 break;
-            
+
             case 1:
                 level = 1;
                 pStateMachine->changeState(PlayerSelectionStateID, static_cast<void*>(&level));
@@ -69,11 +72,16 @@ void ChooseMenuState::update(float dt, Managers::Events* pEventsManager){
                 break;
 
             case 3:
+                level = 3;
+                pStateMachine->changeState(PlayerSelectionStateID, static_cast<void*>(&level));
+                break;
+
+            case 4:
                 pStateMachine->changeState(MainMenuStateID, NULL);
                 break;
-           
+
            }
-        
+
 
     }
 
@@ -100,10 +108,15 @@ void ChooseMenuState::render(Managers::Graphics* pGraphicsManager){
             break;
         case 3:
             pGraphicsManager->setTextColor(level3Text, 255, 255, 255, 255);
+            pGraphicsManager->setTextColor(level4Text, 255, 10, 10, 255);
+            pGraphicsManager->setTextColor(backText, 255, 255, 255, 255);
+            break;
+        case 4:
+            pGraphicsManager->setTextColor(level4Text, 255, 255, 255, 255);
             pGraphicsManager->setTextColor(backText, 255, 10, 10, 255);
             pGraphicsManager->setTextColor(level1Text, 255, 255, 255, 255);
             break;
-    
+
         default:
             break;
     }
@@ -112,5 +125,6 @@ void ChooseMenuState::render(Managers::Graphics* pGraphicsManager){
     pGraphicsManager->drawText(level1Text);
     pGraphicsManager->drawText(level2Text);
     pGraphicsManager->drawText(level3Text);
+    pGraphicsManager->drawText(level4Text);
     pGraphicsManager->drawText(backText);
 }
