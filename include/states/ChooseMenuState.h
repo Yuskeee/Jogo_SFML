@@ -18,6 +18,7 @@ private:
     Managers::textID level1Text;
     Managers::textID level2Text;
     Managers::textID level3Text;
+    Managers::textID level4Text;
     Managers::textID backText;
 
     Managers::spriteID background;

@@ -30,16 +30,19 @@ private:
         Level1,
         Level2,
         Level3,
+        Level4,
         nLevels
     };
     char levelMapFiles[nLevels][30] = {
         "../assets/map1.txt",
         "../assets/map2.txt",
+        "../assets/map3.txt",
         "../assets/map3.txt"
     };
     char levelBackgroundFiles[nLevels][30] = {
         "../assets/background1.png",
         "../assets/background2.png",
+        "../assets/background3.jpg",
         "../assets/background3.jpg"
     };
 
