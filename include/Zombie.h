@@ -62,13 +62,11 @@ private:
     class ZombieWalkState: public SM::State{
     private:
         Zombie *z;
-        bool nRect;
-        float frameTime;
     public:
         ZombieWalkState(SM::StateMachine* pStateMachine = NULL, Zombie *p = NULL);
         ~ZombieWalkState();
 
-        void enter(void* arg){std::cout << "WALK\n"; nRect = false; frameTime = 0.0f;}
+        void enter(void* arg){std::cout << "WALK\n"; z->nRect = false; z->frameTime = 0.0f;}
 
         void update(float dt, Managers::Events* pEventsManager);
         void render(Managers::Graphics* pGraphicsManager);
@@ -91,6 +89,9 @@ private:
     const float jumpVel = 300;
     float vulnerability_timer;
 
+    bool nRect;
+    float frameTime;
+
     SM::StateMachine *ZombieSM;
     Managers::Graphics* pGraphicsManager;
 
@@ -103,6 +104,7 @@ public:
 
     virtual void update(float dt, Managers::Events* pEventsManager);
     virtual void onCollide(Body* other, float dt);
+    virtual void saveEntity(std::ofstream& out) const;
 
 
 

@@ -33,3 +33,11 @@ const bool Body::getGrounded() const{
 const bool Body::isGravitable() const{
     return gravitableBeingTypes[type];
 }
+
+void Body::saveBodyInfo(std::ofstream& out) const{
+    out <<  getRect().x   << " " <<
+            getRect().y   << " " <<
+            isGrounded;
+
+
+}

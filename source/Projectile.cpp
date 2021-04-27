@@ -38,3 +38,13 @@ void Projectile::onCollide(Body* other, float dt){
 const bool Projectile::fromPlayer() const{
     return _isPlayers;
 }
+
+void Projectile::saveEntity(std::ofstream& out) const{
+    saveEntityInfo(out);
+    saveBodyInfo(out);
+    out << velXStart  << " " <<
+           velYStart  << " " <<
+           _isPlayers << " " <<
+           _fromBoss  << std::endl;
+
+}

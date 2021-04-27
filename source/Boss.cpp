@@ -2,7 +2,7 @@
 
 using namespace Entities;
 
-Boss::BossRunState::BossRunState(SM::StateMachine* pStateMachine, Boss *b):State(pStateMachine), lastPosX(-1){
+Boss::BossRunState::BossRunState(SM::StateMachine* pStateMachine, Boss *b):State(pStateMachine){
     this->b = b;
 }
 
@@ -11,7 +11,7 @@ Boss::BossRunState::~BossRunState(){
 }
 
 void Boss::BossRunState::enter(void* arg){
-    lastPosX = -1;//reinicia ultima posicao em x
+    b->lastPosX = -1;//reinicia ultima posicao em x
     b->vulnerability = true;
     b->frame = b->to_right ? Managers::spriteRect(BOSS_RUN1_RIGHT) : Managers::spriteRect(BOSS_RUN1_LEFT);
 }
@@ -20,21 +20,21 @@ void Boss::BossRunState::update(float dt, Managers::Events* pEventsManager){
 
     b->vel.x = (b->to_right) ? b->velMax:-b->velMax;
 
-    cycleTimer += dt;
-    if(cycleTimer >= cycleTime){
-        cycleTimer = 0;
+    b->cycleTimer += dt;
+    if(b->cycleTimer >= b->cycleTime){
+        b->cycleTimer = 0;
         if(b->to_right)
             b->frame = b->frame == Managers::spriteRect(BOSS_RUN1_RIGHT) ? Managers::spriteRect(BOSS_RUN2_RIGHT) : Managers::spriteRect(BOSS_RUN1_RIGHT);
         else
             b->frame = b->frame == Managers::spriteRect(BOSS_RUN1_LEFT) ? Managers::spriteRect(BOSS_RUN2_LEFT) : Managers::spriteRect(BOSS_RUN1_LEFT);
     }
 
-    if(b->pos.x == lastPosX){
+    if(b->pos.x == b->lastPosX){
         b->to_right = !b->to_right;
         pStateMachine->changeState(BossChargingStateID, NULL);
     }
 
-    lastPosX = b->pos.x;
+    b->lastPosX = b->pos.x;
 
 }
 
@@ -44,7 +44,7 @@ void Boss::BossRunState::render(Managers::Graphics* pGraphicsManager){
 
 //BossChargingState-------------------
 
-Boss::BossChargingState::BossChargingState(SM::StateMachine* pStateMachine, Boss *b): State(pStateMachine), fire_timer(0), run_timer(0){
+Boss::BossChargingState::BossChargingState(SM::StateMachine* pStateMachine, Boss *b): State(pStateMachine){
     this->b = b;
 }
 
@@ -53,22 +53,22 @@ Boss::BossChargingState::~BossChargingState(){
 }
 
 void Boss::BossChargingState::enter(void* arg){
-    fire_timer = 0;
-    run_timer = 0;
+    b->fire_timer = 0;
+    b->run_timer = 0;
     b->frame = b->to_right ? Managers::spriteRect(BOSS_DEFAULT_RIGHT) : Managers::spriteRect(BOSS_DEFAULT_LEFT);
     b->vulnerability = false;
 }
 
 void Boss::BossChargingState::update(float dt, Managers::Events* pEventsManager){
-    fire_timer += dt;
-    run_timer += dt;
+    b->fire_timer += dt;
+    b->run_timer += dt;
     
-    if(fire_timer >= CHARGING_TIME){//chamada para atacar dado certo tempo
+    if(b->fire_timer >= CHARGING_TIME){//chamada para atacar dado certo tempo
         b->attack();
-        fire_timer = 0;
+        b->fire_timer = 0;
     }
 
-    if(pow(b->DeltaX, 2) + pow(b->DeltaY, 2) < 10000 || run_timer >= RUN_TIME){//se jogador estiver muito proximo
+    if(pow(b->DeltaX, 2) + pow(b->DeltaY, 2) < 10000 || b->run_timer >= RUN_TIME){//se jogador estiver muito proximo
         pStateMachine->changeState(BossRunStateID, NULL);
     }
 }
@@ -94,7 +94,7 @@ Boss::BossStateMachine::~BossStateMachine(){
 //Boss---------------------------------
 
 Boss::Boss(Managers::Graphics* pGraphicsManager, World::Level* pLevel, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel):
-Enemy(pGraphicsManager, pLevel, pos, vel, {BOSS_WIDTH, BOSS_HEIGHT}), Being(enemy, pos, vel), DeltaX(), DeltaY(), to_right(false){
+Enemy(pGraphicsManager, pLevel, pos, vel, {BOSS_WIDTH, BOSS_HEIGHT}), Being(enemy, pos, vel), DeltaX(), DeltaY(), to_right(false), lastPosX(0), fire_timer(0), run_timer(0){
     this->pGraphicsManager = pGraphicsManager;
     this->pLevel = pLevel;
 
@@ -145,4 +145,18 @@ void Boss::onCollide(Body* other, float dt){
                 pLevel->setScore(pLevel->getScore() + FLOWER_SCORE_VALUE);
         }
     }
+}
+
+void Boss::saveEntity(std::ofstream& out) const{
+    saveEntityInfo(out);
+    saveBodyInfo(out);
+    out << DeltaX << " " <<
+           DeltaY << " " <<
+           to_right << " " <<
+           lastPosX << " " <<
+           cycleTimer << " " <<
+           run_timer << " " <<
+           fire_timer << " " <<
+           BossSM->getCurrentState() << std::endl;
+
 }

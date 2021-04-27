@@ -71,3 +71,13 @@ void Spears::onCollide(Body* other, float dt){
     }
 
 }
+
+void Spears::saveEntity(std::ofstream& out) const{
+    saveEntityInfo(out);
+    saveBodyInfo(out);
+    out << cycleTimer << " " <<
+           active     << " " <<
+           startPosX  << " " <<
+           startPosY  << std::endl;
+
+}

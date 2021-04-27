@@ -77,7 +77,7 @@ void Zombie::ZombieRestState::render(Managers::Graphics* pGraphicsManager){
 }
 
 //ZombieWalkState-------------------
-Zombie::ZombieWalkState::ZombieWalkState(SM::StateMachine* pStateMachine, Zombie *z):State(pStateMachine), nRect(){
+Zombie::ZombieWalkState::ZombieWalkState(SM::StateMachine* pStateMachine, Zombie *z):State(pStateMachine){
     this->z = z;
 }
 
@@ -112,12 +112,12 @@ void Zombie::ZombieWalkState::update(float dt, Managers::Events* pEventsManager)
                 z->vel.x = z->velMax;
 
             //muda o retangulo do sprite
-            z->frame = (nRect) ? Managers::spriteRect(WALK_R1): Managers::spriteRect(WALK_R2);
+            z->frame = (z->nRect) ? Managers::spriteRect(WALK_R1): Managers::spriteRect(WALK_R2);
 
-            frameTime += dt;
-            if(frameTime > WALK_ANIMATION_FRAME_TIME){
-                frameTime = 0;
-                nRect = !nRect;
+            z->frameTime += dt;
+            if(z->frameTime > WALK_ANIMATION_FRAME_TIME){
+                z->frameTime = 0;
+                z->nRect = !z->nRect;
             }
         }
 
@@ -128,11 +128,11 @@ void Zombie::ZombieWalkState::update(float dt, Managers::Events* pEventsManager)
                 z->vel.x = -z->velMax;
 
             //muda o retangulo do sprite
-            z->frame = (nRect) ? Managers::spriteRect(WALK_L1): Managers::spriteRect(WALK_L2);
-            frameTime += dt;
-            if(frameTime > WALK_ANIMATION_FRAME_TIME){
-                frameTime = 0;
-                nRect = !nRect;
+            z->frame = (z->nRect) ? Managers::spriteRect(WALK_L1): Managers::spriteRect(WALK_L2);
+            z->frameTime += dt;
+            if(z->frameTime > WALK_ANIMATION_FRAME_TIME){
+                z->frameTime = 0;
+                z->nRect = !z->nRect;
             }
         }
 
@@ -161,7 +161,7 @@ Zombie::ZombieStateMachine::~ZombieStateMachine(){
 //Zombie----------------------------
 
 Zombie::Zombie(Managers::Graphics* pGraphicsManager, World::Level* pLevel, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel):
-Enemy(pGraphicsManager, pLevel, pos, vel, {ZOMBIE_WIDTH, ZOMBIE_HEIGHT}), Being(enemy, pos, vel){
+Enemy(pGraphicsManager, pLevel, pos, vel, {ZOMBIE_WIDTH, ZOMBIE_HEIGHT}), Being(enemy, pos, vel), nRect(false), frameTime(0){
 
     this->pGraphicsManager = pGraphicsManager;
 
@@ -208,4 +208,14 @@ void Zombie::onCollide(Body* other, float dt){
         if(lives == 0)
             pLevel->setScore(pLevel->getScore() + ZOMBIE_SCORE_VALUE);
     }
+}
+
+void Zombie::saveEntity(std::ofstream& out) const{
+    saveEntityInfo(out);
+    saveBodyInfo(out);
+
+    out <<  vulnerability_timer         << " " <<
+            nRect                       << " " <<
+            frameTime                   << " " <<
+            ZombieSM->getCurrentState() << std::endl;
 }

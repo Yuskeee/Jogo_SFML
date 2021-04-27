@@ -4,7 +4,7 @@
 using namespace Entities;
 
 //PlayerJumpState-------------------
-Player::PlayerJumpState::PlayerJumpState(SM::StateMachine* pStateMachine, Player *p):State(pStateMachine), double_jump(){
+Player::PlayerJumpState::PlayerJumpState(SM::StateMachine* pStateMachine, Player *p):State(pStateMachine){
     this->p = p;
 }
 
@@ -13,7 +13,7 @@ Player::PlayerJumpState::~PlayerJumpState(){
 
 void Player::PlayerJumpState::enter(void* arg){
     std::cout << "JUMP\n";
-    double_jump = (bool&&)arg;
+    p->double_jump = (bool&&)arg;
     p->vel.y = -p->jumpVel;
 }
 
@@ -44,7 +44,7 @@ void Player::PlayerJumpState::update(float dt, Managers::Events* pEventsManager)
             //muda o retangulo do sprite
             p->frame = Managers::spriteRect(DEFAULT);
         }
-        if(double_jump){ //PULO DUPLO
+        if(p->double_jump){ //PULO DUPLO
             if(pEventsManager->keyPressed(p->_jumpKey)){
                 pStateMachine->changeState(PlayerJumpStateID, (void*)(bool&&)false);//chama o pulo sem possibilidade de double jump
             }
@@ -94,7 +94,7 @@ void Player::PlayerRestState::render(Managers::Graphics* pGraphicsManager){
 }
 
 //PlayerWalkState-------------------
-Player::PlayerWalkState::PlayerWalkState(SM::StateMachine* pStateMachine, Player *p):State(pStateMachine), nRect(){
+Player::PlayerWalkState::PlayerWalkState(SM::StateMachine* pStateMachine, Player *p):State(pStateMachine){
     this->p = p;
 }
 
@@ -113,12 +113,12 @@ void Player::PlayerWalkState::update(float dt, Managers::Events* pEventsManager)
                 p->vel.x = p->velMax;
 
             //muda o retangulo do sprite
-            p->frame = (nRect) ? Managers::spriteRect(WALK_R1): Managers::spriteRect(WALK_R2);
+            p->frame = (p->nRect) ? Managers::spriteRect(WALK_R1): Managers::spriteRect(WALK_R2);
 
-            frameTime += dt;
-            if(frameTime > WALK_ANIMATION_FRAME_TIME){
-                frameTime = 0;
-                nRect = !nRect;
+            p->frameTime += dt;
+            if(p->frameTime > WALK_ANIMATION_FRAME_TIME){
+                p->frameTime = 0;
+                p->nRect = !p->nRect;
             }
         }
 
@@ -130,11 +130,11 @@ void Player::PlayerWalkState::update(float dt, Managers::Events* pEventsManager)
                 p->vel.x = -p->velMax;
 
             //muda o retangulo do sprite
-            p->frame = (nRect) ? Managers::spriteRect(WALK_L1): Managers::spriteRect(WALK_L2);
-            frameTime += dt;
-            if(frameTime > WALK_ANIMATION_FRAME_TIME){
-                frameTime = 0;
-                nRect = !nRect;
+            p->frame = (p->nRect) ? Managers::spriteRect(WALK_L1): Managers::spriteRect(WALK_L2);
+            p->frameTime += dt;
+            if(p->frameTime > WALK_ANIMATION_FRAME_TIME){
+                p->frameTime = 0;
+                p->nRect = !p->nRect;
             }
         }
 
@@ -185,7 +185,7 @@ Player::PlayerStateMachine::~PlayerStateMachine(){
 //Player----------------------------
 
 Player::Player(Managers::Graphics* pGraphicsManager, World::Level* pLevel, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel, bool player1):
-Entity(pGraphicsManager, pLevel, pos, vel), Body(pos, vel, {PLAYER_WIDTH, PLAYER_HEIGHT}), Being(player1 ? player_1:player_2, pos, vel), rightDirection(true), vulnerability_timer(0), attackTimer(0){
+Entity(pGraphicsManager, pLevel, pos, vel), Body(pos, vel, {PLAYER_WIDTH, PLAYER_HEIGHT}), Being(player1 ? player_1:player_2, pos, vel), rightDirection(true), vulnerability_timer(0), attackTimer(0), double_jump(true), frameTime(0){
 
     this->pGraphicsManager = pGraphicsManager;
 
@@ -271,11 +271,16 @@ void Player::loadControl(bool player1){
 }
 
 void Player::saveEntity(std::ofstream& out) const{
-    if(this){
-        this->saveEntityInfo(out);
-        out <<  this->getGrounded()         << " " <<
-                this->rightDirection        << std::endl;
-    }
+
+    saveEntityInfo(out);
+    saveBodyInfo(out);
+    out <<  getGrounded()                << " " <<
+            rightDirection               << " " <<
+            nRect                        << " " <<
+            frameTime                    << " " <<
+            attackTimer                  << " " <<
+            PlayerSM->getCurrentState()  << std::endl;
+    
 }
 
 void Player::loadEntity(std::ifstream& in){

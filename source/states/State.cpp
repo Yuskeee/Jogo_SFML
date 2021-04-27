@@ -50,3 +50,11 @@ void StateMachine::update(float dt, Managers::Events* pEventsManager){
 void StateMachine::render(Managers::Graphics* pGraphicsManager){
     states[currentStateID]->render(pGraphicsManager);
 }
+
+const stateID StateMachine::getCurrentState() const{
+    return currentStateID;
+}
+    
+void StateMachine::setCurrentState(const stateID state){
+    currentStateID = state;
+}

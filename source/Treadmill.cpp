@@ -45,3 +45,9 @@ void Treadmill::onCollide(Body* other, float dt){
     other->setGrounded(true);
 
 }
+
+void Treadmill::saveEntity(std::ofstream& out) const{
+    saveEntityInfo(out);
+    saveBodyInfo(out);
+    out << cycleTimer << std::endl;
+}

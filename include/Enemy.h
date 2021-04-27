@@ -28,6 +28,8 @@ public:
 
     void setTarget();
 
+    virtual void saveEntity(std::ofstream& out) const {};
+
     static void setPlayer1(const Player *p1);
     static void setPlayer2(const Player *p2);
 

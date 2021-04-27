@@ -44,3 +44,9 @@ void Saw::onCollide(Body* other, float dt){
         if(e)
             e->damage(1);
 }
+
+void Saw::saveEntity(std::ofstream& out) const{
+    saveEntityInfo(out);
+    saveBodyInfo(out);
+    out << cycleTimer << std::endl;
+}

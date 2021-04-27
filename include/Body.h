@@ -38,6 +38,8 @@ public:
     const bool getGrounded() const;
     const bool isGravitable() const;
 
+    void saveBodyInfo(std::ofstream& out) const;
+
 };
 
 #endif

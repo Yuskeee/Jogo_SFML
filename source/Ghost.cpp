@@ -60,3 +60,8 @@ void Ghost::loadControl(bool player1){
         _downKey = Managers::Events::keycode::Down;
     }
 }
+
+void Ghost::saveEntity(std::ofstream& out) const{
+    saveEntityInfo(out);
+    out << std::endl;
+}

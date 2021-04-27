@@ -41,3 +41,9 @@ void BadPortal::update(float dt, Managers::Events* pEventsManager){
     }
 
 }
+
+void BadPortal::saveEntity(std::ofstream& out) const{
+    saveEntityInfo(out);
+    out << cycleTimer    << " " <<
+           durationTimer << std::endl;
+}

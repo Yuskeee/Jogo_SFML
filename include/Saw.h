@@ -28,6 +28,7 @@ public:
     void update(float dt, Managers::Events* pEventsManager);
     void onCollide(Body* other, float dt);
 
+    virtual void saveEntity(std::ofstream& out) const;
 
 };
 }

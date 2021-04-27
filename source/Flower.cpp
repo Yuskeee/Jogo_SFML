@@ -63,3 +63,10 @@ void Flower::onCollide(Body* other, float dt){
             pLevel->setScore(pLevel->getScore() + FLOWER_SCORE_VALUE);
     }
 }
+
+void Flower::saveEntity(std::ofstream& out) const{
+    saveEntityInfo(out);
+    saveBodyInfo(out);
+    out <<  attackTimer         << " " <<
+            vulnerability_timer << std::endl;
+}

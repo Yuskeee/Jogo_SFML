@@ -34,7 +34,7 @@ public:
     virtual void attack();
 
     virtual void onCollide(Body* other, float dt);
-
+    virtual void saveEntity(std::ofstream& out) const;
 
 };
 

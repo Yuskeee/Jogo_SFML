@@ -40,7 +40,6 @@ private:
     class PlayerJumpState: public SM::State{
     private:
         Player *p;
-        bool double_jump;
     public:
         PlayerJumpState(SM::StateMachine* pStateMachine = NULL, Player *p = NULL);
         virtual ~PlayerJumpState();
@@ -66,13 +65,11 @@ private:
     class PlayerWalkState: public SM::State{
     private:
         Player *p;
-        bool nRect;
-        float frameTime;
     public:
         PlayerWalkState(SM::StateMachine* pStateMachine = NULL, Player *p = NULL);
         virtual ~PlayerWalkState();
 
-        void enter(void* arg){std::cout << "WALK\n"; nRect = false; frameTime = 0.0f;}
+        void enter(void* arg){std::cout << "WALK\n"; p->nRect = false; p->frameTime = 0.0f;}
 
         void update(float dt, Managers::Events* pEventsManager);
         void render(Managers::Graphics* pGraphicsManager);
@@ -100,6 +97,10 @@ private:
     Managers::Events::keycode _fireKey;
 
     bool rightDirection;
+    bool double_jump;
+    bool nRect;
+
+    float frameTime;
 
     float vulnerability_timer;
 

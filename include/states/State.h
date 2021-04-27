@@ -48,6 +48,12 @@ public:
     void update(float dt, Managers::Events* pEventsManager);
     void render(Managers::Graphics* pGraphicsManager);
 
+    const stateID getCurrentState() const;
+
+    void setCurrentState(const stateID state);/*Essa funcao serve apenas para casos especiais, como
+                                        carregamento de jogo salvo. Para mudancas de estado no fluxo normal
+                                        do programa, deve ser utilizado o changeState, que respeita os metodos
+                                        de entrada e saida dos estados.*/
 };
 }
 

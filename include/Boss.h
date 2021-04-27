@@ -34,10 +34,7 @@ private:
 
     class BossRunState: public SM::State{
     private:
-        Boss *b;
-        float lastPosX;
-        const float cycleTime = 0.2;
-        float cycleTimer;
+        Boss *b;        
 
     public:
         BossRunState(SM::StateMachine* pStateMachine = NULL, Boss *b = NULL);
@@ -52,8 +49,6 @@ private:
     class BossChargingState: public SM::State{
     private:
         Boss *b;
-        float fire_timer;
-        float run_timer;
     public:
         BossChargingState(SM::StateMachine* pStateMachine = NULL, Boss *b = NULL);
         ~BossChargingState();
@@ -77,6 +72,13 @@ private:
 
     bool to_right;
 
+    float lastPosX;
+    const float cycleTime = 0.2;
+    float cycleTimer;
+
+    float fire_timer;
+    float run_timer;
+
     SM::StateMachine *BossSM;
     Managers::Graphics* pGraphicsManager;
     World::Level* pLevel;
@@ -90,6 +92,8 @@ public:
     virtual void update(float dt, Managers::Events* pEventsManager);
 
     virtual void onCollide(Body* other, float dt);
+
+    virtual void saveEntity(std::ofstream& out) const;
 
 };
 

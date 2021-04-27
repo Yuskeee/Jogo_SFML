@@ -42,3 +42,10 @@ void GoodPortal::onCollide(Body* other, float dt){
         pLevel->requestLevelChange();//notifica a fase que uma mudanca é esperada, mas nao muda agora pois o processamento das entidades ainda esta em curso
     
 }
+
+void GoodPortal::saveEntity(std::ofstream& out) const{
+    saveEntityInfo(out);
+    saveBodyInfo(out);
+    out << cycleTimer << std::endl;
+
+}

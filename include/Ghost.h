@@ -30,6 +30,8 @@ public:
 
     void update(float dt, Managers::Events* pEventsManager);
 
+    virtual void saveEntity(std::ofstream& out) const;
+
 private:
 
     void loadControl(bool player1);
