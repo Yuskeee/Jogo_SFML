@@ -1,3 +1,4 @@
+#include "Level.h"
 #include "Boss.h"
 
 using namespace Entities;
@@ -62,7 +63,7 @@ void Boss::BossChargingState::enter(void* arg){
 void Boss::BossChargingState::update(float dt, Managers::Events* pEventsManager){
     b->fire_timer += dt;
     b->run_timer += dt;
-    
+
     if(b->fire_timer >= CHARGING_TIME){//chamada para atacar dado certo tempo
         b->attack();
         b->fire_timer = 0;
@@ -142,7 +143,7 @@ void Boss::onCollide(Body* other, float dt){
         if((dynamic_cast<Projectile*>(other) && dynamic_cast<Projectile*>(other)->fromPlayer())){
             lives -= 1;
             if(lives == 0)
-                pLevel->setScore(pLevel->getScore() + FLOWER_SCORE_VALUE);
+                pLevel->setScore(pLevel->getScore() + BOSS_SCORE_VALUE);
         }
     }
 }

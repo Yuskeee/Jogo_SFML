@@ -1,4 +1,4 @@
-#include "states/GameStateMachine.h"
+#include "GameStateMachine.h"
 
 using namespace GameSM;
 
@@ -104,7 +104,7 @@ void ChooseMenuState::render(Managers::Graphics* pGraphicsManager){
         case 2:
             pGraphicsManager->setTextColor(level2Text, 255, 255, 255, 255);
             pGraphicsManager->setTextColor(level3Text, 255, 10, 10, 255);
-            pGraphicsManager->setTextColor(backText, 255, 255, 255, 255);
+            pGraphicsManager->setTextColor(level4Text, 255, 255, 255, 255);
             break;
         case 3:
             pGraphicsManager->setTextColor(level3Text, 255, 255, 255, 255);
