@@ -1,8 +1,9 @@
 #include "Level.h"
+//#include "LevelThread.h"
 
 using namespace World;
 
-Level::Level(Managers::Graphics* pGraphicsManager):map(pGraphicsManager), LevelPhysics(&map), LevelGenerator(this, &map){
+Level::Level(Managers::Graphics* pGraphicsManager):map(pGraphicsManager), LevelPhysics(&map), LevelGenerator(this, &map), thread_initiated(false){
     this->pGraphicsManager = pGraphicsManager;
     currentLevel = -1;
     backgroundSprite = -1;
@@ -10,6 +11,8 @@ Level::Level(Managers::Graphics* pGraphicsManager):map(pGraphicsManager), LevelP
     changeRequested = false;
     isExitOpen = false;
     levelScore = 0;
+
+    bossThread = NULL;
 }
 
 Level::~Level(){
@@ -23,6 +26,22 @@ Level::~Level(){
 }
 
 void Level::update(float dt, Managers::Events* pEvents){
+
+/* PARA THREADS----------------------------------*/
+    if(currentLevel == 3){
+        this->dt = dt;
+
+        if(thread_initiated == false){
+            bossThread = new Entities::BossThread(pGraphicsManager, this, sf::Vector2f(500, 400), sf::Vector2f(0, 0));
+            addEntity(static_cast<Entities::Entity*>(bossThread));
+            addBody(static_cast<Body*>(bossThread));
+            Entities::BossThread::setpdt(this->dt);
+            bossThread->start();
+            thread_initiated = true;
+        }
+    }
+
+/* PARA THREADS----------------------------------*/
 
     for(auto i = entities.begin(); i != entities.end(); i++){//da para fazer esses loops com iterator tambem (talvez seja melhor)
         i->update(dt, pEvents);
@@ -52,6 +71,15 @@ void Level::update(float dt, Managers::Events* pEvents){
             removeEntity(i->getId());
         }
 
+/* PARA THREADS----------------------------------*/
+    if(bossThread)
+        if(bossThread->getLives() <= 3 && bossThread->isAlive()){
+            bossThread->stop();
+            removeBody(bossThread->getId());
+            removeEntity(bossThread->getId());
+        }
+/* PARA THREADS----------------------------------*/
+
     if(playersStats)
         playersStats->update();
 
@@ -76,6 +104,11 @@ void Level::render(){
     if(playersStats)
         playersStats->draw();
 
+/* PARA THREADS----------------------------------*/
+    if(currentLevel == 3 && bossThread && bossThread->isAlive())
+        bossThread->draw();
+/* PARA THREADS----------------------------------*/
+
 }
 
 void Level::addEntity(Entities::Entity* pEntity){//adiciona uma entidade no vetor de entidades
@@ -87,7 +120,8 @@ void Level::removeEntity(int id){
 
     for(auto i = entities.begin(); i != entities.end(); i++){
         if(i->getId() == id){
-            delete *i;
+            if(!dynamic_cast<Entities::BossThread*>(*i))
+                delete *i;
             entities.erase(i);
             break;
         }
@@ -106,6 +140,12 @@ void Level::startLevel(int n, int players){
     totalPlayers = players;
     isExitOpen = false;
     changeRequested = false;
+
+//    if(currentLevel == 3){
+////        pLevelThread->start();
+//
+//        return;
+//    }
 
     loadMap(levelMapFiles[n]);
     this->players = players;
@@ -148,6 +188,17 @@ void Level::requestLevelChange(){
 }
 
 void Level::changeLevel(){
+
+/* PARA THREADS----------------------------------*/
+    if(bossThread){
+        if(thread_initiated == true){
+            bossThread->stop();
+
+            deleteBossThread();
+        }
+    }
+
+/* PARA THREADS----------------------------------*/
 
     if(currentLevel == nLevels-1)
         players = 0;//se for o ultimo nivel, game over
@@ -207,6 +258,20 @@ int Level::getPlayers(){
 World::Physics* Level::getPhysics(){
     return &LevelPhysics;
 }
+
+/* PARA THREADS----------------------------------*/
+Entities::BossThread* Level::getBossThread(){
+    return bossThread;
+}
+
+void Level::deleteBossThread(){
+    if(bossThread){
+        delete bossThread;
+        bossThread = NULL;
+        thread_initiated = false;
+    }
+}
+/* PARA THREADS----------------------------------*/
 
 void Level::save(){
     std::ofstream file(SAVE_FILE, std::ios::out | std::ios::trunc | std::ios::binary);

@@ -9,18 +9,21 @@
 #include "List.h"
 #include "PlayerStats.h"
 
-
 #include "Entity.h"
 #include "Generator.h"
 #include "Flower.h"
 #include "Ghost.h"
 #include "Boss.h"
 
+#include "BossThread.h"
+
 #define EXIT_SCORE 10
 
 #define SAVE_FILE "../saves/Save.dat"
 
 namespace World{
+
+//class LevelThread;
 
 class Level{
 
@@ -60,6 +63,13 @@ private:
     Managers::spriteID backgroundSprite;
     PlayerStats* playersStats;
 
+/* Thread---------------------------*/
+    //LevelThread* pLevelThread;
+    Entities::BossThread* bossThread;
+    bool thread_initiated;
+
+    float dt;
+
 public:
     Level(Managers::Graphics* pGraphicsManager);
     ~Level();
@@ -85,6 +95,11 @@ public:
     Managers::Graphics* getGraphicsManager();
     Managers::spriteID getBackground();
     World::Physics* getPhysics();
+
+    /* PARA THREADS----------------------------------*/
+    Entities::BossThread* getBossThread();
+    void deleteBossThread();
+    /* PARA THREADS----------------------------------*/
 
     void save();
     void load();
