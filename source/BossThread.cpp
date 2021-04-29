@@ -10,6 +10,7 @@ void BossThread::run(){
 
     while(_shouldRun){
         if(!_isPaused){
+            lock();
 
             if(lastpdt != *pdt){
                 //std::cout << "THREAD RODANDO! " << *pdt << std::endl;
@@ -18,6 +19,8 @@ void BossThread::run(){
             }
 
             lastpdt = *pdt;
+            
+            unlock();
         }
         else
             yield();

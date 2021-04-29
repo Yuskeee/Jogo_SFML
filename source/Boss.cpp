@@ -18,7 +18,6 @@ void Boss::BossRunState::enter(void* arg){
 }
 
 void Boss::BossRunState::update(float dt, Managers::Events* pEventsManager){
-
     b->vel.x = (b->to_right) ? b->velMax:-b->velMax;
 
     b->cycleTimer += dt;
@@ -116,7 +115,7 @@ Boss::~Boss(){
 void Boss::attack(){
     float velY = -(DeltaY + World::Physics::getGravityValue() * DeltaX * DeltaX * 0.5 / (projectile_velX * projectile_velX)) * projectile_velX / fabs(DeltaX);
     float velX = (DeltaX > 0) ? projectile_velX:-projectile_velX;
-
+    printf("delta %f, %f\n", DeltaX, DeltaY);
     Projectile* proj = new Projectile(pLevel->getGraphicsManager(), pLevel, pos, {velX, velY}, false, true);
 
     pLevel->addEntity(static_cast<Entities::Entity*>(proj));

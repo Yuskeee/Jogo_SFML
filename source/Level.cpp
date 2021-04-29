@@ -16,6 +16,7 @@ Level::Level(Managers::Graphics* pGraphicsManager):map(pGraphicsManager), LevelP
 }
 
 Level::~Level(){
+    deleteBossThread();
     int id;
     PlayerStats::eraseInstance();
     for(int i = 0; i < entities.size(); i++){
@@ -33,7 +34,7 @@ void Level::update(float dt, Managers::Events* pEvents){
 
         if(thread_initiated == false){
             bossThread = new Entities::BossThread(pGraphicsManager, this, sf::Vector2f(500, 400), sf::Vector2f(0, 0));
-            addEntity(static_cast<Entities::Entity*>(bossThread));
+            //addEntity(static_cast<Entities::Entity*>(bossThread));
             addBody(static_cast<Body*>(bossThread));
             Entities::BossThread::setpdt(this->dt);
             bossThread->start();
@@ -73,10 +74,9 @@ void Level::update(float dt, Managers::Events* pEvents){
 
 /* PARA THREADS----------------------------------*/
     if(bossThread)
-        if(bossThread->getLives() <= 3 && bossThread->isAlive()){
-            bossThread->stop();
-            removeBody(bossThread->getId());
-            removeEntity(bossThread->getId());
+        if(bossThread->getLives() <= 0 && bossThread->isAlive()){
+            deleteBossThread();
+            //removeEntity(bossThread->getId());
         }
 /* PARA THREADS----------------------------------*/
 
@@ -85,9 +85,22 @@ void Level::update(float dt, Managers::Events* pEvents){
 
     LevelGenerator.update(dt);
 
+    if(bossThread)//caso haja thread do boss
+        bossThread->lock();//deve parar o processamento da thread
+    /*
+        Essa é uma regiao critica do codigo, o processameto da fisica feito pelas
+      funcoes abaixo acessa e possivelmente modifica os atributos de posicao e velocidade
+      dos corpos, bem como possivelmente outros dependendo de cada entidade.
+      Se o update do boss for executado junto com alguma dessas funcoes,
+      uma "race condition" pode ocorrer.
+    */
+
     LevelPhysics.applyGravity(dt);
     LevelPhysics.collideMap();
     LevelPhysics.collideBodies(dt);
+
+    if(bossThread)//caso haja thread do boss
+        bossThread->unlock();
 
     if(levelScore >= EXIT_SCORE + currentLevel*EXIT_SCORE)
         openExit();//abre um portal de saida com base no score total
@@ -192,8 +205,6 @@ void Level::changeLevel(){
 /* PARA THREADS----------------------------------*/
     if(bossThread){
         if(thread_initiated == true){
-            bossThread->stop();
-
             deleteBossThread();
         }
     }
@@ -266,6 +277,9 @@ Entities::BossThread* Level::getBossThread(){
 
 void Level::deleteBossThread(){
     if(bossThread){
+        bossThread->stop();
+        removeBody(bossThread->getId());
+
         delete bossThread;
         bossThread = NULL;
         thread_initiated = false;

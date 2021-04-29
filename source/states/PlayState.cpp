@@ -18,8 +18,9 @@ GamePlayState::~GamePlayState(){
 void GamePlayState::enter(void* arg){
     printf("Entrando no jogo\n");
     if(arg){
-        if(pLevel)
+        if(pLevel){
             delete pLevel;
+        }
         printf("loading level\n");
 
         pLevel = new World::Level(pGraphicsManager);
@@ -46,8 +47,9 @@ void GamePlayState::update(float dt, Managers::Events* pEvents){
 
     pGraphicsManager->setString(scoreText, text);
 
-    if(!pLevel->getPlayers()){
+    if(!pLevel->getPlayers()){//game over
         int finalScore = score;
+        pLevel->deleteBossThread();
         pStateMachine->changeState(GameOverStateID, (void*)&finalScore);
     }
 }
