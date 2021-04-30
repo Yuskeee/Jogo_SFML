@@ -19,7 +19,7 @@ PlayerSelectionState::PlayerSelectionState(SM::StateMachine* pStateMachine, Mana
 
     backText = pGraphicsManager->createText(0, "Voltar", 15);
     pGraphicsManager->setTextPos(backText, 70, 110);
-    
+
     background = pGraphicsManager->createSprite(pGraphicsManager->loadTexture(PLAYER_SELECTION_BACKGROUND_FILE));
 
     this->pGraphicsManager = pGraphicsManager;
@@ -33,6 +33,7 @@ PlayerSelectionState::~PlayerSelectionState(){
 void PlayerSelectionState::enter(void* arg){
     printf("Entrando na selecao de jogadores\n");
     this->args[levelArg] = *(int*)arg;
+    this->args[loadArg] = 0;//falso
     pGraphicsManager->setBackground(background);
 }
 
@@ -57,7 +58,7 @@ void PlayerSelectionState::update(float dt, Managers::Events* pEventsManager){
                 args[playersArg] = 1;
                 pStateMachine->changeState(GamePlayStateID, static_cast<void*>(args));
                 break;
-            
+
             case 1:
                 args[playersArg] = 2;
                 pStateMachine->changeState(GamePlayStateID, static_cast<void*>(args));
@@ -66,9 +67,9 @@ void PlayerSelectionState::update(float dt, Managers::Events* pEventsManager){
             case 2:
                 pStateMachine->changeState(MainMenuStateID, NULL);
                 break;
-           
+
            }
-        
+
 
     }
 
@@ -93,7 +94,7 @@ void PlayerSelectionState::render(Managers::Graphics* pGraphicsManager){
             pGraphicsManager->setTextColor(backText, 255, 10, 10, 255);
             pGraphicsManager->setTextColor(singleplayerText, 255, 255, 255, 255);
             break;
-    
+
         default:
             break;
     }

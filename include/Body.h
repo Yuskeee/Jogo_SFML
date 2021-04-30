@@ -3,6 +3,8 @@
 
 #include "Being.h"
 
+#include <iostream>
+
 class Body: public virtual Being{
 
 protected:
@@ -42,6 +44,7 @@ public:
     const bool isGravitable() const;
 
     void saveBodyInfo(std::ofstream& out) const;
+    const bool loadBodyInfo(std::ifstream& in);
 
 };
 

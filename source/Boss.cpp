@@ -160,3 +160,26 @@ void Boss::saveEntity(std::ofstream& out) const{
            BossSM->getCurrentState() /*<< std::endl*/;
 
 }
+
+void Boss::loadEntity(std::ifstream& in){
+    int aux;
+
+    try{
+        loadEntityInfo(in);
+        loadBodyInfo(in);
+
+        in >>   this->DeltaX      >>
+                this->DeltaY      >>
+                this->to_right    >>
+                this->lastPosX    >>
+                this->cycleTimer  >>
+                this->run_timer   >>
+                this->fire_timer  >>
+                aux;
+
+        this->BossSM->setCurrentState(aux);
+    }
+    catch(std::invalid_argument e){
+        std::cerr << "Error: could not save Boss!" << std::endl;
+    }
+}

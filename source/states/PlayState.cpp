@@ -18,13 +18,25 @@ GamePlayState::~GamePlayState(){
 void GamePlayState::enter(void* arg){
     printf("Entrando no jogo\n");
     if(arg){
-        if(pLevel)
+        if(pLevel){
             delete pLevel;
+        }
         printf("loading level\n");
 
         pLevel = new World::Level(pGraphicsManager);
         int* rArgs = (int*)(arg);
-        pLevel->startLevel(rArgs[levelArg], rArgs[playersArg]);
+
+        if(rArgs[loadArg]){
+            if(!pLevel->startLevel(rArgs[loadArg])){//carrega fase salva
+                    std::cerr << "Error: Could not load saved level!" << std::endl;
+                    pStateMachine->changeState(MainMenuStateID, NULL);
+            }
+            else
+                std::cout << "Loaded with successs!\n";
+        }
+        else{
+            pLevel->startLevel(rArgs[levelArg], rArgs[playersArg]);
+        }
         PauseState::setpLevel(pLevel);
     }
     else if(pLevel){
@@ -33,7 +45,7 @@ void GamePlayState::enter(void* arg){
 }
 
 void GamePlayState::exit(){
-    printf("Saindo do jogo\n");
+    printf("Exiting game...\n");
 }
 
 void GamePlayState::update(float dt, Managers::Events* pEvents){
@@ -46,8 +58,9 @@ void GamePlayState::update(float dt, Managers::Events* pEvents){
 
     pGraphicsManager->setString(scoreText, text);
 
-    if(!pLevel->getPlayers()){
+    if(!pLevel->getPlayers()){//game over
         int finalScore = score;
+        pLevel->deleteBossThread();
         pStateMachine->changeState(GameOverStateID, (void*)&finalScore);
     }
 }

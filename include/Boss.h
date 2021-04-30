@@ -4,12 +4,13 @@
 #include "Enemy.h"
 #include "states/State.h"
 #include "Body.h"
-#include "Level.h"
 #include "Physics.h"
 #include <math.h>
 
 #define CHARGING_TIME 1.5
 #define RUN_TIME 5
+
+#define BOSS_SCORE_VALUE 50
 
 #define BOSS_DEFAULT_LEFT     0,  0,  20, 20
 #define BOSS_DEFAULT_RIGHT    20, 0, -20, 20
@@ -23,6 +24,10 @@
 
 #define BOSS_TEXTURE_FILE "../assets/boss.png"
 
+namespace World{
+class Level;
+}
+
 namespace Entities{
 
 class Boss: public Enemy{
@@ -34,7 +39,7 @@ private:
 
     class BossRunState: public SM::State{
     private:
-        Boss *b;        
+        Boss *b;
 
     public:
         BossRunState(SM::StateMachine* pStateMachine = NULL, Boss *b = NULL);
@@ -94,6 +99,7 @@ public:
     virtual void onCollide(Body* other, float dt);
 
     virtual void saveEntity(std::ofstream& out) const;
+    virtual void loadEntity(std::ifstream& in);
 
 };
 

@@ -67,9 +67,11 @@ void MainMenuState::update(float dt, Managers::Events* pEventsManager){
                 pStateMachine->changeState(ChooseMenuStateID, NULL);
                 break;
 
-            case 2:
+            case 2:{
+                int _shouldLoad = 1;
+                pStateMachine->changeState(GamePlayStateID, static_cast<void*>(&_shouldLoad));//carrega fase salva
                 break;
-
+            }
             case 3:
                 pStateMachine->changeState(RankingViewStateID, NULL);
                 break;

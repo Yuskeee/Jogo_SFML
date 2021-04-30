@@ -81,3 +81,18 @@ void Spears::saveEntity(std::ofstream& out) const{
            startPosY  /*<< std::endl*/;
 
 }
+
+void Spears::loadEntity(std::ifstream& in){
+    try{
+        loadEntityInfo(in);
+        loadBodyInfo(in);
+
+        in >>   cycleTimer  >>
+                active      >>
+                startPosX   >>
+                startPosY;
+    }
+    catch(std::invalid_argument e){
+        std::cerr << "Error: could not save Spears!" << std::endl;
+    }
+}

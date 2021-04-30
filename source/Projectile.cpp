@@ -18,9 +18,14 @@ Entity(pGraphicsManager, pLevel, pos, vel), Body(pos, vel, {PROJECTILE_WIDTH, PR
 
 }
 
-Projectile::Projectile(const bool fromBoss):
-Entity(), Body(), Being((fromBoss)? boss_projectile:projectile), _isPlayers(), _fromBoss(){
-
+Projectile::Projectile(Managers::Graphics* pGraphicsManager, World::Level* pLevel, const bool fromBoss):
+Entity(pGraphicsManager, pLevel), Body(), Being((fromBoss)? boss_projectile:projectile), _isPlayers(), _fromBoss(){
+    if(pGraphicsManager){
+        frame = Managers::spriteRect(0, 0, PROJECTILE_WIDTH, PROJECTILE_HEIGHT);
+        idTextura = pGraphicsManager->loadTexture(PROJECTILE_TEXTURE_FILE);
+        idSprite = pGraphicsManager->createSprite(idTextura);
+        pGraphicsManager->setSpriteRect(idSprite, frame);
+    }
 }
 
 Projectile::~Projectile(){
@@ -52,4 +57,19 @@ void Projectile::saveEntity(std::ofstream& out) const{
            _isPlayers << " " <<
            _fromBoss  /*<< std::endl*/;
 
+}
+
+void Projectile::loadEntity(std::ifstream& in){
+    try{
+        loadEntityInfo(in);
+        loadBodyInfo(in);
+
+        in >>   velXStart   >>
+                velYStart   >>
+                _isPlayers  >>
+                _fromBoss;
+    }
+    catch(std::invalid_argument e){
+        std::cerr << "Error: could not save Projectile!" << std::endl;
+    }
 }

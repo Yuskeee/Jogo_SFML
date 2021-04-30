@@ -1,5 +1,4 @@
 #include "Level.h"
-//#include "LevelThread.h"
 
 using namespace World;
 
@@ -32,10 +31,13 @@ void Level::update(float dt, Managers::Events* pEvents){
     if(currentLevel == 3){
         this->dt = dt;
 
-        if(thread_initiated == false){
-            bossThread = new Entities::BossThread(pGraphicsManager, this, sf::Vector2f(500, 400), sf::Vector2f(0, 0));
-            //addEntity(static_cast<Entities::Entity*>(bossThread));
+        if(!bossThread){
+            bossThread = new Entities::BossThread(pGraphicsManager, this);
+            //addEntity(static_cast<Entities::Entity*>(bossThread));//alternativa não tomada
             addBody(static_cast<Body*>(bossThread));
+        }
+
+        if(thread_initiated == false){
             Entities::BossThread::setpdt(this->dt);
             bossThread->start();
             thread_initiated = true;
@@ -154,12 +156,6 @@ void Level::startLevel(int n, int players){
     isExitOpen = false;
     changeRequested = false;
 
-//    if(currentLevel == 3){
-////        pLevelThread->start();
-//
-//        return;
-//    }
-
     loadMap(levelMapFiles[n]);
     this->players = players;
 
@@ -190,6 +186,14 @@ void Level::startLevel(int n, int players){
     pGraphicsManager->setBackground(backgroundSprite);
 
     LevelGenerator.generateObstacles();
+}
+
+const bool Level::startLevel(int _shouldLoad){
+    if(_shouldLoad == 1)
+        if(!load())
+            return false;
+
+    return true;
 }
 
 void Level::loadMap(const char* arquivo){
@@ -317,6 +321,11 @@ bool Level::save(){
             aux_iterator++;
         }
 
+        //como o BossThread não pertence à lista de entidades, devemos lidar com ele manualmente
+        if(bossThread)
+            file << std::endl;
+            file << *bossThread;
+
         file.close();
     }
     else{
@@ -336,113 +345,136 @@ bool Level::load(){
             return false;
         }
 
+        Entities::Player *p1 = NULL, *p2 = NULL;
+
         //carrega primeiramente o level
         bool _level_loaded = loadLevel(file);
 
         while(file.good() && _level_loaded){
             int type;
 
+
             try{
                 file >> type;
-
+                std::cout << type << std::endl;
                 switch(type){
                     case 0:
                     case 1:
                         {
-                            Entities::Player* pEntity = new Entities::Player((type == 0) ? true: false);//player_1 e player_2
+                            Entities::Player* pEntity = new Entities::Player(pGraphicsManager, this, (type == 0) ? true: false);//player_1 e player_2
                             file >> *pEntity;
-//                            addEntity(static_cast<Entities::Entity*>(pEntity));
-//                            addBody(static_cast<Body*>(pEntity));
-//                            std::cout << "success players!" << std::endl;
+                            addEntity(static_cast<Entities::Entity*>(pEntity));
+                            addBody(static_cast<Body*>(pEntity));
+
+                            if(type == 0){
+                                Entities::Enemy::setPlayer1(pEntity);
+                                p1 = pEntity;
+                            }
+                            else{
+                                Entities::Enemy::setPlayer2(pEntity);
+                                p2 = pEntity;
+                            }
+                            std::cout << "success players!" << std::endl;
                             break;
                         }
                     case 2:
                     case 3:
                         {
-                            Entities::Ghost* pEntity = new Entities::Ghost();//ghost_1 e ghost_2
+                            Entities::Ghost* pEntity = new Entities::Ghost(pGraphicsManager, this, (type == 2) ? true: false);//ghost_1 e ghost_2
                             file >> *pEntity;
-//                            addEntity(static_cast<Entities::Entity*>(pEntity));
-//                            std::cout << "success ghosts!" << std::endl;
+                            addEntity(static_cast<Entities::Entity*>(pEntity));
+                            std::cout << "success ghosts!" << std::endl;
                             break;
                         }
                     case 4:
                         {
-                            Entities::GoodPortal* pEntity = new Entities::GoodPortal();//good_portal
+                            Entities::GoodPortal* pEntity = new Entities::GoodPortal(pGraphicsManager, this);//good_portal
                             file >> *pEntity;
-//                            addEntity(static_cast<Entities::Entity*>(pEntity));
-//                            std::cout << "success gportal!" << std::endl;
+                            addEntity(static_cast<Entities::Entity*>(pEntity));
+                            addBody(static_cast<Body*>(pEntity));
+                            std::cout << "success gportal!" << std::endl;
                             break;
                         }
                     case 5:
                         {
-                            Entities::BadPortal* pEntity = new Entities::BadPortal();//bad_portal
+                            Entities::BadPortal* pEntity = new Entities::BadPortal(pGraphicsManager, this);//bad_portal
                             file >> *pEntity;
-//                            addEntity(static_cast<Entities::Entity*>(pEntity));
-//                            std::cout << "success bportal!" << std::endl;
+                            addEntity(static_cast<Entities::Entity*>(pEntity));
+                            std::cout << "success bportal!" << std::endl;
                             break;
                         }
                     case 6:
                         {
-                            Entities::Zombie* pEntity = new Entities::Zombie();//zombie
+                            Entities::Zombie* pEntity = new Entities::Zombie(pGraphicsManager, this);//zombie
                             file >> *pEntity;
-//                            addEntity(static_cast<Entities::Entity*>(pEntity));
-//                            addBody(static_cast<Body*>(pEntity));
-//                            std::cout << "success zombie!" << std::endl;
+                            addEntity(static_cast<Entities::Entity*>(pEntity));
+                            addBody(static_cast<Body*>(pEntity));
+                            std::cout << "success zombie!" << std::endl;
                             break;
                         }
                     case 7:
                         {
-                            Entities::Flower* pEntity = new Entities::Flower();//flower
+                            Entities::Flower* pEntity = new Entities::Flower(pGraphicsManager, this);//flower
                             file >> *pEntity;
-//                            addEntity(static_cast<Entities::Entity*>(pEntity));
-//                            addBody(static_cast<Body*>(pEntity));
-//                            std::cout << "success flower!" << std::endl;
+                            addEntity(static_cast<Entities::Entity*>(pEntity));
+                            addBody(static_cast<Body*>(pEntity));
+                            std::cout << "success flower!" << std::endl;
                             break;
                         }
                     case 8:
                         {
-                            Entities::Boss* pEntity = new Entities::Boss();//boss
-                            file >> *pEntity;
-//                            addEntity(static_cast<Entities::Entity*>(pEntity));
-//                            addBody(static_cast<Body*>(pEntity));
-//                            std::cout << "success boss!" << std::endl;
+                            //como o BossThread não pertence à lista de entidades, devemos lidar com ele manualmente
+                            if(currentLevel == 3){
+                                Entities::BossThread* pEntity = new Entities::BossThread(pGraphicsManager, this);//bossthread
+                                file >> *pEntity;
+                                addBody(static_cast<Body*>(pEntity));
+                                bossThread = pEntity;
+                            }
+                            else{
+                                Entities::Boss* pEntity = new Entities::Boss(pGraphicsManager, this);//boss
+                                file >> *pEntity;
+                                addEntity(static_cast<Entities::Entity*>(pEntity));
+                                addBody(static_cast<Body*>(pEntity));
+                            }
+
+                            std::cout << "success boss!" << std::endl;
                             break;
                         }
                     case 9:
                     case 13:
                         {
-                            Entities::Projectile* pEntity = new Entities::Projectile((type == 6) ? false: true);//projectile and projectile_boss
+                            Entities::Projectile* pEntity = new Entities::Projectile(pGraphicsManager, this, (type == 9) ? false: true);//projectile and projectile_boss
                             file >> *pEntity;
-//                            addEntity(static_cast<Entities::Entity*>(pEntity));
-//                            addBody(static_cast<Body*>(pEntity));
-//                            std::cout << "success proj!" << std::endl;
+                            addEntity(static_cast<Entities::Entity*>(pEntity));
+                            addBody(static_cast<Body*>(pEntity));
+                            std::cout << "success proj!" << std::endl;
                             break;
                         }
                     case 10:
                         {
-                            Entities::Obstacles::Treadmill* pEntity = new Entities::Obstacles::Treadmill();//treadmill
+                            Entities::Obstacles::Treadmill* pEntity = new Entities::Obstacles::Treadmill(pGraphicsManager, this);//treadmill
                             file >> *pEntity;
-//                            addEntity(static_cast<Entities::Entity*>(pEntity));
-//                            addBody(static_cast<Body*>(pEntity));
-//                            std::cout << "success treadmill!" << std::endl;
+                            addEntity(static_cast<Entities::Entity*>(pEntity));
+                            addBody(static_cast<Body*>(pEntity));
+                            std::cout << "success treadmill!" << std::endl;
                             break;
                         }
                     case 11:
                         {
-                            Entities::Obstacles::Spears* pEntity = new Entities::Obstacles::Spears();//spears
+                            Entities::Obstacles::Spears* pEntity = new Entities::Obstacles::Spears(pGraphicsManager, this);//spears
                             file >> *pEntity;
-//                            addEntity(static_cast<Entities::Entity*>(pEntity));
-//                            addBody(static_cast<Body*>(pEntity));
-//                            std::cout << "success spears!" << std::endl;
+                            addEntity(static_cast<Entities::Entity*>(pEntity));
+                            addBody(static_cast<Body*>(pEntity));
+                            std::cout << "success spears!" << std::endl;
                             break;
                         }
                     case 12:
                         {
-                            Entities::Obstacles::Saw* pEntity = new Entities::Obstacles::Saw();//saw
+                            Entities::Obstacles::Saw* pEntity = new Entities::Obstacles::Saw(pGraphicsManager, this);//saw
                             file >> *pEntity;
-//                            addEntity(static_cast<Entities::Entity*>(pEntity));
-//                            addBody(static_cast<Body*>(pEntity));
-//                            std::cout << "success saw!" << std::endl;
+                            addEntity(static_cast<Entities::Entity*>(pEntity));
+                            addBody(static_cast<Body*>(pEntity));
+                            std::cout << "success saw!" << std::endl;
                             break;
                         }
                     default://não há entidade desse tipo -> erro
@@ -462,6 +494,23 @@ bool Level::load(){
             std::cerr << "Error: the file was corrupted!" << std::endl;
             std::remove(SAVE_FILE);//deleta o arquivo corrompido
             return false;//nao foi possivel gravar
+        }
+
+        else{
+            PlayerStats::eraseInstance();
+            //dealing with Players
+            if(p1 && !p2){
+                std::cout << "PlayerStats 1\n";
+                playersStats = PlayerStats::getPlayerStatsInstance(pGraphicsManager, this, p1);
+            }
+            else if(!p1 && p2){
+                std::cout << "PlayerStats 2\n";
+                playersStats = PlayerStats::getPlayerStatsInstance(pGraphicsManager, this, p2);
+            }
+            else if(players == 2 && p1 && p2){
+                std::cout << "PlayerStats 1 e 2\n";
+                playersStats = PlayerStats::getPlayerStatsInstance(pGraphicsManager, this, p1, p2);
+            }
         }
 
         file.close();
@@ -491,6 +540,12 @@ bool Level::loadLevel(std::ifstream& in){
         this->changeRequested = (content == "1") ? true: false;
         getline(in, content, '\n');
         this->levelScore = std::stoi(content);
+
+        loadMap(levelMapFiles[currentLevel]);
+
+        backgroundSprite = pGraphicsManager->createSprite(pGraphicsManager->loadTexture(levelBackgroundFiles[currentLevel]));
+        pGraphicsManager->setBackground(backgroundSprite);
+
     }
     catch(std::invalid_argument e){
         return false;

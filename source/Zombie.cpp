@@ -219,3 +219,22 @@ void Zombie::saveEntity(std::ofstream& out) const{
             frameTime                   << " " <<
             ZombieSM->getCurrentState() /*<< std::endl*/;
 }
+
+void Zombie::loadEntity(std::ifstream& in){
+    int aux;
+
+    try{
+        loadEntityInfo(in);
+        loadBodyInfo(in);
+
+        in >>   vulnerability_timer >>
+                nRect               >>
+                frameTime           >>
+                aux;
+
+        this->ZombieSM->setCurrentState(aux);
+    }
+    catch(std::invalid_argument e){
+        std::cerr << "Error: could not save Zombie!" << std::endl;
+    }
+}

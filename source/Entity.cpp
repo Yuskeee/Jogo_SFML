@@ -36,8 +36,6 @@ int Entity::getLives() const{
 void Entity::saveEntityInfo(std::ofstream& out) const{
     out <<  this->getType()             << " " <<
             this->getId()               << " " <<
-            this->idTextura             << " " <<
-            this->idSprite              << " " <<
             this->frame.left            << " " <<
             this->frame.top             << " " <<
             this->frame.width           << " " <<
@@ -47,8 +45,30 @@ void Entity::saveEntityInfo(std::ofstream& out) const{
             this->getVel().x            << " " <<
             this->getVel().y            << " " <<
             this->getLives()            << " " <<
-            this->vulnerability;
+            this->vulnerability         << " ";
 
+}
+
+const bool Entity::loadEntityInfo(std::ifstream& in){
+    try{
+        in >>   this->id                        >>
+                this->frame.left                >>
+                this->frame.top                 >>
+                this->frame.width               >>
+                this->frame.height              >>
+                this->pos.x                     >>
+                this->pos.y                     >>
+                this->vel.x                     >>
+                this->vel.y                     >>
+                this->lives                     >>
+                this->vulnerability;
+    }
+    catch(std::invalid_argument e){
+        std::cerr << "Error: Could not load entity info!" << std::endl;
+        return false;
+    }
+
+    return true;
 }
 
 void Entity::saveEntity(std::ofstream& out) const{

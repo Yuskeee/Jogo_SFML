@@ -204,9 +204,23 @@ Entity(pGraphicsManager, pLevel, pos, vel), Body(pos, vel, {PLAYER_WIDTH, PLAYER
 
 }
 
-Player::Player(const bool player1):
-Entity(), Body(), Being(player1 ? player_1:player_2), rightDirection(), vulnerability_timer(), attackTimer(), double_jump(), frameTime(){
+Player::Player(Managers::Graphics* pGraphicsManager, World::Level* pLevel, const bool player1):
+Entity(pGraphicsManager, pLevel), Body(), Being(player1 ? player_1:player_2), rightDirection(), vulnerability_timer(), attackTimer(), double_jump(), frameTime(){
 
+    this->pGraphicsManager = pGraphicsManager;
+
+    this->pLevel = pLevel;
+
+    loadControl(player1);
+
+    if(pGraphicsManager){
+        frame = Managers::spriteRect(DEFAULT);
+        idTextura = pGraphicsManager->loadTexture(player1 ? PLAYER_TEXTURE_FILE : PLAYER2_TEXTURE_FILE);
+        idSprite = pGraphicsManager->createSprite(idTextura);
+        pGraphicsManager->setSpriteRect(idSprite, frame);
+
+        PlayerSM = new PlayerStateMachine(this);
+    }
 }
 
 Player::~Player(){
@@ -279,8 +293,7 @@ void Player::saveEntity(std::ofstream& out) const{
 
     saveEntityInfo(out);
     saveBodyInfo(out);
-    out <<  getGrounded()                << " " <<
-            rightDirection               << " " <<
+    out <<  rightDirection               << " " <<
             nRect                        << " " <<
             frameTime                    << " " <<
             attackTimer                  << " " <<
@@ -289,6 +302,21 @@ void Player::saveEntity(std::ofstream& out) const{
 }
 
 void Player::loadEntity(std::ifstream& in){
-    std::string contents;
-    getline(in, contents);
+    int aux;
+
+    try{
+        loadEntityInfo(in);
+        loadBodyInfo(in);
+
+        in >>   this->rightDirection  >>
+                this->nRect           >>
+                this->frameTime       >>
+                this->attackTimer     >>
+                aux;
+
+        PlayerSM->setCurrentState(aux);
+    }
+    catch(std::invalid_argument e){
+        std::cerr << "Error: Could not load player!" << std::endl;
+    }
 }
