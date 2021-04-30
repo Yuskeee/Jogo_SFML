@@ -21,8 +21,7 @@ private:
     Managers::spriteID *hearts_p2;
     static const Entities::Player *p1, *p2;
 
-    int maxLives_p1;
-    int maxLives_p2;
+    const int maxLives = 5;
 
     static PlayerStats* instance;
 
