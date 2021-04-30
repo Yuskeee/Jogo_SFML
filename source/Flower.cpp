@@ -5,7 +5,7 @@
 using namespace Entities;
 
 Flower::Flower(Managers::Graphics* pGraphicsManager, World::Level* pLevel, const sf::Vector2<float>& pos):
-Enemy(pGraphicsManager, pLevel, pos, {0.0f, 0.0f}, {FLOWER_WIDTH, FLOWER_HEIGHT}), Being(enemy, pos, {0.0f, 0.0f})
+Enemy(pGraphicsManager, pLevel, pos, {0.0f, 0.0f}, {FLOWER_WIDTH, FLOWER_HEIGHT}), Being(flower, pos, {0.0f, 0.0f})
 {
     attackTimer = 0;
 
@@ -68,5 +68,5 @@ void Flower::saveEntity(std::ofstream& out) const{
     saveEntityInfo(out);
     saveBodyInfo(out);
     out <<  attackTimer         << " " <<
-            vulnerability_timer << std::endl;
+            vulnerability_timer /*<< std::endl*/;
 }

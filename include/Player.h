@@ -110,7 +110,8 @@ private:
 
 public:
 
-    Player(Managers::Graphics* pGraphicsManager = NULL, World::Level* pLevel = NULL, const sf::Vector2<float>& pos = {0.0f, 0.0f}, const sf::Vector2<float>& vel = {0.0f, 0.0f}, bool player1 = true);
+    Player(Managers::Graphics* pGraphicsManager = NULL, World::Level* pLevel = NULL, const sf::Vector2<float>& pos = {0.0f, 0.0f}, const sf::Vector2<float>& vel = {0.0f, 0.0f}, const bool player1 = true);
+    Player(const bool player1);
     virtual ~Player();
 
     void update(float dt, Managers::Events* pEventsManager);

@@ -161,7 +161,7 @@ Zombie::ZombieStateMachine::~ZombieStateMachine(){
 //Zombie----------------------------
 
 Zombie::Zombie(Managers::Graphics* pGraphicsManager, World::Level* pLevel, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel):
-Enemy(pGraphicsManager, pLevel, pos, vel, {ZOMBIE_WIDTH, ZOMBIE_HEIGHT}), Being(enemy, pos, vel), nRect(false), frameTime(0){
+Enemy(pGraphicsManager, pLevel, pos, vel, {ZOMBIE_WIDTH, ZOMBIE_HEIGHT}), Being(zombie, pos, vel), nRect(false), frameTime(0){
 
     this->pGraphicsManager = pGraphicsManager;
 
@@ -217,5 +217,5 @@ void Zombie::saveEntity(std::ofstream& out) const{
     out <<  vulnerability_timer         << " " <<
             nRect                       << " " <<
             frameTime                   << " " <<
-            ZombieSM->getCurrentState() << std::endl;
+            ZombieSM->getCurrentState() /*<< std::endl*/;
 }

@@ -63,5 +63,5 @@ void Ghost::loadControl(bool player1){
 
 void Ghost::saveEntity(std::ofstream& out) const{
     saveEntityInfo(out);
-    out << std::endl;
+    out /*<< std::endl*/;
 }

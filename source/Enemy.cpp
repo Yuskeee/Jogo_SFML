@@ -7,7 +7,7 @@ const Player* Enemy::p1 = NULL;
 const Player* Enemy::p2 = NULL;
 
 Enemy::Enemy(Managers::Graphics* pGraphicsManager, World::Level* pLevel, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel, const sf::Vector2<float>& rect, const float accel, const float mVel):
-Entity(pGraphicsManager, pLevel, pos, vel), Body(pos, vel, rect), Being(enemy, pos, vel), acceleration(accel), velMax(mVel){
+Entity(pGraphicsManager, pLevel, pos, vel), Body(pos, vel, rect), Being(zombie/*por padrao*/, pos, vel), acceleration(accel), velMax(mVel){
 
 }
 

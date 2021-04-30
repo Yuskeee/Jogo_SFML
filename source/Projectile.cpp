@@ -18,6 +18,11 @@ Entity(pGraphicsManager, pLevel, pos, vel), Body(pos, vel, {PROJECTILE_WIDTH, PR
 
 }
 
+Projectile::Projectile(const bool fromBoss):
+Entity(), Body(), Being((fromBoss)? boss_projectile:projectile), _isPlayers(), _fromBoss(){
+
+}
+
 Projectile::~Projectile(){
     pGraphicsManager->removeSprite(idSprite);
 }
@@ -45,6 +50,6 @@ void Projectile::saveEntity(std::ofstream& out) const{
     out << velXStart  << " " <<
            velYStart  << " " <<
            _isPlayers << " " <<
-           _fromBoss  << std::endl;
+           _fromBoss  /*<< std::endl*/;
 
 }

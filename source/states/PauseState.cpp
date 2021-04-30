@@ -37,8 +37,13 @@ PauseState::~PauseState(){
 
 void PauseState::enter(void* arg){
     pGraphicsManager->setBackground(background);
-    
+
     _isSaved = false;
+
+/* PARA THREADS----------------------------------*/
+    if(pLevel->getBossThread())
+        pLevel->getBossThread()->pause(true);
+/* PARA THREADS----------------------------------*/
 }
 
 void PauseState::update(float dt, Managers::Events* pEventsManager){
@@ -60,17 +65,27 @@ void PauseState::update(float dt, Managers::Events* pEventsManager){
         switch(selection){
             case 0:
                 pStateMachine->changeState(GamePlayStateID, NULL);
+                /* PARA THREADS----------------------------------*/
+                if(pLevel->getBossThread())
+                    pLevel->getBossThread()->pause(false);//despausa thread
+                /* PARA THREADS----------------------------------*/
                 break;
             case 1:
                 if(pLevel){
-                    pLevel->save();
-                    _isSaved = true;
+                    if(pLevel->save())
+                        _isSaved = true;
+                    else
+                        std::cerr << "Error: not able to save :c!" << std::endl;
                 }
                 else
-                    std::cerr << "Erro: Ponteiro para level aterrado!" << std::endl;
+                    std::cerr << "Error: Pointer to level is nullptr!" << std::endl;
                 break;
             case 2:
                 pStateMachine->changeState(MainMenuStateID, NULL);
+                /* PARA THREADS----------------------------------*/
+                if(pLevel->getBossThread())
+                    pLevel->deleteBossThread();//deleta thread
+                /* PARA THREADS----------------------------------*/
                 break;
            }
 

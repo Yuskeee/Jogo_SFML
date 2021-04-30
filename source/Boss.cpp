@@ -1,3 +1,4 @@
+#include "Level.h"
 #include "Boss.h"
 
 using namespace Entities;
@@ -17,7 +18,6 @@ void Boss::BossRunState::enter(void* arg){
 }
 
 void Boss::BossRunState::update(float dt, Managers::Events* pEventsManager){
-
     b->vel.x = (b->to_right) ? b->velMax:-b->velMax;
 
     b->cycleTimer += dt;
@@ -62,7 +62,7 @@ void Boss::BossChargingState::enter(void* arg){
 void Boss::BossChargingState::update(float dt, Managers::Events* pEventsManager){
     b->fire_timer += dt;
     b->run_timer += dt;
-    
+
     if(b->fire_timer >= CHARGING_TIME){//chamada para atacar dado certo tempo
         b->attack();
         b->fire_timer = 0;
@@ -94,7 +94,7 @@ Boss::BossStateMachine::~BossStateMachine(){
 //Boss---------------------------------
 
 Boss::Boss(Managers::Graphics* pGraphicsManager, World::Level* pLevel, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel):
-Enemy(pGraphicsManager, pLevel, pos, vel, {BOSS_WIDTH, BOSS_HEIGHT}), Being(enemy, pos, vel), DeltaX(), DeltaY(), to_right(false), lastPosX(0), fire_timer(0), run_timer(0){
+Enemy(pGraphicsManager, pLevel, pos, vel, {BOSS_WIDTH, BOSS_HEIGHT}), Being(boss, pos, vel), DeltaX(), DeltaY(), to_right(false), lastPosX(0), fire_timer(0), run_timer(0){
     this->pGraphicsManager = pGraphicsManager;
     this->pLevel = pLevel;
 
@@ -115,7 +115,7 @@ Boss::~Boss(){
 void Boss::attack(){
     float velY = -(DeltaY + World::Physics::getGravityValue() * DeltaX * DeltaX * 0.5 / (projectile_velX * projectile_velX)) * projectile_velX / fabs(DeltaX);
     float velX = (DeltaX > 0) ? projectile_velX:-projectile_velX;
-
+    printf("delta %f, %f\n", DeltaX, DeltaY);
     Projectile* proj = new Projectile(pLevel->getGraphicsManager(), pLevel, pos, {velX, velY}, false, true);
 
     pLevel->addEntity(static_cast<Entities::Entity*>(proj));
@@ -142,7 +142,7 @@ void Boss::onCollide(Body* other, float dt){
         if((dynamic_cast<Projectile*>(other) && dynamic_cast<Projectile*>(other)->fromPlayer())){
             lives -= 1;
             if(lives == 0)
-                pLevel->setScore(pLevel->getScore() + FLOWER_SCORE_VALUE);
+                pLevel->setScore(pLevel->getScore() + BOSS_SCORE_VALUE);
         }
     }
 }
@@ -157,6 +157,6 @@ void Boss::saveEntity(std::ofstream& out) const{
            cycleTimer << " " <<
            run_timer << " " <<
            fire_timer << " " <<
-           BossSM->getCurrentState() << std::endl;
+           BossSM->getCurrentState() /*<< std::endl*/;
 
 }

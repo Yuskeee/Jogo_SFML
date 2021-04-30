@@ -20,6 +20,7 @@ private:
 
 public:
     Projectile(Managers::Graphics* pGraphicsManager = NULL, World::Level* pLevel = NULL, const sf::Vector2<float>& pos = {0.0f, 0.0f}, const sf::Vector2<float>& vel = {0.0f, 0.0f}, const bool isPlayers = false, const bool fromBoss = false);
+    Projectile(const bool fromBoss);//para save do tipo do projetil
     ~Projectile();
 
     virtual void update(float dt, Managers::Events* pEvents);
