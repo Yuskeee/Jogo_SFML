@@ -322,9 +322,10 @@ bool Level::save(){
         }
 
         //como o BossThread não pertence à lista de entidades, devemos lidar com ele manualmente
-        if(bossThread)
+        if(bossThread){
             file << std::endl;
             file << *bossThread;
+        }
 
         file.close();
     }
