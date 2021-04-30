@@ -72,11 +72,13 @@ void PauseState::update(float dt, Managers::Events* pEventsManager){
                 break;
             case 1:
                 if(pLevel){
-                    pLevel->save();
-                    _isSaved = true;
+                    if(pLevel->save())
+                        _isSaved = true;
+                    else
+                        std::cerr << "Error: not able to save :c!" << std::endl;
                 }
                 else
-                    std::cerr << "Erro: Ponteiro para level aterrado!" << std::endl;
+                    std::cerr << "Error: Pointer to level is nullptr!" << std::endl;
                 break;
             case 2:
                 pStateMachine->changeState(MainMenuStateID, NULL);

@@ -4,7 +4,7 @@
 using namespace Entities;
 
 BadPortal::BadPortal(Managers::Graphics* pGraphicsManager, World::Level* pLevel, const sf::Vector2<float>& pos):
-Entity(pGraphicsManager, pLevel, pos, {0.0f, 0.0f}), Being(portal, pos, {0.0f, 0.0f}){
+Entity(pGraphicsManager, pLevel, pos, {0.0f, 0.0f}), Being(bad_portal, pos, {0.0f, 0.0f}){
 
     cycleTimer = 0;
     durationTimer = 0;
@@ -45,5 +45,5 @@ void BadPortal::update(float dt, Managers::Events* pEventsManager){
 void BadPortal::saveEntity(std::ofstream& out) const{
     saveEntityInfo(out);
     out << cycleTimer    << " " <<
-           durationTimer << std::endl;
+           durationTimer /*<< std::endl*/;
 }

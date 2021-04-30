@@ -11,8 +11,11 @@ protected:
         true,//player2
         false,//ghost1
         false,//ghost2
-        false,//portal
-        true,//enemy
+        false,//good_portal
+        false,//bad_portal
+        true,//zombie
+        true,//flower
+        true,//boss
         false,//projectile
         false,//treadmill
         false,//spears

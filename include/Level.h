@@ -101,9 +101,11 @@ public:
     void deleteBossThread();
     /* PARA THREADS----------------------------------*/
 
-    void save();
-    void load();
+    bool save();
+    bool load();
 
+private:
+    bool loadLevel(std::ifstream& in);
 
 };
 }

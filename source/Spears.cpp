@@ -35,7 +35,7 @@ void Spears::update(float dt, Managers::Events* pEventsManager){
 
     cycleTimer += dt;
 
-    
+
 
     if(cycleTimer > cycleTime - flipTime){
         pos = {startPosX, startPosY};
@@ -57,7 +57,7 @@ void Spears::update(float dt, Managers::Events* pEventsManager){
         cycleTimer = 0;
     }
 
-     
+
 
 
 }
@@ -78,6 +78,6 @@ void Spears::saveEntity(std::ofstream& out) const{
     out << cycleTimer << " " <<
            active     << " " <<
            startPosX  << " " <<
-           startPosY  << std::endl;
+           startPosY  /*<< std::endl*/;
 
 }

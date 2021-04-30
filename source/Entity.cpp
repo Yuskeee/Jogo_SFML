@@ -56,5 +56,6 @@ void Entity::saveEntity(std::ofstream& out) const{
 }
 
 void Entity::loadEntity(std::ifstream& in){
-
+    std::string contents;
+    getline(in, contents);
 }

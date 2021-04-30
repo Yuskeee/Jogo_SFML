@@ -184,7 +184,7 @@ Player::PlayerStateMachine::~PlayerStateMachine(){
 
 //Player----------------------------
 
-Player::Player(Managers::Graphics* pGraphicsManager, World::Level* pLevel, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel, bool player1):
+Player::Player(Managers::Graphics* pGraphicsManager, World::Level* pLevel, const sf::Vector2<float>& pos, const sf::Vector2<float>& vel, const bool player1):
 Entity(pGraphicsManager, pLevel, pos, vel), Body(pos, vel, {PLAYER_WIDTH, PLAYER_HEIGHT}), Being(player1 ? player_1:player_2, pos, vel), rightDirection(true), vulnerability_timer(0), attackTimer(0), double_jump(true), frameTime(0){
 
     this->pGraphicsManager = pGraphicsManager;
@@ -201,6 +201,11 @@ Entity(pGraphicsManager, pLevel, pos, vel), Body(pos, vel, {PLAYER_WIDTH, PLAYER
 
         PlayerSM = new PlayerStateMachine(this);
     }
+
+}
+
+Player::Player(const bool player1):
+Entity(), Body(), Being(player1 ? player_1:player_2), rightDirection(), vulnerability_timer(), attackTimer(), double_jump(), frameTime(){
 
 }
 
@@ -279,10 +284,11 @@ void Player::saveEntity(std::ofstream& out) const{
             nRect                        << " " <<
             frameTime                    << " " <<
             attackTimer                  << " " <<
-            PlayerSM->getCurrentState()  << std::endl;
-    
+            PlayerSM->getCurrentState()  /*<< std::endl*/;
+
 }
 
 void Player::loadEntity(std::ifstream& in){
-
+    std::string contents;
+    getline(in, contents);
 }
