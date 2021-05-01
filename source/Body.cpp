@@ -37,7 +37,19 @@ const bool Body::isGravitable() const{
 void Body::saveBodyInfo(std::ofstream& out) const{
     out <<  getRect().x   << " " <<
             getRect().y   << " " <<
-            isGrounded;
+            isGrounded    << " ";
+}
 
+const bool Body::loadBodyInfo(std::ifstream& in){
+    try{
+    in >> this->rect.x        >>
+          this->rect.y        >>
+          this->isGrounded;
+    }
+    catch(std::invalid_argument e){
+        std::cerr << "Error: Could not load body info!" << std::endl;
+        return false;
+    }
 
+    return true;
 }

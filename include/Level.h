@@ -83,6 +83,7 @@ public:
     void removeBody(int id);
 
     void startLevel(int n, int players);
+    const bool startLevel(int _shouldLoad);
     void loadMap(const char* arquivo);
     void requestLevelChange();
     void changeLevel();

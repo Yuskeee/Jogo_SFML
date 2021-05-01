@@ -99,6 +99,7 @@ public:
     virtual void onCollide(Body* other, float dt);
 
     virtual void saveEntity(std::ofstream& out) const;
+    virtual void loadEntity(std::ifstream& in);
 
 };
 

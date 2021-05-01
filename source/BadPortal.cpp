@@ -47,3 +47,15 @@ void BadPortal::saveEntity(std::ofstream& out) const{
     out << cycleTimer    << " " <<
            durationTimer /*<< std::endl*/;
 }
+
+void BadPortal::loadEntity(std::ifstream& in){
+    try{
+        loadEntityInfo(in);
+
+        in >>   cycleTimer      >>
+                durationTimer;
+    }
+    catch(std::invalid_argument e){
+        std::cerr << "Could not load BadPortal!" << std::endl;
+    }
+}

@@ -70,3 +70,16 @@ void Flower::saveEntity(std::ofstream& out) const{
     out <<  attackTimer         << " " <<
             vulnerability_timer /*<< std::endl*/;
 }
+
+void Flower::loadEntity(std::ifstream& in){
+    try{
+        loadEntityInfo(in);
+        loadBodyInfo(in);
+
+        in >>   attackTimer         >>
+                vulnerability_timer;
+    }
+    catch(std::invalid_argument e){
+        std::cerr << "Error: could not save Flower!" << std::endl;
+    }
+}

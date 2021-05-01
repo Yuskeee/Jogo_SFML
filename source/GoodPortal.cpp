@@ -49,3 +49,15 @@ void GoodPortal::saveEntity(std::ofstream& out) const{
     out << cycleTimer /*<< std::endl*/;
 
 }
+
+void GoodPortal::loadEntity(std::ifstream& in){
+    try{
+        loadEntityInfo(in);
+        loadBodyInfo(in);
+
+        in >>   cycleTimer;
+    }
+    catch(std::invalid_argument e){
+        std::cerr << "Error: could not save GoodPortal!" << std::endl;
+    }
+}

@@ -20,6 +20,22 @@ Entity(pGraphicsManager, pLevel, pos, vel), Being(player1 ? ghost_1:ghost_2, pos
 
 }
 
+Ghost::Ghost(Managers::Graphics* pGraphicsManager, World::Level* pLevel, bool player1):
+Entity(pGraphicsManager, pLevel), Being(player1 ? ghost_1:ghost_2){
+    this->pGraphicsManager = pGraphicsManager;
+
+    this->pLevel = pLevel;
+
+    if(pGraphicsManager){
+        frame = Managers::spriteRect(0, 0, 16, 20);
+        idTextura = pGraphicsManager->loadTexture(player1 ? GHOST1_TEXTURE_FILE : GHOST2_TEXTURE_FILE);
+        idSprite = pGraphicsManager->createSprite(idTextura);
+        pGraphicsManager->setSpriteRect(idSprite, frame);
+    }
+
+    loadControl(player1);
+}
+
 Ghost::~Ghost(){
 }
 
@@ -63,5 +79,14 @@ void Ghost::loadControl(bool player1){
 
 void Ghost::saveEntity(std::ofstream& out) const{
     saveEntityInfo(out);
-    out /*<< std::endl*/;
+    /*out << std::endl*/;
+}
+
+void Ghost::loadEntity(std::ifstream& in){
+    try{
+        loadEntityInfo(in);
+    }
+    catch(std::invalid_argument e){
+        std::cerr << "Error: could not save Ghost!" << std::endl;
+    }
 }

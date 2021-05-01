@@ -50,3 +50,15 @@ void Saw::saveEntity(std::ofstream& out) const{
     saveBodyInfo(out);
     out << cycleTimer /*<< std::endl*/;
 }
+
+void Saw::loadEntity(std::ifstream& in){
+    try{
+        loadEntityInfo(in);
+        loadBodyInfo(in);
+
+        in >>   cycleTimer;
+    }
+    catch(std::invalid_argument e){
+        std::cerr << "Error: could not save Saw!" << std::endl;
+    }
+}

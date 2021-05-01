@@ -3,13 +3,15 @@
 
 #include "Entity.h"
 
+#include <iostream>
+
 namespace Entities{
 
 #define GHOST_WIDTH   16.0f
 #define GHOST_HEIGHT  20.0f
 
 #define GHOST1_TEXTURE_FILE   "../assets/p1Ghost.png"
-#define GHOST2_TEXTURE_FILE  "../assets/p2Ghost.png"    
+#define GHOST2_TEXTURE_FILE  "../assets/p2Ghost.png"
 
 class Ghost: public Entity{
 
@@ -26,11 +28,13 @@ private:
 public:
 
     Ghost(Managers::Graphics* pGraphicsManager = NULL, World::Level* pLevel = NULL, const sf::Vector2<float>& pos = {0.0f, 0.0f}, const sf::Vector2<float>& vel = {0.0f, 0.0f}, bool player1 = true);
+    Ghost(Managers::Graphics* pGraphicsManager, World::Level* pLevel, bool player1);
     virtual ~Ghost();
 
     void update(float dt, Managers::Events* pEventsManager);
 
     virtual void saveEntity(std::ofstream& out) const;
+    virtual void loadEntity(std::ifstream& in);
 
 private:
 

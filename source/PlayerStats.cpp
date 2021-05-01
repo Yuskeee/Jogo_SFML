@@ -5,7 +5,7 @@ PlayerStats* PlayerStats::instance = NULL;
 const Entities::Player* PlayerStats::p1 = NULL;
 const Entities::Player* PlayerStats::p2 = NULL;
 
-PlayerStats::PlayerStats(Managers::Graphics *pGraphicsManager, World::Level *pLevel, const Entities::Player *p1, const Entities::Player *p2): livesText_p1(-1), livesText_p2(-1), maxLives_p1(0), maxLives_p2(0){
+PlayerStats::PlayerStats(Managers::Graphics *pGraphicsManager, World::Level *pLevel, const Entities::Player *p1, const Entities::Player *p2): livesText_p1(-1), livesText_p2(-1){
     this->p1 = p1;
     this->p2 = p2;
     this->pLevel = pLevel;
@@ -17,10 +17,8 @@ PlayerStats::PlayerStats(Managers::Graphics *pGraphicsManager, World::Level *pLe
             livesText_p1 = pGraphicsManager->createText(0, "P1 ", 10);
             pGraphicsManager->setTextPos(livesText_p1, 50, 20);
 
-            maxLives_p1 = p1->getLives();
-
             hearts_p1 = new Managers::spriteID[p1->getLives()];
-            for(int i = 0; i < maxLives_p1; i++){
+            for(int i = 0; i < maxLives; i++){
                 hearts_p1[i] = pGraphicsManager->createSprite(idTexture);
                 pGraphicsManager->setSpriteRect(hearts_p1[i], Managers::spriteRect(RED_HEART));
                 pGraphicsManager->setSpritePos(hearts_p1[i], 70 + 20 * i,20);
@@ -32,10 +30,8 @@ PlayerStats::PlayerStats(Managers::Graphics *pGraphicsManager, World::Level *pLe
             livesText_p2 = pGraphicsManager->createText(0, "P2 ", 10);
             pGraphicsManager->setTextPos(livesText_p2, 450, 20);
 
-            maxLives_p2 = p2->getLives();
-
             hearts_p2 = new Managers::spriteID[p2->getLives()];
-            for(int i = 0; i < maxLives_p2; i++){
+            for(int i = 0; i < maxLives; i++){
                 hearts_p2[i] = pGraphicsManager->createSprite(idTexture);
                 pGraphicsManager->setSpriteRect(hearts_p2[i], Managers::spriteRect(RED_HEART));
                 pGraphicsManager->setSpritePos(hearts_p2[i], 470 + 20 * i,20);
@@ -66,13 +62,13 @@ PlayerStats::~PlayerStats(){
 
 void PlayerStats::update(){
     if(p1){
-        for(int i = 0; i < maxLives_p1; i++){
+        for(int i = 0; i < maxLives; i++){
             if(i > p1->getLives() - 1)
                 pLevel->getGraphicsManager()->setSpriteRect(hearts_p1[i], Managers::spriteRect(BLACK_HEART));
         }
     }
     if(p2){
-        for(int i = 0; i < maxLives_p2; i++){
+        for(int i = 0; i < maxLives; i++){
             if(i > p2->getLives() - 1)
                 pLevel->getGraphicsManager()->setSpriteRect(hearts_p2[i], Managers::spriteRect(BLACK_HEART));
         }
@@ -82,12 +78,12 @@ void PlayerStats::update(){
 void PlayerStats::draw(){
     if(p1){
         pLevel->getGraphicsManager()->drawText(livesText_p1);
-        for(int i = 0; i < maxLives_p1; i++)
+        for(int i = 0; i < maxLives; i++)
             pLevel->getGraphicsManager()->drawSprite(hearts_p1[i]);
     }
     if(p2){
         pLevel->getGraphicsManager()->drawText(livesText_p2);
-        for(int i = 0; i < maxLives_p2; i++)
+        for(int i = 0; i < maxLives; i++)
             pLevel->getGraphicsManager()->drawSprite(hearts_p2[i]);
     }
 }
