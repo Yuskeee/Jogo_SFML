@@ -23,11 +23,11 @@ StateMachine* State::getStateMachine(){
 //StateMachine-------------------------------------------------
 
 StateMachine::StateMachine(){
-
+    currentStateID = -1;
 }
 
 StateMachine::~StateMachine(){
-    for(int i = 0; i<states.size(); i++)
+    for(auto i = 0; i<states.size(); i++)
         delete states[i];
 
 }
@@ -37,7 +37,8 @@ void StateMachine::addState(State* state){
 }
 
 void StateMachine::changeState(stateID nextStateID, void* arg){
-    states[currentStateID]->exit();
+    if(currentStateID != -1)//Se houver um estado atual
+        states[currentStateID]->exit();
     currentStateID = nextStateID;
     states[currentStateID]->enter(arg);
 
