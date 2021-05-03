@@ -8,7 +8,7 @@ MainMenuState::MainMenuState(SM::StateMachine* pStateMachine, Managers::Graphics
     selection = 0;
     quit = false;
 
-    titleText = pGraphicsManager->createText(0, "NOME DO JOGO", 20);
+    titleText = pGraphicsManager->createText(0, "As Aventuras do Alienzinho", 20);
     pGraphicsManager->setTextPos(titleText, 225, 20);
 
     playText = pGraphicsManager->createText(0, "Jogar", 15);
