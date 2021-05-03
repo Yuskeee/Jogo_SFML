@@ -2,51 +2,42 @@
 
 
 int main(){
-
-    Managers::Graphics gameGraphicsManager(WINDOW_WIDTH, WINDOW_HEIGHT, "teste");
-
-    gameGraphicsManager.loadFont("../fonts/04B_30__.TTF");//carrega uma fonte no id 0
-
-
-    Managers::windowHandle gWindowHandle = gameGraphicsManager.getWindowHandle();
-    Managers::Events gEvents(gWindowHandle);
     
-    Game game(&gameGraphicsManager, &gEvents);
+    Game game;
 
-    sf::Clock clock;
-    float dt;
-
-
-    while(gameGraphicsManager.isWindowOpen()){
-
-
-        dt = clock.getElapsedTime().asSeconds();
-        clock.restart();
-
-        game.update(dt);
-        game.render();
-    }
+    game.run();
 
     return 0;
 }
 
 Game::Game(){
 
+    gameGraphicsManager = new Managers::Graphics(WINDOW_WIDTH, WINDOW_HEIGHT, "teste");
 
-}
+    gameEventsManager = new Managers::Events(gameGraphicsManager->getWindowHandle());
 
-Game::Game(Managers::Graphics* gameGraphicsManager, Managers::Events* gameEventsManager){
+    gameGraphicsManager->loadFont("../fonts/04B_30__.TTF");//carrega uma fonte no id 0
 
-    setGraphics(gameGraphicsManager);
-    setEvents(gameEventsManager);
-
-    setStateMachine(new GameSM::GameStateMachine(gameGraphicsManager));
-
+    gameStateMachine = new GameSM::GameStateMachine(gameGraphicsManager);
 }
 
 Game::~Game(){
-
     delete gameStateMachine;
+}
+
+void Game::run(){
+    sf::Clock clock;
+    float dt;
+
+    while(gameGraphicsManager->isWindowOpen()){
+
+        dt = clock.getElapsedTime().asSeconds();
+        clock.restart();
+
+        update(dt);
+        render();
+    }
+
 }
 
 void Game::update(float dt){

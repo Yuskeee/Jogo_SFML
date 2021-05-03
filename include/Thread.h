@@ -1,6 +1,6 @@
 /*
 
-Código de autoria do prof. Dr. Jean Simão. Com permissão do mesmo para uso do código no desenvolvimento do projeto.
+Código de autoria do Prof. Dr. Jean M. Simão. Com permissão do mesmo para uso do código no desenvolvimento do projeto.
 
 PS:>Talvez haja algumas mudanças
 

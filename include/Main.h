@@ -20,8 +20,9 @@ private:
 
 public:
     Game();
-    Game(Managers::Graphics* gameGraphicsManager, Managers::Events* gameEventsManager);
     ~Game();
+
+    void run();
 
     void update(float dt);
     void render();
