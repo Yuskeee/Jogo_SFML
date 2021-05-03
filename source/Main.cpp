@@ -12,7 +12,7 @@ int main(){
 
 Game::Game(){
 
-    gameGraphicsManager = new Managers::Graphics(WINDOW_WIDTH, WINDOW_HEIGHT, "teste");
+    gameGraphicsManager = new Managers::Graphics(WINDOW_WIDTH, WINDOW_HEIGHT, "As Aventuras do Alienzinho");
 
     gameEventsManager = new Managers::Events(gameGraphicsManager->getWindowHandle());
 
