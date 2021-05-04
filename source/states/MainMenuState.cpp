@@ -9,22 +9,22 @@ MainMenuState::MainMenuState(SM::StateMachine* pStateMachine, Managers::Graphics
     quit = false;
 
     titleText = pGraphicsManager->createText(0, "As Aventuras do Alienzinho", 20);
-    pGraphicsManager->setTextPos(titleText, 225, 20);
+    pGraphicsManager->setTextPos(titleText, 112, 20);
 
     playText = pGraphicsManager->createText(0, "Jogar", 15);
-    pGraphicsManager->setTextPos(playText, 225, 50);
+    pGraphicsManager->setTextPos(playText, 112, 50);
 
     chooseText = pGraphicsManager->createText(0, "Escolher Fase", 15);
-    pGraphicsManager->setTextPos(chooseText, 225, 70);
+    pGraphicsManager->setTextPos(chooseText, 112, 70);
 
     loadText = pGraphicsManager->createText(0, "Carregar Jogo Salvo", 15);
-    pGraphicsManager->setTextPos(loadText, 225, 90);
+    pGraphicsManager->setTextPos(loadText, 112, 90);
 
     scoreText = pGraphicsManager->createText(0, "Pontuacoes", 15);
-    pGraphicsManager->setTextPos(scoreText, 225, 110);
+    pGraphicsManager->setTextPos(scoreText, 112, 110);
 
     quitText = pGraphicsManager->createText(0, "Sair", 15);
-    pGraphicsManager->setTextPos(quitText, 225, 130);
+    pGraphicsManager->setTextPos(quitText, 112, 130);
 
     background = pGraphicsManager->createSprite(pGraphicsManager->loadTexture(MAIN_MENU_BACKGROUND_FILE));
 
