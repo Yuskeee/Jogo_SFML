@@ -5,9 +5,9 @@
 #include "Body.h"
 #include "Player.h"
 
-namespace World{
-    class Level;
-}
+//namespace World{
+//    class Level;
+//}
 
 namespace Entities{
 

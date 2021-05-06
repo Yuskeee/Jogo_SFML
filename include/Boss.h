@@ -85,8 +85,6 @@ private:
     float run_timer;
 
     SM::StateMachine *BossSM;
-    Managers::Graphics* pGraphicsManager;
-    World::Level* pLevel;
 
 public:
     Boss(Managers::Graphics* pGraphicsManager = NULL, World::Level* pLevel = NULL, const sf::Vector2<float>& pos = {0.0f, 0.0f}, const sf::Vector2<float>& vel = {0.0f, 0.0f});

@@ -21,7 +21,6 @@ protected:
     int lives;
     bool vulnerability;
 
-    //StateMachine gameStateMachine;
     Managers::Graphics* pGraphicsManager;
 
     Managers::textureID idTextura;

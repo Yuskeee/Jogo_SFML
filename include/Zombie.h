@@ -93,7 +93,6 @@ private:
     float frameTime;
 
     SM::StateMachine *ZombieSM;
-    Managers::Graphics* pGraphicsManager;
 
 public:
 

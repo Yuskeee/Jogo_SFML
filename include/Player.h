@@ -88,8 +88,6 @@ private:
     const float jumpVel = 300/*150*/;
 
     SM::StateMachine *PlayerSM;
-    Managers::Graphics* pGraphicsManager;
-    World::Level* pLevel;
 
     Managers::Events::keycode _leftKey;
     Managers::Events::keycode _rightKey;
