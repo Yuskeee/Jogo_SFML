@@ -31,14 +31,14 @@ void Level::update(float dt, Managers::Events* pEvents){
     if(currentLevel == 3){
         this->dt = dt;
 
-        if(!bossThread){
-            bossThread = new Entities::BossThread(pGraphicsManager, this);
+        if(!bossThread && thread_initiated == false){
+            bossThread = new Concurrent::BossThread(pGraphicsManager, this);
             //addEntity(static_cast<Entities::Entity*>(bossThread));//alternativa não tomada
             addBody(static_cast<Body*>(bossThread));
         }
 
         if(thread_initiated == false){
-            Entities::BossThread::setpdt(this->dt);
+            Concurrent::BossThread::setpdt(this->dt);
             bossThread->start();
             thread_initiated = true;
         }
@@ -78,7 +78,6 @@ void Level::update(float dt, Managers::Events* pEvents){
     if(bossThread)
         if(bossThread->getLives() <= 0 && bossThread->isAlive()){
             deleteBossThread();
-            //removeEntity(bossThread->getId());
         }
 /* PARA THREADS----------------------------------*/
 
@@ -135,7 +134,7 @@ void Level::removeEntity(int id){
 
     for(auto i = entities.begin(); i != entities.end(); i++){
         if(i->getId() == id){
-            if(!dynamic_cast<Entities::BossThread*>(*i))
+            if(!dynamic_cast<Concurrent::BossThread*>(*i))
                 delete *i;
             entities.erase(i);
             break;
@@ -193,6 +192,8 @@ const bool Level::startLevel(int _shouldLoad){
         if(!load())
             return false;
 
+    thread_initiated = false;
+
     return true;
 }
 
@@ -210,6 +211,7 @@ void Level::changeLevel(){
     if(bossThread){
         if(thread_initiated == true){
             deleteBossThread();
+            thread_initiated = false;
         }
     }
 
@@ -275,7 +277,7 @@ World::Physics* Level::getPhysics(){
 }
 
 /* PARA THREADS----------------------------------*/
-Entities::BossThread* Level::getBossThread(){
+Concurrent::BossThread* Level::getBossThread(){
     return bossThread;
 }
 
@@ -286,14 +288,13 @@ void Level::deleteBossThread(){
 
         delete bossThread;
         bossThread = NULL;
-        thread_initiated = false;
     }
 }
 /* PARA THREADS----------------------------------*/
 
 bool Level::save(){
     std::ofstream file(SAVE_FILE, std::ios::out | std::ios::trunc | std::ios::binary);
-    List<Entities::Entity*>::Iterator aux_iterator = entities.begin();
+    Container::List<Entities::Entity*>::Iterator aux_iterator = entities.begin();
 
     if(file.is_open()){
 
@@ -426,7 +427,7 @@ bool Level::load(){
                         {
                             //como o BossThread não pertence à lista de entidades, devemos lidar com ele manualmente
                             if(currentLevel == 3){
-                                Entities::BossThread* pEntity = new Entities::BossThread(pGraphicsManager, this);//bossthread
+                                Concurrent::BossThread* pEntity = new Concurrent::BossThread(pGraphicsManager, this);//bossthread
                                 file >> *pEntity;
                                 addBody(static_cast<Body*>(pEntity));
                                 bossThread = pEntity;

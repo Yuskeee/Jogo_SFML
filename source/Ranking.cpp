@@ -1,5 +1,7 @@
 #include "Ranking.h"
 
+using namespace Leaderboard;
+
 Ranking* Ranking::instance = NULL;
 
 Ranking::Ranking(std::string path): records(), entries(0), ranking_iterator(){

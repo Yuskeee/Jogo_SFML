@@ -56,7 +56,7 @@ private:
     bool changeRequested;
     int levelScore;
     Managers::Graphics* pGraphicsManager;
-    List<Entities::Entity*> entities;
+    Container::List<Entities::Entity*> entities;
     Map map;
     Physics LevelPhysics;
     Generator LevelGenerator;
@@ -65,7 +65,7 @@ private:
 
 /* Thread---------------------------*/
     //LevelThread* pLevelThread;
-    Entities::BossThread* bossThread;
+    Concurrent::BossThread* bossThread;
     bool thread_initiated;
 
     float dt;
@@ -98,7 +98,7 @@ public:
     World::Physics* getPhysics();
 
     /* PARA THREADS----------------------------------*/
-    Entities::BossThread* getBossThread();
+    Concurrent::BossThread* getBossThread();
     void deleteBossThread();
     /* PARA THREADS----------------------------------*/
 

@@ -1,5 +1,7 @@
 #include "Thread.h"
 
+using namespace Concurrent;
+
 // referência para a variável estática;
 pthread_mutex_t Thread::_mutex = NULL;
 

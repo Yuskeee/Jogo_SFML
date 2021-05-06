@@ -3,7 +3,7 @@
 using namespace GameSM;
 
 void RankingViewState::updateRanking(){
-    ranking = Ranking::getInstance();
+    ranking = Leaderboard::Ranking::getInstance();
     for(int i = 0; i < MAX_ENTRIES; i++){
         pGraphicsManager->setString(positions[i], (i < ranking->getSize()) ? ranking->getEntry():DEFAULT_TEXT);
     }
@@ -19,7 +19,7 @@ RankingViewState::RankingViewState(SM::StateMachine* pStateMachine, Managers::Gr
 
     selection = 0;
 
-    ranking = Ranking::getInstance();
+    ranking = Leaderboard::Ranking::getInstance();
 
     for(int i = 0; i < MAX_ENTRIES; i++){
         positions[i] = pGraphicsManager->createText(0, DEFAULT_TEXT, 15);
@@ -49,7 +49,7 @@ void RankingViewState::enter(void* arg){
 }
 
 void RankingViewState::exit(){
-    Ranking::deleteInstance();
+    Leaderboard::Ranking::deleteInstance();
 }
 
 void RankingViewState::update(float dt, Managers::Events* pEventsManager){

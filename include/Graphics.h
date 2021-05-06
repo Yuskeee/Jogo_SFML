@@ -27,10 +27,10 @@ private:
     //cria a janela com estilo padrao
     void createWindow(int screenWidth, int screenHeight, const char* windowName);
 
-    List<sf::Texture*> textures;//lista de texturas carregadas
-    List<sf::Sprite*> sprites;//lista de sprites criados
-    List<sf::Font*> fonts;//lista de fontes carregadas
-    List<sf::Text*> texts;//lista de textos criados
+    Container::List<sf::Texture*> textures;//lista de texturas carregadas
+    Container::List<sf::Sprite*> sprites;//lista de sprites criados
+    Container::List<sf::Font*> fonts;//lista de fontes carregadas
+    Container::List<sf::Text*> texts;//lista de textos criados
 
     spriteID backgroundSprite;//id do sprite selecionado como fundo
 

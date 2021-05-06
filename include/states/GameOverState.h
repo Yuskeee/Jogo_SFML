@@ -25,9 +25,9 @@ private:
 
     Managers::spriteID background;
 
-    Ranking *ranking;
+    Leaderboard::Ranking *ranking;
 
-    
+
 
 public:
     GameOverState(SM::StateMachine* pStateMachine = NULL, Managers::Graphics* pGraphicsManager = NULL);

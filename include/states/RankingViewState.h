@@ -26,7 +26,7 @@ private:
 
     Managers::spriteID background;
 
-    Ranking *ranking;
+    Leaderboard::Ranking *ranking;
 
 private:
     void updateRanking();

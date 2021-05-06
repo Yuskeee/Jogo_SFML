@@ -3,6 +3,8 @@
 
 #include <string>
 
+namespace Container{
+
 //Classe Element em formato Template------------------------------------------------
 template<class T1>
 class Element{
@@ -136,7 +138,7 @@ public:
 void listAll(){
 	printf("\n\nLIST FROM %d to %d:\n", firstElement, lastElement);
 
-	    
+
     Element<T2> *aux = firstElement;
     for(int n = n_elements; n != 0; n--){
 		printf("prev: %d, this:%d, next:%d\n", aux->getPrev(), aux, aux->getNext());
@@ -144,8 +146,8 @@ void listAll(){
 			aux = aux->getNext();
     }
     printf("LISTING DONE\n\n");
-	
-			
+
+
 }
 
 
@@ -314,7 +316,7 @@ typename List<T2>::Iterator List<T2>::erase(Iterator iterator){
 //exceções
 	if(iterator == end())//caso null
 		return iterator;
-	
+
 	if(iterator == begin()){//caso first
 		iterator++;
 		pop_front();
@@ -367,6 +369,8 @@ T2 List<T2>::operator[](int n){
     }
     else
         exit(1);
+}
+
 }
 
 #endif

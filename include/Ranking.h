@@ -6,6 +6,8 @@
 #include <fstream>
 #include <iostream>
 
+namespace Leaderboard{
+
 #define PATH "../saves/scores.txt"
 
 #define MAX 5
@@ -41,6 +43,8 @@ public:
 
     static void deleteInstance();
 };
+
+}
 
 #endif
 
