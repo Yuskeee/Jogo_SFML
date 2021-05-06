@@ -87,11 +87,11 @@ void Ranking::add(unsigned long int score, std::string name){
     entries++;
 }
 
-int Ranking::getSize(){
+const int Ranking::getSize()const{
     return entries;
 }
 
-std::string Ranking::getEntry(){
+const std::string Ranking::getEntry(){
     if(ranking_iterator != records.rend()){
         std::string aux;
 

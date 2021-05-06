@@ -33,9 +33,9 @@ public:
 
     void add(unsigned long int score, std::string name);
 
-    int getSize();//retorna quantidade de entradas
+    const int getSize() const;//retorna quantidade de entradas
 
-    std::string getEntry();//retorna entrada por entrada
+    const std::string getEntry();//retorna entrada por entrada
 
     void clear();//apaga o ranking vigente
 
