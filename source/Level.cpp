@@ -293,7 +293,7 @@ void Level::deleteBossThread(){
 
 bool Level::save(){
     std::ofstream file(SAVE_FILE, std::ios::out | std::ios::trunc | std::ios::binary);
-    List<Entities::Entity*>::Iterator aux_iterator = entities.begin();
+    Container::List<Entities::Entity*>::Iterator aux_iterator = entities.begin();
 
     if(file.is_open()){
 

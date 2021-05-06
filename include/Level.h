@@ -56,7 +56,7 @@ private:
     bool changeRequested;
     int levelScore;
     Managers::Graphics* pGraphicsManager;
-    List<Entities::Entity*> entities;
+    Container::List<Entities::Entity*> entities;
     Map map;
     Physics LevelPhysics;
     Generator LevelGenerator;
