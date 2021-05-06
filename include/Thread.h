@@ -13,6 +13,8 @@ PS:>Talvez haja algumas mudanças
 #include <string>
 #include <pthread.h>
 
+namespace Concurrent{
+
 using namespace std;
 
 class Thread
@@ -37,6 +39,8 @@ public:
 	void lock();
 	void unlock();
 };
+
+}
 
 #endif
 

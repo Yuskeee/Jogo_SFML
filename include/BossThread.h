@@ -4,9 +4,9 @@
 #include "Thread.h"
 #include "Boss.h"
 
-namespace Entities{
+namespace Concurrent{
 
-class BossThread: public Thread, public Boss{
+class BossThread: public Thread, public Entities::Boss{
 private:
     bool _isPaused, _shouldRun;
     static const float *pdt;//aponta para contador de tempo da main thread

@@ -1,5 +1,7 @@
 #include "BossThread.h"
 
+using namespace Concurrent;
+
 using namespace Entities;
 
 const float* BossThread::pdt = NULL;
