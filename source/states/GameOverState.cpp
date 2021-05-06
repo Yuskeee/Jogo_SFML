@@ -27,11 +27,11 @@ GameOverState::GameOverState(SM::StateMachine* pStateMachine, Managers::Graphics
 }
 
 GameOverState::~GameOverState(){
-    Ranking::deleteInstance();
+    Leaderboard::Ranking::deleteInstance();
 }
 
 void GameOverState::enter(void* arg){
-    ranking = Ranking::getInstance();
+    ranking = Leaderboard::Ranking::getInstance();
 
     scoreStr = std::to_string(*(int*)arg);
 
