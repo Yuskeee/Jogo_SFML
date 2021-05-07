@@ -12,7 +12,7 @@ Physics::~Physics(){
 
 }
 
-float Physics::getOffsetX(Body* bd){
+const float Physics::getOffsetX(Body* bd)const{
     if(bd->getVel().x > 0)//Direita: testa se os cantos superior direito ou inferior direito estao dentro de um bloco solido
         if(pMap->isPositionSolid(bd->getPos().x + bd->getRect().x, bd->getPos().y)
         || pMap->isPositionSolid(bd->getPos().x + bd->getRect().x, bd->getPos().y + bd->getRect().y))
@@ -36,7 +36,7 @@ float Physics::getOffsetX(Body* bd){
 
 }
 
-float Physics::getOffsetY(Body* bd){
+const float Physics::getOffsetY(Body* bd)const{
     if(bd->getVel().y > 0)//Baixo
         if(pMap->isPositionSolid(bd->getPos().x, bd->getPos().y + bd->getRect().y)
         || pMap->isPositionSolid(bd->getPos().x + bd->getRect().x, bd->getPos().y + bd->getRect().y))
@@ -59,7 +59,7 @@ float Physics::getOffsetY(Body* bd){
             return 0;//se a parte de cima da entidade nao esta dentro de um bloco solido, nao ha offset para ser retorado
 }
 
-const bool Physics::checkBodyCollision(const Body* a, const Body* b) const{
+const bool Physics::checkBodyCollision(const Body* a, const Body* b)const{
     if(a->getPos().x > b->getPos().x + b->getRect().x || a->getPos().x + a->getRect().x < b->getPos().x)
         return false;
     else if(a->getPos().y > b->getPos().y + b->getRect().y || a->getPos().y + a->getRect().y < b->getPos().y)

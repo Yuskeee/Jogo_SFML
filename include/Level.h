@@ -90,8 +90,8 @@ public:
     void openExit();
 
     void setScore(int score);
-    int getScore();
-    int getPlayers();
+    const int getScore()const;
+    const int getPlayers()const;
     Generator* getGenerator();
     Managers::Graphics* getGraphicsManager();
     Managers::spriteID getBackground();
@@ -102,11 +102,11 @@ public:
     void deleteBossThread();
     /* PARA THREADS----------------------------------*/
 
-    bool save();
-    bool load();
+    const bool save();
+    const bool load();
 
 private:
-    bool loadLevel(std::ifstream& in);
+    const bool loadLevel(std::ifstream& in);
 
 };
 }

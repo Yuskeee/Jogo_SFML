@@ -22,7 +22,7 @@ private:
 
     sf::RenderWindow screen;//objeto janela da sfml
 
-    int screenWidth, screenHeight; //altura e largura da tela em pixels
+    const int screenWidth, screenHeight; //altura e largura da tela em pixels
 
     //cria a janela com estilo padrao
     void createWindow(int screenWidth, int screenHeight, const char* windowName);
@@ -41,12 +41,12 @@ public:
     //retorna um ponteiro para a janela. Util se outras classes precisarem acessar funcoes do objeto janela
     windowHandle getWindowHandle();
 
-    bool isWindowOpen();
+    const bool isWindowOpen()const;
     void closeWindow();
 
-    textureID loadTexture(const char* file);//carrega textura de arquivo
+    const textureID loadTexture(const char* file);//carrega textura de arquivo
 
-    spriteID createSprite(textureID baseTexture);//cria um sprite baseado em uma textura, retorna seu id
+    const spriteID createSprite(textureID baseTexture);//cria um sprite baseado em uma textura, retorna seu id
     void removeSprite(spriteID sprite);
     void setSpriteRect(spriteID sprite, const spriteRect& rect);//seleciona parte da textura para ser renderizada
     void setSpritePos(spriteID sprite, float x, float y);//modifica a posicao do sprite
@@ -54,8 +54,8 @@ public:
 
     void setBackground(spriteID sprite);//usa um sprite como plano de fundo
 
-    fontID loadFont(const char* file);
-    textID createText(fontID baseFont, std::string text, int size);//cria um texto baseado em uma fonte, retorna seu id
+    const fontID loadFont(const char* file);
+    const textID createText(fontID baseFont, std::string text, int size);//cria um texto baseado em uma fonte, retorna seu id
     void setTextPos(textID text, float x, float y);
     void setTextColor(textID text, int red, int green, int blue, int alpha);
     void setString(textID text, std::string newText);

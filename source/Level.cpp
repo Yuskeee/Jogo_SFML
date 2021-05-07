@@ -252,7 +252,7 @@ void Level::setScore(int score){
     levelScore = score;
 }
 
-int Level::getScore(){
+const int Level::getScore()const{
     return levelScore;
 }
 
@@ -268,7 +268,7 @@ Managers::spriteID Level::getBackground(){
     return backgroundSprite;
 }
 
-int Level::getPlayers(){
+const int Level::getPlayers()const{
     return players;
 }
 
@@ -292,7 +292,7 @@ void Level::deleteBossThread(){
 }
 /* PARA THREADS----------------------------------*/
 
-bool Level::save(){
+const bool Level::save(){
     std::ofstream file(SAVE_FILE, std::ios::out | std::ios::trunc | std::ios::binary);
     Container::List<Entities::Entity*>::Iterator aux_iterator = entities.begin();
 
@@ -338,7 +338,7 @@ bool Level::save(){
     return true;
 }
 
-bool Level::load(){
+const bool Level::load(){
     std::ifstream file(SAVE_FILE, std::ios::in | std::ios::binary);
 
     if(file.is_open()){
@@ -526,7 +526,7 @@ bool Level::load(){
     return true;
 }
 
-bool Level::loadLevel(std::ifstream& in){
+const bool Level::loadLevel(std::ifstream& in){
     std::string content;
 
     try{

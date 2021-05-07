@@ -32,12 +32,12 @@ public:
 
     void pollAll();//checa teclas pressionadas, teclas liberadas, e se a janela foi fechada
 
-    bool keyPressed(keycode key);//busca por uma certa tecla na lista de pressionadas
-    bool keyReleased(keycode key);//busca por uma certa tecla na lista de liberadas
-    bool keyDown(keycode key);//busca por uma certa tecla na lista de atualmente pressionadas
+    const bool keyPressed(const keycode key)const;//busca por uma certa tecla na lista de pressionadas
+    const bool keyReleased(const keycode key)const;//busca por uma certa tecla na lista de liberadas
+    const bool keyDown(const keycode key)const;//busca por uma certa tecla na lista de atualmente pressionadas
 
-    std::string getInputAsString();
-    bool getCloseEvent();
+    const std::string getInputAsString();
+    const bool getCloseEvent()const;
 
 };
 }

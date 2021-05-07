@@ -16,10 +16,10 @@ private:
     Map* pMap;//ponteiro para o mapa (alocado em Level)
     Container::List<Body*> bodies;//ponteiro para o vetor de entidades (alocado em Level)
 
-    float getOffsetY(Body* bd);//calcula quanto uma corpo entrou verticalmente em um bloco solido do mapa
-    float getOffsetX(Body* bd);//calcula quanto uma corpo entrou verticalmente em um bloco solido do mapa
+    const float getOffsetY(Body* bd)const;//calcula quanto uma corpo entrou verticalmente em um bloco solido do mapa
+    const float getOffsetX(Body* bd)const;//calcula quanto uma corpo entrou verticalmente em um bloco solido do mapa
 
-    const bool checkBodyCollision(const Body* a, const Body* b) const;
+    const bool checkBodyCollision(const Body* a, const Body* b)const;
 
 public:
     Physics(Map* pMap = NULL);

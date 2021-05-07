@@ -23,16 +23,17 @@ private:
     World::Level* pLevel;
     World::Map* pMap;
 
+    void spawnRandomPortal();
+    void spawnRandomTreadmill();
+    void spawnRandomSpears();
+    void spawnRandomSaw();
+
 public:
     Generator(World::Level* pLevel, World::Map* pMap);
     ~Generator();
 
     void update(float dt);
     void spawnEnemy(const sf::Vector2<float>& pos);
-    void spawnRandomPortal();
-    void spawnRandomTreadmill();
-    void spawnRandomSpears();
-    void spawnRandomSaw();
     void spawnExitPortal();
 
     void generateObstacles();

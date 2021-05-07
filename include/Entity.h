@@ -37,7 +37,7 @@ public:
 
     void damage(int damage);
 
-    int getLives() const;
+    const int getLives() const;
 
     void saveEntityInfo(std::ofstream& out) const;
     const bool loadEntityInfo(std::ifstream& in);

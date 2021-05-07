@@ -29,7 +29,7 @@ void Entity::damage(int damage){
     }
 }
 
-int Entity::getLives() const{
+const int Entity::getLives() const{
     return lives;
 }
 

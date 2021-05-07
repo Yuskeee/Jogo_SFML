@@ -8,6 +8,7 @@
 #define WINDOW_HEIGHT   480
 #define WINDOW_WIDTH    640
 
+//classe principal
 class Game{
 
 private:
@@ -16,7 +17,8 @@ private:
     Managers::Events* gameEventsManager;
     SM::StateMachine* gameStateMachine;
 
-
+    void update(const float dt); //chama update da máquina de estados que, por sua vez, chama update do estado corrente
+    void render(); //chama render de Graphics e da máquina de Estados
 
 public:
     Game();
@@ -24,12 +26,10 @@ public:
 
     void run();
 
-    void update(float dt);
-    void render();
-
-    void setGraphics(Managers::Graphics* gameGraphicsManager);
-    void setEvents(Managers::Events* gameEventsManager);
-    void setStateMachine(SM::StateMachine* gameStateMachine);
+//    //funções set
+//    void setGraphics(Managers::Graphics* gameGraphicsManager);
+//    void setEvents(Managers::Events* gameEventsManager);
+//    void setStateMachine(SM::StateMachine* gameStateMachine);
 };
 
 #endif

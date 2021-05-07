@@ -2,10 +2,9 @@
 
 using namespace Managers;
 
-Graphics::Graphics(int screenWidth, int screenHeight, const char* windowName){
+Graphics::Graphics(int screenWidth, int screenHeight, const char* windowName):
+screenWidth(screenWidth), screenHeight(screenHeight){
 
-    this->screenWidth = screenWidth;
-    this->screenHeight = screenHeight;
     createWindow(screenWidth, screenHeight, windowName);
 
     backgroundSprite = -1;
@@ -36,7 +35,7 @@ windowHandle Graphics::getWindowHandle(){
     return &screen;
 }
 
-bool Graphics::isWindowOpen(){
+const bool Graphics::isWindowOpen()const{
     return screen.isOpen();
 }
 
@@ -44,7 +43,7 @@ void Graphics::closeWindow(){
     screen.close();
 }
 
-textureID Graphics::loadTexture(const char* file){
+const textureID Graphics::loadTexture(const char* file){
 
     auto it = loadedTextures.find(file);
 
@@ -66,7 +65,7 @@ textureID Graphics::loadTexture(const char* file){
     }
 }
 
-spriteID Graphics::createSprite(textureID baseTexture){
+const spriteID Graphics::createSprite(textureID baseTexture){
 
     if(baseTexture >= textures.size()){
         printf("ERROR: texture id out of range\n");
@@ -149,7 +148,7 @@ void Graphics::setBackground(spriteID sprite){
     }
 }
 
-fontID Graphics::loadFont(const char* file){
+const fontID Graphics::loadFont(const char* file){
 
     sf::Font* newFont = new sf::Font();
 
@@ -161,7 +160,7 @@ fontID Graphics::loadFont(const char* file){
 
 }
 
-textID Graphics::createText(fontID baseFont, std::string text, int size){
+const textID Graphics::createText(fontID baseFont, std::string text, int size){
 
     sf::Text* newText = new sf::Text(text, *fonts[baseFont], size);
 

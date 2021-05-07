@@ -53,19 +53,19 @@ void Events::pollAll(){
         }
 }
 
-bool Events::keyPressed(keycode key){
+const bool Events::keyPressed(const keycode key)const{
     return keysPressed[key];
 }
 
-bool Events::keyReleased(keycode key){
+const bool Events::keyReleased(const keycode key)const{
     return keysReleased[key];
 }
 
-bool Events::keyDown(keycode key){
+const bool Events::keyDown(const keycode key)const{
     return keysDown[key];
 }
 
-std::string Events::getInputAsString(){
+const std::string Events::getInputAsString(){
 
     std::string input = "";
     for(char i = 0; i < 26; i++)
@@ -75,6 +75,6 @@ std::string Events::getInputAsString(){
     return input;
 }
 
-bool Events::getCloseEvent(){
+const bool Events::getCloseEvent() const{
     return closeEvent;
 }

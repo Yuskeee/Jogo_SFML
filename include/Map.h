@@ -17,7 +17,7 @@ public:
     enum Tiles{
         airTile,        //bloco vazio               letra a no txt
         groundTile,     //chao                      letra b
-        groundTopTile,  //parte superior do chao    c   
+        groundTopTile,  //parte superior do chao    c
         brickTile,      //tijolo                    d
 
         nTileTypes      //numero total de tipos de blocos
@@ -25,7 +25,7 @@ public:
 private:
 
     bool isSolid[nTileTypes] = {
-        false,  
+        false,
         true,
         true,
         true
@@ -49,10 +49,10 @@ public:
 
     void load(const char* file);//carrega uma matriz de letras de um txt
     void draw(Managers::Graphics* pGraphicsManager);//constroi e desenha o mapa com base na matriz de letras (cada letra representa um bloco diferente)
-    bool isPositionSolid(float x, float y);
+    const bool isPositionSolid(float x, float y)const;
 
-    inline int getWidth(){return MAP_WIDTH;}
-    inline int getHeight(){return MAP_HEIGHT;}
+    inline const int getWidth()const{return MAP_WIDTH;}
+    inline const int getHeight()const{return MAP_HEIGHT;}
 
 };
 }

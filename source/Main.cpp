@@ -1,8 +1,8 @@
 #include "main.h"
 
-
+//Função Main
 int main(){
-    
+
     Game game;
 
     game.run();
@@ -40,14 +40,14 @@ void Game::run(){
 
 }
 
-void Game::update(float dt){
+void Game::update(const float dt){
 
     gameEventsManager->pollAll();//verifica os eventos
 
     if (gameEventsManager->getCloseEvent()){
             gameGraphicsManager->closeWindow();
     }
-           
+
     gameStateMachine->update(dt, gameEventsManager);
 
 }
@@ -58,14 +58,14 @@ void Game::render(){
     gameGraphicsManager->render();
 }
 
-void Game::setGraphics(Managers::Graphics* gameGraphicsManager){
-    this->gameGraphicsManager = gameGraphicsManager;
-}
-
-void Game::setEvents(Managers::Events* gameEventsManager){
-    this->gameEventsManager = gameEventsManager;
-}
-
-void Game::setStateMachine(SM::StateMachine* gameStateMachine){
-    this->gameStateMachine = gameStateMachine;
-}
+//void Game::setGraphics(Managers::Graphics* gameGraphicsManager){
+//    this->gameGraphicsManager = gameGraphicsManager;
+//}
+//
+//void Game::setEvents(Managers::Events* gameEventsManager){
+//    this->gameEventsManager = gameEventsManager;
+//}
+//
+//void Game::setStateMachine(SM::StateMachine* gameStateMachine){
+//    this->gameStateMachine = gameStateMachine;
+//}
